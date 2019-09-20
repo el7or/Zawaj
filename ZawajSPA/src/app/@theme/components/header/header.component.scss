@@ -68,3 +68,26 @@
     }
   }
 }
+
+:host ::ng-deep ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+:host ::ng-deep li {
+  border-bottom:unset !important;
+}
+:host ::ng-deep li:not(:last-child):after  {
+  content: '|';
+  color: #edf1f7;
+  margin: 0 5px;
+  position: absolute;
+    top: 35%;
+}
+
+@media screen and (max-width: 992px) {
+  nb-menu{
+    display: none;
+  }
+}

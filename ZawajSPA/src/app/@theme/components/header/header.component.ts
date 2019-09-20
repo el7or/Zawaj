@@ -6,6 +6,7 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LanggService } from '../../services/langg.service';
+import { MENU_ITEMS } from '../../../pages/pages-menu';
 
 @Component({
   selector: 'ngx-header',
@@ -13,6 +14,8 @@ import { LanggService } from '../../services/langg.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  menu = MENU_ITEMS;
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
