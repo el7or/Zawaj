@@ -3,6 +3,7 @@ import { takeWhile } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
 import { Contacts, RecentUsers, UserData } from '../../../@core/data/users';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-contacts',
@@ -16,7 +17,9 @@ export class ContactsComponent implements OnDestroy {
   contacts: any[];
   recent: any[];
 
-  constructor(private userService: UserData) {
+  values:any;
+
+  constructor(private userService: UserData, private http:HttpClient) {
     forkJoin(
       this.userService.getContacts(),
       this.userService.getRecentUsers(),
@@ -26,6 +29,8 @@ export class ContactsComponent implements OnDestroy {
         this.contacts = contacts;
         this.recent = recent;
       });
+
+      http.get('http://localhost:5000/api/values').subscribe(res => this.values= res);
   }
 
   ngOnDestroy() {

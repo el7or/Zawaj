@@ -18,6 +18,15 @@
         </nb-list-item>
       </nb-list>
     </nb-tab>
+    
+
+    <nb-tab tabTitle="Values">
+      <nb-list>
+        <nb-list-item class="contact" *ngFor="let value of values">
+          <span class="caption">{{ value }}</span>
+        </nb-list-item>
+      </nb-list>
+    </nb-tab>
 
   </nb-tabset>
 </nb-card>
