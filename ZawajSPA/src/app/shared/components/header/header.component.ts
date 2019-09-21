@@ -15,6 +15,7 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  menuTitles:any;
   menu = MENU_ITEMS;
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -91,6 +92,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
   }
+
+ 
 
   ngOnDestroy() {
     this.destroy$.next();

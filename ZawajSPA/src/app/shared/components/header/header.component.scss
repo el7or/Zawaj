@@ -67,16 +67,23 @@
   }
 }
 
-:host ::ng-deep ul{
+ :host ::ng-deep ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
 }
+
 :host ::ng-deep li {
   border-bottom:unset !important;
 }
-:host ::ng-deep li:not(:last-child):after  {
+:host ::ng-deep li a span{
+  font-size: 1rem !important;
+}
+:host ::ng-deep li a nb-icon{
+  font-size: 2rem !important;
+}
+:host ::ng-deep li:after  {
   content: '|';
   color: #edf1f7;
   margin: 0 5px;
