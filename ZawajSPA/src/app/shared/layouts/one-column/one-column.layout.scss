@@ -7,3 +7,9 @@
     padding-top: nb-theme(layout-padding-top);
   }
 }
+
+@media screen and (min-width: 993px) {
+  nb-sidebar, :host::ng-deep div.content{
+    display: none !important;
+  }
+}
