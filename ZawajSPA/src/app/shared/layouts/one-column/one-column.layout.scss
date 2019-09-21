@@ -9,7 +9,10 @@
 }
 
 @media screen and (min-width: 993px) {
-  nb-sidebar, :host::ng-deep div.content{
+  nb-sidebar {
     display: none !important;
+  }
+  :host::ng-deep div.content{
+    margin-right: 0 !important;
   }
 }
