@@ -31,23 +31,11 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     let menuTitlesArray = Array.prototype.slice.call(this.menuTitles);
     menuTitlesArray.forEach(element => {
-      this.langgSubscription = this.langgService.lang.subscribe((lang:string) => {
-        console.log(lang);
-        if(lang == 'en'){
-          try{
-              var word = this._words.filter(word=>word['ar'].match(element.innerText));
-              if(word[0]['ar']==element.innerText)
-              element.innerText = word[0]['en'];
-          }catch{}
-        }
-
-        if(lang == 'ar'){
-          try{
-              var word = this._words.filter(word=>word['en'].match(element.innerText));
-              if(word[0]['en']==element.innerText)
-              element.innerText = word[0]['ar'];
-          }catch{}
-        }
+      this.langgSubscription = this.langgService.lang.subscribe((lang:string) => {        
+        try{
+          var words = this._words.filter( o => Object.keys(o).some( k=> o[k].match(element.innerText)));
+          element.innerText = words[0][lang];
+      }catch{}
       });
     });
   }

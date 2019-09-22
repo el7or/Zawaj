@@ -21,21 +21,10 @@ export class LanggDirective implements OnInit , AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.langgSubscription = this.langgService.lang.subscribe(
       lang=>{
-        if(lang == 'en'){
-          try{
-              var word = this._words.filter(word=>word['ar'].match(this.ref.nativeElement.innerText));
-              if(word[0]['ar']==this.ref.nativeElement.innerText)
-              this.ref.nativeElement.innerText = word[0]['en'];
-          }catch{}
-        }
-
-        if(lang == 'ar'){
-          try{
-              var word = this._words.filter(word=>word['en'].match(this.ref.nativeElement.innerText));
-              if(word[0]['en']==this.ref.nativeElement.innerText)
-              this.ref.nativeElement.innerText = word[0]['ar'];
-          }catch{}
-        }
+        try{
+          var words = this._words.filter( o => Object.keys(o).some( k=> o[k].match(this.ref.nativeElement.innerText)));
+            this.ref.nativeElement.innerText = words[0][lang];
+        }catch{}
       }
     )
   }
