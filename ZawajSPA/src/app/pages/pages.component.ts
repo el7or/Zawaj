@@ -1,8 +1,9 @@
 import { LanggService } from "./../shared/services/langg.service";
-import { Component, OnInit, AfterViewInit, Renderer2 } from "@angular/core";
+import { Component, OnInit, AfterViewInit, Renderer2, OnDestroy } from "@angular/core";
 // @ts-ignore
 import * as words from "../../assets/locale/translation.json";
 import { MENU_ITEMS } from "./pages-menu";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "ngx-pages",
@@ -14,10 +15,11 @@ import { MENU_ITEMS } from "./pages-menu";
     </ngx-one-column-layout>
   `
 })
-export class PagesComponent implements OnInit, AfterViewInit {
+export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   menu = MENU_ITEMS;
   menuTitles: any;
   _words = [];
+  langgSubscription: Subscription
 
   constructor(private render: Renderer2, private langgService: LanggService) {}
 
@@ -29,10 +31,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     let menuTitlesArray = Array.prototype.slice.call(this.menuTitles);
     menuTitlesArray.forEach(element => {
-      this.render.setAttribute(element, "langg", "");
-      console.log(element);
-
-      this.langgService.lang.subscribe((lang:string) => {
+      this.langgSubscription = this.langgService.lang.subscribe((lang:string) => {
         console.log(lang);
         if(lang == 'en'){
           try{
@@ -51,5 +50,9 @@ export class PagesComponent implements OnInit, AfterViewInit {
         }
       });
     });
+  }
+
+  ngOnDestroy(){
+    this.langgSubscription.unsubscribe();
   }
 }

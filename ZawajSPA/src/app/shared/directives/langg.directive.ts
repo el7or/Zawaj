@@ -1,13 +1,15 @@
 import { LanggService } from './../services/langg.service';
-import { Directive, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 // @ts-ignore
 import * as words from '../../../assets/locale/translation.json'
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[langg]'
 })
-export class LanggDirective implements OnInit , AfterViewInit {
+export class LanggDirective implements OnInit , AfterViewInit, OnDestroy {
 
+  langgSubscription: Subscription
   _words = [];
   constructor(private ref : ElementRef, private langgService:LanggService) {
    }
@@ -17,7 +19,7 @@ export class LanggDirective implements OnInit , AfterViewInit {
   }
   
   ngAfterViewInit() {
-    this.langgService.lang.subscribe(
+    this.langgSubscription = this.langgService.lang.subscribe(
       lang=>{
         if(lang == 'en'){
           try{
@@ -36,6 +38,10 @@ export class LanggDirective implements OnInit , AfterViewInit {
         }
       }
     )
+  }
+
+  ngOnDestroy(){
+    this.langgSubscription.unsubscribe();
   }
 
 }
