@@ -16,6 +16,9 @@ using ZawajAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ZawajAPI
 {
@@ -48,7 +51,7 @@ namespace ZawajAPI
 
             services.AddIdentityCore<User>(option =>
             {
-                option.User.RequireUniqueEmail=true;
+                option.User.RequireUniqueEmail = true;
                 option.Password.RequireDigit = false;
                 option.Password.RequireLowercase = false;
                 option.Password.RequiredLength = 4;
@@ -59,10 +62,24 @@ namespace ZawajAPI
             .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<User, Role>>()
             .AddEntityFrameworkStores<ZawajDbContext>()
             .AddDefaultTokenProviders()
+            .AddSignInManager<SignInManager<User>>()
             .AddDefaultUI();
 
-            services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
-                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(option =>
+            {
+                option.RequireHttpsMetadata = false;
+                option.SaveToken = true;
+                option.TokenValidationParameters = new TokenValidationParameters(){
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                };
+            });
+
+            /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
+                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
         }
@@ -80,9 +97,9 @@ namespace ZawajAPI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            app.UseHttpsRedirection();            
             app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

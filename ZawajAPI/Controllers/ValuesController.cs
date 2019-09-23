@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ZawajAPI.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
