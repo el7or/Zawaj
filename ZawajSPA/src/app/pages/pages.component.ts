@@ -1,5 +1,5 @@
 import { LanggService } from "./../shared/services/langg.service";
-import { Component, OnInit, AfterViewInit, Renderer2, OnDestroy } from "@angular/core";
+import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
 // @ts-ignore
 import * as words from "../../assets/locale/translation.json";
 import { MENU_ITEMS } from "./pages-menu";
@@ -21,7 +21,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   _words = [];
   langgSubscription: Subscription
 
-  constructor(private render: Renderer2, private langgService: LanggService) {}
+  constructor(private langgService: LanggService) {}
 
   ngOnInit() {
     this._words = words.default;
@@ -33,7 +33,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     menuTitlesArray.forEach(element => {
       this.langgSubscription = this.langgService.lang.subscribe((lang:string) => {        
         try{
-          var words = this._words.filter( o => Object.keys(o).some( k=> o[k].match(element.innerText)));
+          let words = this._words.filter( o => Object.keys(o).some( k=> o[k].match(element.innerText)));
           element.innerText = words[0][lang];
       }catch{}
       });

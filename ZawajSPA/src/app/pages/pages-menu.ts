@@ -11,6 +11,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'shuffle-2-outline',
     link: '/pages/miscellaneous/404'
   },
+  {
+    title: 'Settings',
+    icon: 'settings-2-outline',
+    link: '/pages/setting'
+  }
   /* {
     title: 'Auth',
     icon: 'lock-outline',

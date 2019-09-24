@@ -1,3 +1,4 @@
+import { SettingComponent } from './setting/setting.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -12,6 +13,10 @@ const routes: Routes = [{
     {
       path: 'dashboard',
       component: DashboardComponent,
+    },
+    {
+      path: 'setting',
+      component: SettingComponent,
     },
     {
       path: 'miscellaneous',

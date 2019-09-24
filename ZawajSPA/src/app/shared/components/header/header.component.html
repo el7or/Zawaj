@@ -8,18 +8,23 @@
   </div>
 </div>
 
-<div class="header-container">    
+<div #divMenu class="header-container">    
   <nb-actions size="small">
     <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
-    </nb-action>
-    <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline" (click)="openNotifications()" badgeText="99" badgePosition="top left" badgeStatus="danger">
+    </nb-action>    
+    <nb-action class="control-item" icon="bell-outline" (click)="openNotifications()" badgeText="9" badgePosition="top left" badgeStatus="danger">
       <ng-template #contentTemplate let-data>
         <p>Here is the text provided via config: "{{ data.text }}"</p>
       </ng-template>
     </nb-action>
-    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+    <nb-action class="control-item" icon="globe-outline" [nbContextMenu]="langMenu">      
+    </nb-action>
+    <nb-action *ngIf="!isUser" class="control-item" >
+        <a href="/auth/login" nbButton outline shape="round" size="small" status="danger">Login</a>
+        <a href="/auth/register" nbButton outline shape="round" size="small" status="primary">Register</a>
+      </nb-action>
+    <nb-action *ngIf="isUser" class="user-action" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.name"
@@ -27,8 +32,4 @@
       </nb-user>
     </nb-action>
   </nb-actions>
-  <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
-      <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>    
-    </nb-select>
-  <button nbButton shape="round" (click)="toggleLang()" class="mx-1">{{currentBtnLang}}</button>   
 </div>

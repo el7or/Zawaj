@@ -1,0 +1,36 @@
+<nb-accordion>
+  <nb-accordion-item [expanded]="true">
+    <nb-accordion-item-header langg>
+      Theme
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <label for="theme" class="label" langg>Background Color:</label>&nbsp;&nbsp;
+      <nb-select id="theme" [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+        <nb-select-label langg [innerHtml]="selectedTheme"></nb-select-label>
+        <nb-option langg *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+      </nb-select>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+      Reviews
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+      Originally, nebula was a name for any diffuse astronomical object,
+      including galaxies beyond the Milky Way.
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item disabled="true">
+    <nb-accordion-item-header>
+      Edit
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+      Originally, nebula was a name for any diffuse astronomical object,
+      including galaxies beyond the Milky Way.
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

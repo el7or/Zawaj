@@ -44,7 +44,9 @@
 
     .logo {
       padding: 0 1.25rem;
+      font-family: 'ToyorAljanah';
       font-size: 1.75rem;
+      font-weight: bolder;
       white-space: nowrap;
       text-decoration: none;
     }
@@ -78,7 +80,9 @@
   border-bottom:unset !important;
 }
 :host ::ng-deep li a span{
+  font-family: 'Tajawal';
   font-size: 1rem !important;
+  font-weight: bolder;
 }
 :host ::ng-deep li a nb-icon{
   font-size: 2rem !important;

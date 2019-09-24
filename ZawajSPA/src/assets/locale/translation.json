@@ -1,5 +1,13 @@
 [
     {"ar":"زواج","en":"Zawaj"},
     {"ar":"الرئيسية","en":"Dashboard"},
-    {"ar":"صفحة 2","en":"Page2"}
+    {"ar":"صفحة 2","en":"Page2"},
+    {"ar":"دخول","en":"Login"},
+    {"ar":"تسجيل","en":"Register"},
+    {"ar":"إعدادات","en":"Settings"},
+    {"ar":"المظهر","en":"Theme"},
+    {"ar":"لون الخلفية:","en":"Background Color:"},
+    {"ar":"فاتح","en":"Light"},
+    {"ar":"داكن","en":"Dark"},
+    {"ar":"أرجواني","en":"Cosmic"}
 ]
