@@ -8,7 +8,11 @@
       right: 0.41rem !important;
     }
   }
-  .nb-theme-default, [nbButton].appearance-outline{
+  [nbButton]{
     text-transform: unset !important;
+  }
+  .another-action{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }

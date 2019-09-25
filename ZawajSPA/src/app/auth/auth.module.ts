@@ -1,21 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
-import { NgxAuthRoutingModule } from './auth-routing.module';
-import { NbAuthModule } from '@nebular/auth';
+import { NgxAuthRoutingModule } from "./auth-routing.module";
+import { NbAuthModule } from "@nebular/auth";
 import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
   NbInputModule,
   NbSpinnerModule,
-} from '@nebular/theme';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { SharedModule } from '../shared/shared.module';
-
+  NbRadioModule
+} from "@nebular/theme";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   imports: [
@@ -28,13 +28,28 @@ import { SharedModule } from '../shared/shared.module';
     NbCheckboxModule,
     NgxAuthRoutingModule,
     NbSpinnerModule,
-    NbAuthModule,
+    NbRadioModule,
+    NbAuthModule.forRoot({
+      forms: {
+        validation: {
+          password: {
+            required: true,
+            minLength: 4,
+            maxLength: 20
+          },
+          email: {
+            required: true
+          },
+          fullName: {
+            required: true,
+            minLength: 10,
+            maxLength: 50
+          }
+        }
+      }
+    }),
     SharedModule
   ],
-  declarations: [
-  LoginComponent,
-  RegisterComponent,
-],
+  declarations: [LoginComponent, RegisterComponent]
 })
-export class NgxAuthModule {
-}
+export class NgxAuthModule {}
