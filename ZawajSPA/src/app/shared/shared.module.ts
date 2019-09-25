@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -74,7 +75,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
+  imports: [CommonModule, ...NB_MODULES,RouterModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
   declarations: [...COMPONENTS, ...PIPES, LanggDirective],
 })

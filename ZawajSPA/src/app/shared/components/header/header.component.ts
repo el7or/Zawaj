@@ -15,7 +15,6 @@ import {
   NbWindowService
 } from "@nebular/theme";
 
-import { UserData } from "../../../@core/data/users";
 import { LayoutService } from "../../../@core/utils";
 import { map, takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
@@ -45,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { title: "English", group: false, data: "en" }
   ];
   userMenu = [
-    { title: "Profile", link: "/auth/login", icon: "menu-arrow-outline" },
+    { title: "Profile", link: "/", icon: "menu-arrow-outline" },
     { title: "Log out" }
   ];
 
@@ -53,13 +52,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
-    private langgService: LanggService
-  ) {}
+    private langgService: LanggService) {}
+
   ngOnInit() {
     this.changeLangg(localStorage.getItem("langg"));
 
