@@ -37,7 +37,7 @@ import { SharedModule } from "../shared/shared.module";
             minLength: 4,
             maxLength: 20
           },
-          email: {
+          userName: {
             required: true
           },
           fullName: {
