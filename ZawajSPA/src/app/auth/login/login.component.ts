@@ -1,18 +1,22 @@
-import { UserLogin } from './../../shared/models/user-login';
+import { OnInit } from '@angular/core';
 import { AuthService } from './../../shared/services/auth.service';
 import { Component, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
 import { NbLoginComponent, NbAuthService, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends NbLoginComponent {
+export class LoginComponent extends NbLoginComponent implements OnInit {
   @ViewChild('form', {static: false}) form: NgForm;
+  @ViewChild('authSwal', {static: false}) private authSwal: SwalComponent;
+  @ViewChild('unAuthSwal', {static: false}) private unAuthSwal: SwalComponent;
+  currentLang:string;
   loading = false;
 
   constructor(private ser: NbAuthService, 
@@ -23,14 +27,21 @@ export class LoginComponent extends NbLoginComponent {
       super(service, options, cd, router);
      }
 
+     ngOnInit(){
+      this.currentLang= localStorage.getItem('langg');
+     }
+
   login() {
     this.loading = true;
     this.authService.login(this.user).subscribe(
       res=> {
         console.log(res);
-        this.loading = false;},
+          this.authSwal.fire();
+          this.loading = false;
+          this.router.navigate(['/pages']);
+      },
       err => {if(err.error.title=='Unauthorized'){
-        this.toastrService.danger('Wrong Data', 'Unauthorized',{duration :5000, icon:'alert-triangle-outline',position:NbGlobalPhysicalPosition.BOTTOM_RIGHT});
+        this.unAuthSwal.fire();
         this.loading = false;}},
       () => this.loading = false
     )

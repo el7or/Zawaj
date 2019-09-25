@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { NgxAuthRoutingModule } from "./auth-routing.module";
 import { NbAuthModule } from "@nebular/auth";
@@ -29,6 +30,7 @@ import { SharedModule } from "../shared/shared.module";
     NgxAuthRoutingModule,
     NbSpinnerModule,
     NbRadioModule,
+    SweetAlert2Module.forRoot(),
     NbAuthModule.forRoot({
       forms: {
         validation: {

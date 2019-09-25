@@ -6,16 +6,13 @@
 
   <div class="form-control-group">
     <label class="label" for="input-userName" langg>Email address:</label>
-    <input nbInput fullWidth [(ngModel)]="user.userName" #userName="ngModel" name="userName" id="input-userName" pattern=".+@.+\..+"
+    <input nbInput fullWidth [(ngModel)]="user.userName" #userName="ngModel" name="userName" id="input-userName"
       placeholder="Email address" autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.userName.required')"
       [attr.aria-invalid]="userName.invalid && userName.touched ? true : null" langg>
     <ng-container *ngIf="userName.invalid && userName.touched">
       <p class="error-message text-danger" *ngIf="userName?.errors.required" langg>
         Email is required!
-      </p>
-      <p class="error-message text-danger" *ngIf="userName?.errors.pattern" langg>
-        Email should be the real one!
       </p>
     </ng-container>
   </div>
@@ -51,17 +48,23 @@
   </button>
 </form>
 
-<!-- <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
-  or enter with:
-  <div class="socials">
-    <ng-container *ngFor="let socialLink of socialLinks">
-      <a *ngIf="socialLink.link" [routerLink]="socialLink.link" [attr.target]="socialLink.target"
-        [attr.class]="socialLink.icon" [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-      <a *ngIf="socialLink.url" [attr.href]="socialLink.url" [attr.target]="socialLink.target"
-        [attr.class]="socialLink.icon" [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-    </ng-container>
-  </div>
-</section> -->
+<swal *ngIf="currentLang=='en'"
+  #unAuthSwal title="Unauthorized" text="Wrong UserName or Password!"
+  type="error" timer="3000" [showConfirmButton]="false" langg>
+</swal>
+<swal *ngIf="currentLang=='ar'"
+  #unAuthSwal title="دخول خاطئ" text="خطأ في اسم المستخدم أو كلمة السر!"
+  type="error" timer="3000" [showConfirmButton]="false" langg>
+</swal>
+
+<swal *ngIf="currentLang=='en'"
+  #authSwal title="Success" text="Login successfully!"
+  type="success" timer="2000" [showConfirmButton]="false" langg>
+</swal>
+<swal *ngIf="currentLang=='ar'"
+  #authSwal title="تمام" text="تم تسجيل الدخول بنجاح!"
+  type="success" timer="2000" [showConfirmButton]="false" langg>
+</swal>
 
 <section class="another-action" aria-label="Register">
   <span langg>Don't have an account:</span>&nbsp;<a class="text-link" routerLink="../register" langg>Register</a>
