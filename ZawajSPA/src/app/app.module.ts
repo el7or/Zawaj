@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
-import { ThemeModule } from './shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {
@@ -29,7 +29,7 @@ import {
     HttpClientModule,
     AppRoutingModule,
 
-    ThemeModule.forRoot(),
+    SharedModule.forRoot(),
 
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),

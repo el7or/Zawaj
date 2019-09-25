@@ -12,14 +12,14 @@ import {
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 
-import { ThemeModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     FormsModule,
-    ThemeModule,
+    SharedModule,
     NbCardModule,
     NbUserModule,
     NbButtonModule,

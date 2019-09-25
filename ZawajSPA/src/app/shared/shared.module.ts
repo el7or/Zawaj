@@ -17,6 +17,7 @@ import {
   NbLayoutDirection,
   NbCardModule,
   NbListModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -57,7 +58,8 @@ const NB_MODULES = [
   NbIconModule,
   NbEvaIconsModule,
   NbCardModule,
-  NbListModule
+  NbListModule,
+  NbSpinnerModule
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -79,10 +81,10 @@ const PIPES = [
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
   declarations: [...COMPONENTS, ...PIPES, LanggDirective],
 })
-export class ThemeModule {
+export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
-      ngModule: ThemeModule,
+      ngModule: SharedModule,
       providers: [
         ...NbThemeModule.forRoot(
           {

@@ -9,5 +9,9 @@
     {"ar":"لون الخلفية:","en":"Background Color:"},
     {"ar":"فاتح","en":"Light"},
     {"ar":"داكن","en":"Dark"},
-    {"ar":"أرجواني","en":"Cosmic"}
+    {"ar":"أرجواني","en":"Cosmic"},
+    {"ar":"مرحبا بك! سجل الدخول من فضلك:","en":"Hello! Log in with your Username & Password:"},
+    {"ar":"اسم المستخدم:","en":"Username:"},
+    {"ar":"اسم المستخدم","en":"Username"},
+    {"ar":"لابد من إدخال اسم المستخدم!","en":"Username is required!"}
 ]

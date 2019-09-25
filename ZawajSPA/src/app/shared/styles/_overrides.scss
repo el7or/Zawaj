@@ -8,4 +8,7 @@
       right: 0.41rem !important;
     }
   }
+  .nb-theme-default, [nbButton].appearance-outline{
+    text-transform: unset !important;
+  }
 }

@@ -6,17 +6,14 @@ import {
   TemplateRef
 } from "@angular/core";
 import {
-  NbMediaBreakpointsService,
   NbMenuService,
   NbSidebarService,
-  NbThemeService,
   NbLayoutDirection,
   NbLayoutDirectionService,
   NbWindowService
 } from "@nebular/theme";
 
 import { LayoutService } from "../../../@core/utils";
-import { map, takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { LanggService } from "../../services/langg.service";
 import { MENU_ITEMS } from "../../../pages/pages-menu";
@@ -27,6 +24,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   templateUrl: "./header.component.html"
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  loading = false;
   menuTitles: any;
   menu = MENU_ITEMS;
 
@@ -51,9 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
-    private themeService: NbThemeService,
     private layoutService: LayoutService,
-    private breakpointService: NbMediaBreakpointsService,
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
     private langgService: LanggService) {}
@@ -66,21 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.user = { name: 'Ahmed El7or', picture: 'assets/images/avatar.png' }
-   /*  this.userService
-      .getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => (this.user = users.nick)); */
-
-    const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService
-      .onMediaQueryChange()
-      .pipe(
-        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(
-        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
-      );
   }
 
   ngOnDestroy() {
@@ -109,14 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  navigateHome() {
-    this.menuService.navigateHome();
-    return false;
-  }
-
-  @ViewChild("contentTemplate", { static: false }) contentTemplate: TemplateRef<
-    any
-  >;
+  @ViewChild("contentTemplate", { static: false }) contentTemplate: TemplateRef<any>;
   openNotifications() {
     this.windowService.open(this.contentTemplate, {
       title: "Window content from template",
