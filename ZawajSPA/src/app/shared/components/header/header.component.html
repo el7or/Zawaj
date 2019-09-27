@@ -20,11 +20,11 @@
     </nb-action>
     <nb-action [nbSpinner]="loading" class="control-item" icon="globe-outline" [nbContextMenu]="langMenu">      
     </nb-action>
-    <nb-action *ngIf="!isUser" class="control-item" >
+    <nb-action *ngIf="!isLoggedIn()" class="control-item" >
         <a langg routerLink="/auth/login" nbButton outline shape="round" size="small" status="danger" uppercase={false}>Login</a>
         <a langg routerLink="/auth/register" nbButton outline shape="round" size="small" status="primary">Register</a >
       </nb-action>
-    <nb-action *ngIf="isUser" class="user-action" >
+    <nb-action *ngIf="isLoggedIn()" class="user-action" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.name"
@@ -33,3 +33,12 @@
     </nb-action>
   </nb-actions>
 </div>
+
+<swal *ngIf="langgService.language.value=='en'"
+  #logoutSwal title="Success" text="Logout successfully!"
+  type="success" timer="2000" [showConfirmButton]="false" langg>
+</swal>
+<swal *ngIf="langgService.language.value=='ar'"
+  #logoutSwal title="خروج" text="تم تسجيل الخروج بنجاح!"
+  type="success" timer="2000" [showConfirmButton]="false" langg>
+</swal>

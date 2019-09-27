@@ -13,6 +13,7 @@ import {
   NbWindowService
 } from "@nebular/theme";
 
+import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
 import { LayoutService } from "../../../@core/utils";
 import { Subject } from "rxjs";
 import { LanggService } from "../../services/langg.service";
@@ -24,6 +25,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   templateUrl: "./header.component.html"
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @ViewChild("logoutSwal", { static: false }) private logoutSwal: SwalComponent;
   loading = false;
   menuTitles: any;
   menu = MENU_ITEMS;
@@ -31,7 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
-  isUser=false;
 
   settingMenu = [
     { title: "", icon: "sun-outline" },
@@ -42,8 +43,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { title: "English", group: false, data: "en" }
   ];
   userMenu = [
-    { title: "Profile", link: "/", icon: "menu-arrow-outline" },
-    { title: "Log out" }
+    {
+      title:
+        this.langgService.language.value == "ar" ? "الملف الشخصي" : "Profile",
+      link: "/"
+    },
+    { title: this.langgService.language.value == "ar" ? "خروج" : "Log out" }
   ];
 
   constructor(
@@ -52,16 +57,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
-    private langgService: LanggService) {}
+    public langgService: LanggService
+  ) {}
 
   ngOnInit() {
     this.changeLangg(localStorage.getItem("langg"));
 
     this.menuService.onItemClick().subscribe(event => {
-      this.changeLangg(event.item.data);
+      switch (event.item.title) {
+        case "Log out":
+        case "خروج":
+          this.logOut();
+          break;
+        case "Profile":
+        case "الملف الشخصي":
+          
+          break;
+        default:
+            this.changeLangg(event.item.data);
+          break;
+      }
     });
 
-    this.user = { name: 'Ahmed El7or', picture: 'assets/images/avatar.png' }
+    this.user = { name: "Ahmed El7or", picture: "assets/images/avatar.png" };
   }
 
   ngOnDestroy() {
@@ -83,6 +101,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  isLoggedIn() {
+    const token = localStorage.getItem("token");
+    return !!token;
+  }
+
+  logOut() {
+    this.logoutSwal.fire();
+    localStorage.removeItem("token");
+  }
+
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, "menu-sidebar");
     this.layoutService.changeLayoutSize();
@@ -90,7 +118,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  @ViewChild("contentTemplate", { static: false }) contentTemplate: TemplateRef<any>;
+  @ViewChild("contentTemplate", { static: false }) contentTemplate: TemplateRef<
+    any
+  >;
   openNotifications() {
     this.windowService.open(this.contentTemplate, {
       title: "Window content from template",

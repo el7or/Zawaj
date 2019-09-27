@@ -25,8 +25,6 @@ import { NbSecurityModule } from '@nebular/security';
 import {
   FooterComponent,
   HeaderComponent,
-  SearchInputComponent,
-  TinyMCEComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -43,6 +41,7 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { LanggDirective } from './directives/langg.directive';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -64,8 +63,6 @@ const NB_MODULES = [
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
-  SearchInputComponent,
-  TinyMCEComponent,
   OneColumnLayoutComponent,
 ];
 const PIPES = [
@@ -77,7 +74,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES,RouterModule],
+  imports: [CommonModule, ...NB_MODULES,RouterModule, SweetAlert2Module.forRoot()],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
   declarations: [...COMPONENTS, ...PIPES, LanggDirective],
 })

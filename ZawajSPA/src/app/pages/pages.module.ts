@@ -8,6 +8,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { SettingComponent } from './setting/setting.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SettingComponent } from './setting/setting.component';
     FormsModule,
     NbAccordionModule,
     NbSelectModule,
-    NbCardModule
+    NbCardModule,
+    SweetAlert2Module.forRoot(),
   ],
   declarations: [
     PagesComponent,

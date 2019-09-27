@@ -2,6 +2,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserLogin } from '../models/user-login';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,12 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   login(user:UserLogin){
-    return this.http.post(this.apiURL+'/auth/login/',user);
+    return this.http.post(this.apiURL+'/auth/login/',user).pipe(
+      map(res=>{
+        const user:any = res;
+        if(user){localStorage.setItem('token',user.token);}
+      })
+    );
   }
 
   /* getAllUsers(): Observable<User[]> {
