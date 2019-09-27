@@ -48,21 +48,11 @@
   </button>
 </form>
 
-<swal *ngIf="langgService.language.value=='en'"
-  #unAuthSwal title="Unauthorized" text="Wrong UserName or Password!"
-  type="error" timer="3000" [showConfirmButton]="false" langg>
-</swal>
-<swal *ngIf="langgService.language.value=='ar'"
-  #unAuthSwal title="دخول خاطئ" text="خطأ في اسم المستخدم أو كلمة السر!"
+<swal #unAuthSwal title="Unauthorized" text="Wrong UserName or Password!"
   type="error" timer="3000" [showConfirmButton]="false" langg>
 </swal>
 
-<swal *ngIf="langgService.language.value=='en'"
-  #authSwal title="Success" text="Login successfully!"
-  type="success" timer="2000" [showConfirmButton]="false" langg>
-</swal>
-<swal *ngIf="langgService.language.value=='ar'"
-  #authSwal title="تمام" text="تم تسجيل الدخول بنجاح!"
+<swal #authSwal title="Success" text="Login successfully!"
   type="success" timer="2000" [showConfirmButton]="false" langg>
 </swal>
 

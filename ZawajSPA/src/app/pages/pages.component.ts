@@ -1,9 +1,5 @@
-import { LanggService } from "./../shared/services/langg.service";
-import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
-// @ts-ignore
-import * as words from "../../assets/locale/translation.json";
+import { Component } from "@angular/core";
 import { MENU_ITEMS } from "./pages-menu";
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: "ngx-pages",
@@ -15,32 +11,6 @@ import { Subscription } from 'rxjs';
     </ngx-one-column-layout>
   `
 })
-export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PagesComponent {
   menu = MENU_ITEMS;
-  menuTitles: any;
-  _words = [];
-  langgSubscription: Subscription
-
-  constructor(private langgService: LanggService) {}
-
-  ngOnInit() {
-    this._words = words.default;
-    this.menuTitles = document.getElementsByClassName("menu-title");
-  }
-
-  ngAfterViewInit() {
-    let menuTitlesArray = Array.prototype.slice.call(this.menuTitles);
-    menuTitlesArray.forEach(element => {
-      this.langgSubscription = this.langgService.lang.subscribe((lang:string) => {        
-        try{
-          let words = this._words.filter( o => Object.keys(o).some( k=> o[k].match(element.innerText)));
-          element.innerText = words[0][lang];
-      }catch{}
-      });
-    });
-  }
-
-  ngOnDestroy(){
-    this.langgSubscription.unsubscribe();
-  }
 }

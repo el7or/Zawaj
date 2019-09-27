@@ -3,6 +3,8 @@
     {"ar":"الرئيسية","en":"Dashboard"},
     {"ar":"صفحة 2","en":"Page2"},
     {"ar":"دخول","en":"Login"},
+    {"ar":"خروج","en":"Log out"},
+    {"ar":"الملف الشخصي","en":"Profile"},
     {"ar":"اشتراك","en":"Register"},
     {"ar":"إعدادات","en":"Settings"},
     {"ar":"المظهر","en":"Theme"},
@@ -31,5 +33,10 @@
     {"ar":"كلمة المرور وتأكيدها غير متطابقين!","en":"Password does not match the confirm password!"},
     {"ar":"رجل","en":"Male"},
     {"ar":"امرأة","en":"Female"},
-    {"ar":"لديك حساب بالفعل:","en":"Already have an account:"}
+    {"ar":"لديك حساب بالفعل:","en":"Already have an account:"},
+    {"ar":"عملية ناجحة","en":"Success"},
+    {"ar":"تم تسجيل الخروج بنجاح!","en":"Logout successfully!"},
+    {"ar":"دخول خاطئ","en":"Unauthorized"},
+    {"ar":"خطأ في اسم المستخدم أو كلمة السر!","en":"Wrong UserName or Password!"},
+    {"ar":"تم تسجيل الدخول بنجاح!","en":"Login successfully!"}
 ]

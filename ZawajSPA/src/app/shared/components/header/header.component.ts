@@ -42,14 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { title: "عربي", group: false, data: "ar" },
     { title: "English", group: false, data: "en" }
   ];
-  userMenu = [
-    {
-      title:
-        this.langgService.language.value == "ar" ? "الملف الشخصي" : "Profile",
-      link: "/"
-    },
-    { title: this.langgService.language.value == "ar" ? "خروج" : "Log out" }
-  ];
+  userMenu = [{ title: "Profile", link: "/" }, { title: "Log out" }];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -57,8 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
-    public langgService: LanggService
-  ) {}
+    public langgService: LanggService) {}
 
   ngOnInit() {
     this.changeLangg(localStorage.getItem("langg"));
@@ -66,11 +58,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.onItemClick().subscribe(event => {
       switch (event.item.title) {
         case "Log out":
-        case "خروج":
           this.logOut();
           break;
         case "Profile":
-        case "الملف الشخصي":
           
           break;
         default:

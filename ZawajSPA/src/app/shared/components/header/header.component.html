@@ -34,11 +34,6 @@
   </nb-actions>
 </div>
 
-<swal *ngIf="langgService.language.value=='en'"
-  #logoutSwal title="Success" text="Logout successfully!"
-  type="success" timer="2000" [showConfirmButton]="false" langg>
-</swal>
-<swal *ngIf="langgService.language.value=='ar'"
-  #logoutSwal title="خروج" text="تم تسجيل الخروج بنجاح!"
+<swal #logoutSwal title="Success" text="Logout successfully!"
   type="success" timer="2000" [showConfirmButton]="false" langg>
 </swal>

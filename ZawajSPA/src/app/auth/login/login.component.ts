@@ -31,8 +31,7 @@ export class LoginComponent extends NbLoginComponent
     @Inject(NB_AUTH_OPTIONS) options: {},
     cd: ChangeDetectorRef,
     router: Router,
-    private authService: AuthService,
-    public langgService:LanggService) {
+    private authService: AuthService) {
     super(service, options, cd, router);
   }
 
