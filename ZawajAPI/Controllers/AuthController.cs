@@ -49,22 +49,7 @@ namespace ZawajAPI.Controllers
                     user = userToReturn
                 }); */
 
-                var claims = new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
-                    };
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds);
-
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                return Ok(new { token = GenerateJWToken(user).Result, user = user });
             }
             else return Unauthorized();
         }
@@ -73,16 +58,41 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> Register(UserRegisterDTO userDTO)
         {
             //var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            var user = new User { UserName = userDTO.UserName, Email = userDTO.UserName };
+            var user = new User { UserName = userDTO.UserName, Email = userDTO.UserName, FullName = userDTO.FullName };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             //var userToReturn = _mapper.Map<UserForDetailsDTO>(userToCreate);
             if (result.Succeeded)
             {
                 //return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
                 //await _signInManager.SignInAsync(user, isPersistent:false);
-                return Ok(StatusCode(201));
+                return Ok(new { token = GenerateJWToken(user).Result, user = user });
             }
             return BadRequest(result.Errors);
+        }
+
+        private async Task<string> GenerateJWToken(User user)
+        {
+            var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                        new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+                    };
+
+             var roles = await _userManager.GetRolesAsync(user);
+            /*foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            } */
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+            _config["Tokens:Issuer"],
+            claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: creds);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

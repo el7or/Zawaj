@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import {
   Component,
   OnDestroy,
@@ -68,8 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           break;
       }
     });
-
-    this.user = { name: "Ahmed El7or", picture: "assets/images/avatar.png" };
+    this.user = { name: localStorage.getItem('userFullName'), picture: "assets/images/avatar.png" };
   }
 
   ngOnDestroy() {

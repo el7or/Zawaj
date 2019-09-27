@@ -51,7 +51,7 @@ namespace ZawajAPI
 
             services.AddIdentityCore<User>(option =>
             {
-                option.User.RequireUniqueEmail = true;
+                option.User.RequireUniqueEmail = false;
                 option.Password.RequireDigit = false;
                 option.Password.RequireLowercase = false;
                 option.Password.RequiredLength = 4;

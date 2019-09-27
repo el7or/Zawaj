@@ -15,7 +15,7 @@
     {"ar":"مرحبا بك! سجل الدخول من فضلك:","en":"Hello! Log in with your Email address:"},
     {"ar":"اسم المستخدم:","en":"Email address:"},
     {"ar":"اسم المستخدم","en":"Email address"},
-    {"ar":"لابد من إدخال اسم المستخدم!","en":"Email is required!"},
+    {"ar":"لابد من إدخال اسم المستخدم!","en":"UserName is required!"},
     {"ar":"كلمة المرور:","en":"Password:"},
     {"ar":"كلمة المرور","en":"Password"},
     {"ar":"لابد من إدخال كلمة المرور!","en":"Password is required!"},
@@ -38,5 +38,6 @@
     {"ar":"تم تسجيل الخروج بنجاح!","en":"Logout successfully!"},
     {"ar":"دخول خاطئ","en":"Unauthorized"},
     {"ar":"خطأ في اسم المستخدم أو كلمة السر!","en":"Wrong UserName or Password!"},
-    {"ar":"تم تسجيل الدخول بنجاح!","en":"Login successfully!"}
+    {"ar":"تم تسجيل الدخول بنجاح!","en":"Login successfully!"},
+    {"ar":"تم الاشتراك بنجاح!","en":"Register successfully!"}
 ]

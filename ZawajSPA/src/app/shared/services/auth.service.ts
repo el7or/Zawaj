@@ -1,3 +1,4 @@
+import { UserRegister } from '../models/user-register';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserLogin } from '../models/user-login';
@@ -8,15 +9,30 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
   apiURL = environment.API_URL;
+
   constructor(private http:HttpClient) { }
 
   login(user:UserLogin){
     return this.http.post(this.apiURL+'/auth/login/',user).pipe(
-      map(res=>{
-        const user:any = res;
-        if(user){localStorage.setItem('token',user.token);}
+      map((res:any)=>{
+        if(res){
+          localStorage.setItem('token',res.token);
+          //localStorage.setItem('user',JSON.stringify(res.user));
+          localStorage.setItem('userFullName', res.user.fullName);
+        }
+      })
+    );
+  }
+
+  register(user:UserRegister){
+    return this.http.post(this.apiURL+'/auth/register/',user).pipe(
+      map((res:any)=>{
+        if(res){
+          localStorage.setItem('token',res.token);
+          //localStorage.setItem('user',JSON.stringify(res.user));
+          localStorage.setItem('userFullName', res.user.fullName);
+        }
       })
     );
   }
