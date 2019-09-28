@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule } from '@nebular/theme';
+import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule, NbLayoutModule, NbSidebarModule } from '@nebular/theme';
 
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
@@ -22,6 +22,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NbAccordionModule,
     NbSelectModule,
     NbCardModule,
+    NbLayoutModule,
+    NbSidebarModule,
     SweetAlert2Module.forRoot(),
   ],
   declarations: [

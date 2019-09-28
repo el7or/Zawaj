@@ -39,5 +39,7 @@
     {"ar":"دخول خاطئ","en":"Unauthorized"},
     {"ar":"خطأ في اسم المستخدم أو كلمة السر!","en":"Wrong UserName or Password!"},
     {"ar":"تم تسجيل الدخول بنجاح!","en":"Login successfully!"},
-    {"ar":"تم الاشتراك بنجاح!","en":"Register successfully!"}
+    {"ar":"تم الاشتراك بنجاح!","en":"Register successfully!"},
+    {"ar":"حدث خطأ ما!","en":"Something Wrong!"},
+    {"ar":"الرجاءإعادة تحميل الصفحة والمحاولة مرة أخرى.","en":"Please refresh page and try again."}
 ]

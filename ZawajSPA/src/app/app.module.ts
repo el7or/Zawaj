@@ -20,6 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import {
     }),
     CoreModule.forRoot()
   ],
+  providers:[ErrorInterceptorProvidor],
   bootstrap: [AppComponent],
 })
 export class AppModule {

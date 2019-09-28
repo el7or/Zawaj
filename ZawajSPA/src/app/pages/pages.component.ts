@@ -5,10 +5,23 @@ import { MENU_ITEMS } from "./pages-menu";
   selector: "ngx-pages",
   styleUrls: ["pages.component.scss"],
   template: `
-    <ngx-one-column-layout>
+    <nb-layout windowMode>
+      <nb-layout-header fixed>      
+        <ngx-header></ngx-header>
+      </nb-layout-header>
+
+      <nb-sidebar start class="menu-sidebar" tag="menu-sidebar" responsive state="compacted">
       <nb-menu [items]="menu"></nb-menu>
+      </nb-sidebar>
+
+      <nb-layout-column>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>
+      </nb-layout-column>
+
+      <nb-layout-footer fixed>
+        <ngx-footer></ngx-footer>
+      </nb-layout-footer>
+    </nb-layout>
   `
 })
 export class PagesComponent {

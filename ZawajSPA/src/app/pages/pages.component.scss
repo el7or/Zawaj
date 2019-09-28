@@ -1,6 +1,11 @@
 @import '../shared/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
+  .menu-sidebar ::ng-deep .scrollable {
+    padding-top: nb-theme(layout-padding-top);
+  }
   ::ng-deep router-outlet + * {
     display: block;
     animation: fade 1s;
@@ -14,5 +19,14 @@
         opacity: 1;
       }
     }
+  }
+}
+
+@media screen and (min-width: 993px) {
+  nb-sidebar {
+    display: none !important;
+  }
+  :host::ng-deep div.content{
+    margin-right: 0 !important;
   }
 }

@@ -51,10 +51,13 @@ export class LoginComponent extends NbLoginComponent
         this.router.navigate(["/pages"]);
       },
       err => {
-        if (err.error.title == "Unauthorized") {
+        if (err == "Unauthorized") {
           this.unAuthSwal.fire();
           this.loading = false;
         }
+        else{
+        this.loading = false;
+      }
       },
       () => (this.loading = false)
     );
