@@ -32,12 +32,8 @@ export class RegisterComponent extends NbRegisterComponent {
         this.loading = false;
         this.router.navigate(["/pages"]);
       },
-      err => {
-        console.log(err);
-          this.loading = false;        
-      },
+      err => {this.loading = false; },
       () => (this.loading = false)
     )
   }
-
 }
