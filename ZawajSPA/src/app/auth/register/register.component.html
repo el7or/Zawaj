@@ -23,9 +23,9 @@
   </div>
 
   <div class="form-control-group">
-    <label class="label" for="input-username" langg>Email address:</label>
+    <label class="label" for="input-username" langg>UserName:</label>
     <input nbInput [(ngModel)]="user.username" #username="ngModel" id="input-username" name="username"
-      placeholder="Email address" fullWidth [status]="username.dirty ? (username.invalid  ? 'danger' : 'success') : ''"
+      placeholder="UserName" fullWidth [status]="username.dirty ? (username.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.email.required')"
       [attr.aria-invalid]="username.invalid && username.touched ? true : null" langg>
     <ng-container *ngIf="username.invalid && username.touched">
@@ -110,4 +110,7 @@
 
 <swal #registerSwal title="Success" text="register successfully!"
   type="success" timer="2000" [showConfirmButton]="false" langg>
+</swal>
+<swal #duplicateSwal title="Wrong UserName!" text="This UserName is already taken! Try another one."
+  type="warning" confirmButtonText="OK" langg>
 </swal>

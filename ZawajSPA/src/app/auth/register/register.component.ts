@@ -14,6 +14,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 export class RegisterComponent extends NbRegisterComponent {
   @ViewChild('form', {static: false}) form: NgForm;
   @ViewChild("registerSwal", { static: false }) private registerSwal: SwalComponent;
+  @ViewChild("duplicateSwal", { static: false }) private duplicateSwal: SwalComponent;
   loading = false;
 
 
@@ -32,8 +33,11 @@ export class RegisterComponent extends NbRegisterComponent {
         this.loading = false;
         this.router.navigate(["/pages"]);
       },
-      err => {this.loading = false; },
-      () => (this.loading = false)
+      err => {
+        if(err=='DuplicateUserName'){this.duplicateSwal.fire()}
+        this.loading = false;
+      },
+      () => {this.loading = false;}
     )
   }
 }

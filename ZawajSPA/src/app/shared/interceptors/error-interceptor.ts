@@ -22,6 +22,11 @@ export class ErrorInterceptor implements HttpInterceptor{
                         return throwError(error.statusText);
                     }
 
+                    //Duplicate UserName error
+                    if(error.error.filter(err=>err.code=='DuplicateUserName')){
+                        return throwError('DuplicateUserName');
+                    }
+
                     ///ModelState Errors
                     const serverError = error.error;
                     let modelStateErrors ='';
@@ -36,8 +41,6 @@ export class ErrorInterceptor implements HttpInterceptor{
                     this.toastrService.warning('Please refresh page and try again.','Something Wrong!',{ duration:3000 });
                     return throwError(modelStateErrors || serverError || 'Server Error')
                 }
-
-
             })
         )
     }

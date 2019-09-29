@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngAfterViewChecked() {
-    this.menuTitles = document.querySelectorAll('.menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content');
+    this.menuTitles = document.querySelectorAll('.menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content, .swal2-confirm');
     let menuTitlesArray = Array.prototype.slice.call(this.menuTitles);
     menuTitlesArray.forEach(element => {
       this.langgSubscription = this.langgService.lang.subscribe(
