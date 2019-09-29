@@ -9,10 +9,4 @@ import { Router } from '@angular/router';
 })
 export class NotFoundComponent {
 
-  constructor(private router: Router) {
-  }
-
-  goToHome() {
-    this.router.navigate(["/pages"]);
-  }
 }

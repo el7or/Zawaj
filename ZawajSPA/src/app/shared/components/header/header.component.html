@@ -15,7 +15,7 @@
         <span langg>Quick Search</span>
       <nb-search type="rotate-layout" placeholder="Member Name..." hint="Hit enter to search" langg></nb-search>
     </nb-action>
-    <nb-action class="control-item" icon="bell-outline" (click)="openNotifications()" badgeText="9" badgePosition="top left" badgeStatus="danger">
+    <nb-action *ngIf="isLoggedIn()" class="control-item" icon="bell-outline" (click)="openNotifications()" badgeText="9" badgePosition="top left" badgeStatus="danger">
       <ng-template #contentTemplate let-data>
         <p>Here is the text provided via config: "{{ data.text }}"</p>
       </ng-template>

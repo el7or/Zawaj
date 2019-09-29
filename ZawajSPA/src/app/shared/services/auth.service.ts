@@ -5,6 +5,7 @@ import { UserLogin } from '../models/user-login';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { NbMenuItem } from '@nebular/theme';
 
 @Injectable({
   providedIn: 'root'
@@ -40,12 +41,19 @@ export class AuthService {
     );
   }
 
-  loggedIn() {    
+  isLoggedIn() {    
     try{const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);}
     catch{
       return false
     }
+  }
+
+  reloadMenuItems(menuItems:NbMenuItem[]){
+    if(!this.isLoggedIn()){
+      return menuItems.filter((el:NbMenuItem)=>el.data!='user')
+    }
+    else{return menuItems}
   }
 
   /* getAllUsers(): Observable<User[]> {

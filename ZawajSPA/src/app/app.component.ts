@@ -5,7 +5,6 @@ import { AuthService } from './shared/services/auth.service';
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { Component, OnInit, AfterViewChecked, OnDestroy } from "@angular/core";
-import { MENU_ITEMS } from "./pages/pages-menu";
 import { Subscription } from "rxjs";
 // @ts-ignore
 import * as words from "../assets/locale/translation.json";
@@ -17,7 +16,6 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   template: "<router-outlet></router-outlet>"
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
-  menu = MENU_ITEMS;
   _words = [];
   langgSubscription: Subscription;
   jwtHelper = new JwtHelperService();

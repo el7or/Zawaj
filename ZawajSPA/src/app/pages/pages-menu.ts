@@ -19,7 +19,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Settings',
     icon: 'settings-2-outline',
-    link: '/pages/setting'
+    link: '/pages/setting',
+    data: 'user'
   },
   /* {
     title: 'Auth',

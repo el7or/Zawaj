@@ -4,7 +4,9 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  AfterViewChecked,
+  ChangeDetectorRef
 } from "@angular/core";
 import {
   NbMenuService,
@@ -26,7 +28,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   styleUrls: ["./header.component.scss"],
   templateUrl: "./header.component.html"
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild("logoutSwal", { static: false }) private logoutSwal: SwalComponent;
   loading = false;
   menuTitles: any;
@@ -82,6 +84,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewChecked(){
+    this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
@@ -90,19 +96,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeLangg(lang: string) {
     if (lang == "en") {
       this.langgService.language.next("en");
-      this.dirService.setDirection(NbLayoutDirection.LTR);
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
+      if(this.dirService.isRtl)
+      {this.dirService.setDirection(NbLayoutDirection.LTR);}
     } else {
       this.langgService.language.next("ar");
-      this.dirService.setDirection(NbLayoutDirection.RTL);
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;
+      if(this.dirService.isLtr)
+      {this.dirService.setDirection(NbLayoutDirection.RTL);}
     }
   }
 
   isLoggedIn() {
-    return this.authService.loggedIn();
+    return this.authService.isLoggedIn();
   }
 
   logOut() {

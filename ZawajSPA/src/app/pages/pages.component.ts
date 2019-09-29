@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { AuthService } from './../shared/services/auth.service';
+import { Component, AfterViewChecked, ChangeDetectorRef } from "@angular/core";
 import { MENU_ITEMS } from "./pages-menu";
+import { NbMenuItem } from '@nebular/theme';
 
 @Component({
   selector: "ngx-pages",
@@ -24,6 +26,11 @@ import { MENU_ITEMS } from "./pages-menu";
     </nb-layout>
   `
 })
-export class PagesComponent {
-  menu = MENU_ITEMS;
+export class PagesComponent implements AfterViewChecked {
+  menu= MENU_ITEMS;
+  constructor(private authService: AuthService,private cdr: ChangeDetectorRef){}
+  ngAfterViewChecked(){
+    this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
+    this.cdr.detectChanges();
+  }
 }
