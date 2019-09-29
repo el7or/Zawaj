@@ -1,4 +1,4 @@
-@import './themes';
+@import "./themes";
 
 @mixin nb-overrides() {
   nb-select.size-medium button {
@@ -8,11 +8,14 @@
       right: 0.41rem !important;
     }
   }
-  [nbButton]{
+  [nbButton] {
     text-transform: unset !important;
   }
-  .another-action{
+  .another-action {
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+  span.menu-title {
+    margin-right: 0.5rem;
   }
 }

@@ -25,7 +25,7 @@
         <a langg routerLink="/auth/register" nbButton outline shape="round" size="small" status="primary">Register</a >
       </nb-action>
     <nb-action *ngIf="isLoggedIn()" class="user-action" >
-      <nb-user [nbContextMenu]="userMenu"
+      <nb-user id="userMenu" [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.username | titlecase"
                [picture]="user?.picture">

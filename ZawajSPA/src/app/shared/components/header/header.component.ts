@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { title: "عربي", group: false, data: "ar" },
     { title: "English", group: false, data: "en" }
   ];
-  userMenu = [{ title: "Profile", link: "/" }, { title: "Log out" }];
+  userMenu = [{ title: "Profile", link: "/",icon: "person" }, { title: "Log out", icon: "menu-arrow-outline" }];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -59,15 +59,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.user = { username: this.authService.currentUserName, picture: "assets/images/avatar.png" };
 
     this.menuService.onItemClick().subscribe(event => {
-      switch (event.item.title) {
+      switch (event.item.title) {        
         case "Log out":
           this.logOut();
           break;
-        case "Profile":
-          
+        case "Profile":          
           break;
-        default:
-            this.changeLangg(event.item.data);
+        case 'English':
+        case 'عربي':
+          this.changeLangg(event.item.data);
+          break;
+        default:            
           break;
       }
     });
