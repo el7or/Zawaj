@@ -3,6 +3,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserLogin } from '../models/user-login';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,6 +11,8 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
   apiURL = environment.API_URL;
+  jwtHelper = new JwtHelperService();
+  currentUserName:string;
 
   constructor(private http:HttpClient) { }
 
@@ -19,7 +22,7 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
-          localStorage.setItem('userFullName', res.user.fullName);
+          this.currentUserName=this.jwtHelper.decodeToken(res.token).sub;
         }
       })
     );
@@ -31,10 +34,18 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
-          localStorage.setItem('userFullName', res.user.fullName);
+          this.currentUserName=this.jwtHelper.decodeToken(res.token).sub;
         }
       })
     );
+  }
+
+  loggedIn() {    
+    try{const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);}
+    catch{
+      return false
+    }
   }
 
   /* getAllUsers(): Observable<User[]> {

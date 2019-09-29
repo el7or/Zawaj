@@ -51,10 +51,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
-    public langgService: LanggService) {}
+    private langgService: LanggService,
+    private authService:AuthService) {}
 
   ngOnInit() {
     this.changeLangg(localStorage.getItem("langg"));
+    this.user = { username: this.authService.currentUserName, picture: "assets/images/avatar.png" };
 
     this.menuService.onItemClick().subscribe(event => {
       switch (event.item.title) {
@@ -69,7 +71,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           break;
       }
     });
-    this.user = { name: localStorage.getItem('userFullName'), picture: "assets/images/avatar.png" };
   }
 
   ngOnDestroy() {
@@ -92,8 +93,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   isLoggedIn() {
-    const token = localStorage.getItem("token");
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   logOut() {

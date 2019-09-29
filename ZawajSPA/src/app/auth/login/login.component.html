@@ -5,9 +5,9 @@
   nbSpinnerSize="large" nbSpinnerMessage="">
 
   <div class="form-control-group">
-    <label class="label" for="input-userName" langg>Email address:</label>
+    <label class="label" for="input-userName" langg>UserName:</label>
     <input nbInput fullWidth [(ngModel)]="user.userName" #userName="ngModel" name="userName" id="input-userName"
-      placeholder="Email address" autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
+      placeholder="UserName" autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.userName.required')"
       [attr.aria-invalid]="userName.invalid && userName.touched ? true : null" langg>
     <ng-container *ngIf="userName.invalid && userName.touched">
