@@ -7,9 +7,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
   },
   {
-    title: 'Page2',
-    icon: 'shuffle-2-outline',
-    link: '/pages/miscellaneous/404'
+    title: 'Chat',
+    icon: 'message-circle-outline',
+    link: '/pages/chat'
+  },
+  {
+    title: 'Search',
+    icon: 'search',
+    link: '/pages/search'
   },
   {
     title: 'Settings',

@@ -9,6 +9,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { SettingComponent } from './setting/setting.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { SearchComponent } from './search/search.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   declarations: [
     PagesComponent,
     SettingComponent,
+    SearchComponent,
+    ChatComponent,
   ],
 })
 export class PagesModule {

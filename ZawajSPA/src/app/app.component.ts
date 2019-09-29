@@ -18,7 +18,6 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   menu = MENU_ITEMS;
-  menuTitles: any;
   _words = [];
   langgSubscription: Subscription;
   jwtHelper = new JwtHelperService();
@@ -40,11 +39,11 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngAfterViewChecked() {
-    this.menuTitles = document.querySelectorAll(
-      ".menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content, .swal2-confirm"
+    let runTimeElements = document.querySelectorAll(
+      ".menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content, .swal2-confirm, nb-option.ng-star-inserted, span.info"
     );
-    let menuTitlesArray = Array.prototype.slice.call(this.menuTitles);
-    menuTitlesArray.forEach(element => {
+    let runTimeElementsArray = Array.prototype.slice.call(runTimeElements);
+    runTimeElementsArray.forEach(element => {
       this.langgSubscription = this.langgService.lang.subscribe(
         (lang: string) => {
           try {
@@ -52,6 +51,21 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
               Object.keys(o).some(k => o[k] == element.innerText)
             );
             element.innerText = words[0][lang];
+          } catch {}
+        }
+      );
+    });
+
+    let runTimePlacholders = document.querySelectorAll("input.search-input");
+    let runTimePlacholdersArray = Array.prototype.slice.call(runTimePlacholders);
+    runTimePlacholdersArray.forEach(element => {
+      this.langgSubscription = this.langgService.lang.subscribe(
+        (lang: string) => {
+          try {
+            let words = this._words.filter(o =>
+              Object.keys(o).some(k => o[k] == element.placeholder)
+            );
+            element.placeholder = words[0][lang];
           } catch {}
         }
       );

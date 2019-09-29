@@ -1,7 +1,7 @@
 [
     {"ar":"زواج","en":"Zawaj"},
     {"ar":"الرئيسية","en":"Dashboard"},
-    {"ar":"صفحة 2","en":"Page2"},
+    {"ar":"دردشة","en":"Chat"},
     {"ar":"دخول","en":"Login"},
     {"ar":"خروج","en":"Log out"},
     {"ar":"الملف الشخصي","en":"Profile"},
@@ -44,5 +44,12 @@
     {"ar":"الرجاءإعادة تحميل الصفحة والمحاولة مرة أخرى.","en":"Please refresh page and try again."},
     {"ar":"خطأ في اسم المستخدم!","en":"Wrong UserName!"},
     {"ar":"اسم المستخدم هذا موجود من قبل! الرجاء اختيار اسم آخر","en":"This UserName is already taken! Try another one."},
-    {"ar":"حسناً","en":"OK"}
+    {"ar":"حسناً","en":"OK"},
+    {"ar":"اسم العضو...","en":"Member Name..."},
+    {"ar":"اضغط Enter للبحث","en":"Hit enter to search"},
+    {"ar":"بحث","en":"Search"},
+    {"ar":"بحث سريع","en":"Quick Search"},
+    {"ar":"خطأ 404 الصفحة غير موجودة!","en":"404 Page Not Found"},
+    {"ar":"الصفحة التي تبحث عنها غير موجودة","en":"The page you were looking for doesn't exist"},
+    {"ar":"إلى الصفحة الرئيسية","en":"Take me home"}
 ]

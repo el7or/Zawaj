@@ -11,7 +11,8 @@ import {
   NbSidebarService,
   NbLayoutDirection,
   NbLayoutDirectionService,
-  NbWindowService
+  NbWindowService,
+  NbSearchService
 } from "@nebular/theme";
 
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
@@ -52,7 +53,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
     private langgService: LanggService,
-    private authService:AuthService) {}
+    private authService:AuthService,
+    private searchService: NbSearchService) {
+      this.searchService.onSearchSubmit()
+      .subscribe((data: any) => {
+        alert(data.term);
+      })
+    }
 
   ngOnInit() {
     this.changeLangg(localStorage.getItem("langg"));
