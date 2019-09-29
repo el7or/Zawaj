@@ -14,6 +14,7 @@ export class AuthService {
   apiURL = environment.API_URL;
   jwtHelper = new JwtHelperService();
   currentUserName:string;
+  redirectUrl:string;
 
   constructor(private http:HttpClient) { }
 
@@ -41,7 +42,7 @@ export class AuthService {
     );
   }
 
-  isLoggedIn() {    
+  isAuthenticated() {    
     try{const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);}
     catch{
@@ -50,7 +51,7 @@ export class AuthService {
   }
 
   reloadMenuItems(menuItems:NbMenuItem[]){
-    if(!this.isLoggedIn()){
+    if(!this.isAuthenticated()){
       return menuItems.filter((el:NbMenuItem)=>el.data!='user')
     }
     else{return menuItems}

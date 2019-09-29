@@ -1,3 +1,4 @@
+import { AuthGuard } from './../shared/guards/auth.guard';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule, NbLayoutModule, NbSidebarModule } from '@nebular/theme';
@@ -34,6 +35,7 @@ import { ChatComponent } from './chat/chat.component';
     SearchComponent,
     ChatComponent,
   ],
+  providers:[AuthGuard]
 })
 export class PagesModule {
 }

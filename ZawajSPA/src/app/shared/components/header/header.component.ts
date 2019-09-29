@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import {
   Component,
@@ -56,7 +57,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     private windowService: NbWindowService,
     private langgService: LanggService,
     private authService:AuthService,
-    private searchService: NbSearchService) {
+    private searchService: NbSearchService,
+    private router:Router) {
       this.searchService.onSearchSubmit()
       .subscribe((data: any) => {
         alert(data.term);
@@ -110,12 +112,13 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   isLoggedIn() {
-    return this.authService.isLoggedIn();
+    return this.authService.isAuthenticated();
   }
 
   logOut() {
     this.logoutSwal.fire();
     localStorage.removeItem("token");
+    this.router.navigate(["/pages"]);
   }
 
   toggleSidebar(): boolean {

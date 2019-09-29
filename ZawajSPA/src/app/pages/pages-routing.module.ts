@@ -1,3 +1,4 @@
+import { AuthGuard } from './../shared/guards/auth.guard';
 import { ChatComponent } from "./chat/chat.component";
 import { SettingComponent } from "./setting/setting.component";
 import { RouterModule, Routes } from "@angular/router";
@@ -12,6 +13,8 @@ const routes: Routes = [
   {
     path: "",
     component: PagesComponent,
+    /* runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard], */
     children: [
       { path: "dashboard", component: DashboardComponent },
       {
@@ -24,7 +27,8 @@ const routes: Routes = [
       },
       {
         path: "setting",
-        component: SettingComponent
+        component: SettingComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: "",

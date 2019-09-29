@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { LanggService } from './../../shared/services/langg.service';
 import { OnInit, OnDestroy } from "@angular/core";
 import { AuthService } from "./../../shared/services/auth.service";
@@ -30,7 +31,7 @@ export class LoginComponent extends NbLoginComponent
     service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) options: {},
     cd: ChangeDetectorRef,
-    router: Router,
+    router: Router, private location: Location,
     private authService: AuthService) {
     super(service, options, cd, router);
   }
@@ -47,14 +48,18 @@ export class LoginComponent extends NbLoginComponent
     this.authSubscription = this.authService.login(this.user).subscribe(
       (res) => {
         this.authSwal.fire();
-        this.loading = false;
-        this.router.navigate(["/pages"]);
       },
       err => {
         if (err == "Unauthorized") {this.unAuthSwal.fire();}
         this.loading = false;
       },
-      () => {this.loading = false;}
+      () => {
+        this.loading = false;
+        if(this.authService.redirectUrl)
+        {this.router.navigateByUrl(this.authService.redirectUrl);}
+        else{this.location.back();}
+        //this.router.navigate(["/pages"]);
+      }
     );
   }
 }
