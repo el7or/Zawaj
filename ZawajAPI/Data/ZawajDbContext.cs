@@ -12,6 +12,8 @@ namespace ZawajAPI.Data
     {
         public ZawajDbContext(DbContextOptions options) : base(options) { }
 
+        public DbSet<Photo> Photos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
