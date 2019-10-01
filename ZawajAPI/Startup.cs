@@ -14,6 +14,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using ZawajAPI.Helpers;
+using ZawajAPI.Data.TrialsData;
 
 namespace ZawajAPI
 {
@@ -77,10 +78,11 @@ namespace ZawajAPI
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
+            services.AddTransient<TrialData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TrialData trialData)
         {
             string corsOrigin = "http://localhost:4200";
             if (env.IsDevelopment())
@@ -105,6 +107,7 @@ namespace ZawajAPI
                 // app.UseHsts();
             }
 
+            trialData.TrialUsers();
             app.UseHttpsRedirection();            
             app.UseCors(x => x.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
