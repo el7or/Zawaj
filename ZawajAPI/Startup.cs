@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using ZawajAPI.Helpers;
 using ZawajAPI.Data.TrialsData;
+using ZawajAPI.Domain.IRepository;
+using ZawajAPI.Domain.Repository;
 
 namespace ZawajAPI
 {
@@ -76,9 +78,15 @@ namespace ZawajAPI
 
             /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(option =>
+            {
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            });
             services.AddCors();
             services.AddTransient<TrialData>();
+            services.AddAllRepository(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

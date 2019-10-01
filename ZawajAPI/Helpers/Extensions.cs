@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using ZawajAPI.Domain.IRepository;
+using ZawajAPI.Domain.Repository;
 
 namespace ZawajAPI.Helpers
 {
@@ -9,6 +13,12 @@ namespace ZawajAPI.Helpers
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", corsOrigin);
+        }
+
+        public static IServiceCollection AddAllRepository(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IUserRepo, UserRepo>();
+            return services;
         }
     }
 }
