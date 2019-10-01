@@ -17,6 +17,7 @@ using ZawajAPI.Helpers;
 using ZawajAPI.Data.TrialsData;
 using ZawajAPI.Domain.IRepository;
 using ZawajAPI.Domain.Repository;
+using AutoMapper;
 
 namespace ZawajAPI
 {
@@ -85,6 +86,7 @@ namespace ZawajAPI
 
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
             services.AddTransient<TrialData>();
             services.AddAllRepository(Configuration);
         }

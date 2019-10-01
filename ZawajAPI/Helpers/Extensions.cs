@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,5 +21,11 @@ namespace ZawajAPI.Helpers
             services.AddScoped<IUserRepo, UserRepo>();
             return services;
         }
+
+        public static int CalculateAge(this DateTime dateTime){
+           var age = DateTime.Today.Year-dateTime.Year;
+           if(dateTime.AddYears(age)>DateTime.Today) {age--;}
+           return age;
+       }
     }
 }

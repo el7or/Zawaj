@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Data;
 using ZawajAPI.Domain.IRepository;
+using ZawajAPI.DTOs;
 using ZawajAPI.Models;
 
 namespace ZawajAPI.Controllers
@@ -18,9 +20,11 @@ namespace ZawajAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepo _repo;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepo repo)
+        public UserController(IUserRepo repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -28,22 +32,33 @@ namespace ZawajAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _repo.GetAll();
-            return Ok(users);
+            var users = await _repo.GetAllUsers();
+            var model = _mapper.Map<IEnumerable<UserListDTO>>(users);
+            return Ok(model);
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _repo.Find(id);
+            var user = await _repo.GetUser(id);
+            var model = _mapper.Map<UserDetailsDTO>(user);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(model);
+        }
+
+        // POST: api/User
+        [HttpPost]
+        public async Task<IActionResult> PostUser(User user)
+        {
+            await _repo.AddUser(user);
+            return Ok();
+            //return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // PUT: api/User/5
@@ -54,7 +69,7 @@ namespace ZawajAPI.Controllers
             {
                 return BadRequest();
             }
-            await _repo.Update(user);
+            await _repo.UpdateUser(user);
             return Ok();
 
             /* try
@@ -76,20 +91,11 @@ namespace ZawajAPI.Controllers
             return NoContent();*/
         }
 
-        // POST: api/User
-        [HttpPost]
-        public async Task<IActionResult> PostUser(User user)
-        {
-             await _repo.Add(user);
-             return Ok();
-            //return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
         // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            await _repo.Delete(id);
+            await _repo.DeleteUser(id);
             return Ok();
             /* if (user == null)
             {
