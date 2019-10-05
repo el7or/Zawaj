@@ -10,14 +10,14 @@ namespace ZawajAPI.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserListDTO>()
-            .ForMember(dest=>dest.PhotoURL,map=>{map.MapFrom(src=>src.Photos.FirstOrDefault(p=>p.IsMain).Url);})
-            .ForMember(dest=>dest.Age,map=>{map.MapFrom(src=>src.BirthDate.CalculateAge());});
+            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
+            .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
 
             CreateMap<User, UserDetailsDTO>()
-            .ForMember(dest=>dest.PhotoURL,map=>{map.MapFrom(src=>src.Photos.FirstOrDefault(p=>p.IsMain).Url);})
-            .ForMember(dest=>dest.Age,map=>{map.MapFrom(src=>src.BirthDate.CalculateAge());});
+            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
+            .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
 
-            CreateMap<Photo, PhotoDetailsDTO>();            
+            CreateMap<Photo, PhotoDetailsDTO>();
         }
     }
 }

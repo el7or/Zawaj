@@ -11,7 +11,7 @@ import { NbMenuItem } from '@nebular/theme';
   providedIn: 'root'
 })
 export class AuthService {
-  apiURL = environment.API_URL;
+  baseUrl = environment.API_URL+'auth/';
   jwtHelper = new JwtHelperService();
   currentUserName:string;
   redirectUrl:string;
@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   login(user:UserLogin){
-    return this.http.post(this.apiURL+'/auth/login/',user).pipe(
+    return this.http.post(this.baseUrl+'login/',user).pipe(
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   register(user:UserRegister){
-    return this.http.post(this.apiURL+'/auth/register/',user).pipe(
+    return this.http.post(this.baseUrl+'register/',user).pipe(
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
@@ -56,21 +56,4 @@ export class AuthService {
     }
     else{return menuItems}
   }
-
-  /* getAllUsers(): Observable<User[]> {
-    return this.http
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .pipe(
-        map(data =>
-          data.map(item => {
-            return <User>{
-              id: item.id,
-              name: item.name,
-              email: item.email,
-              username: item.username,
-            };
-          })
-        )
-      );
-  } */
 }

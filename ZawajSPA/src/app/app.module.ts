@@ -21,6 +21,7 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
+import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +44,7 @@ import { ErrorInterceptorProvidor } from './shared/interceptors/error-intercepto
     }),
     CoreModule.forRoot()
   ],
-  providers:[ErrorInterceptorProvidor],
+  providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor],
   bootstrap: [AppComponent],
 })
 export class AppModule {

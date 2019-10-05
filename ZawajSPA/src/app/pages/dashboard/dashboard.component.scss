@@ -13,4 +13,22 @@
       display: none;
     }
   }
+
+  nb-action{
+    cursor: pointer;
+  }
+
+  nb-card{
+    text-align: center !important;
+  }
+
+  pagination-controls{
+    text-align: center !important;
+  }
 }
+
+/* :host ::ng-deep div.user-name{
+  font-size: large !important;
+    font-weight: bolder !important;
+    margin-bottom: 10% !important;
+  } */

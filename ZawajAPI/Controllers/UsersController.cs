@@ -17,19 +17,20 @@ namespace ZawajAPI.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserRepo _repo;
         private readonly IMapper _mapper;
 
-        public UserController(IUserRepo repo, IMapper mapper)
+        public UsersController(IUserRepo repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
         }
 
-        // GET: api/User
+        // GET: api/Users
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _repo.GetAllUsers();
@@ -37,7 +38,7 @@ namespace ZawajAPI.Controllers
             return Ok(model);
         }
 
-        // GET: api/User/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
@@ -52,7 +53,7 @@ namespace ZawajAPI.Controllers
             return Ok(model);
         }
 
-        // POST: api/User
+        // POST: api/Users
         [HttpPost]
         public async Task<IActionResult> PostUser(User user)
         {
@@ -61,7 +62,7 @@ namespace ZawajAPI.Controllers
             //return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // PUT: api/User/5
+        // PUT: api/Users/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, User user)
         {
@@ -91,7 +92,7 @@ namespace ZawajAPI.Controllers
             return NoContent();*/
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

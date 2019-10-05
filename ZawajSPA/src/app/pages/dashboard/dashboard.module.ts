@@ -11,6 +11,7 @@ import {
   NbIconModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     NbIconModule,
     NbButtonModule,
     NgxEchartsModule,
+    NgxPaginationModule
   ],
   declarations: [
     DashboardComponent,

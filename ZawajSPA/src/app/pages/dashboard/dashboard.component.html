@@ -1,30 +1,20 @@
 <div class="row">
-  <div class="col-xxxl-3 col-md-6">
+  <div *ngFor="let user of users | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-2 col-md-3 col-sm-6">
+    <nb-action (click)="alert()">
+      <nb-card>
+        <nb-card-header>{{user.nickName}}</nb-card-header>
+        <nb-card-body>
+          <nb-user size="giant" [name]="user.gender" [title]="user.age"
+            [picture]="user.photoURL!=null? user.photoURL: 'assets/images/avatar.png'">
+          </nb-user>
 
+        </nb-card-body>
+        <nb-card-footer>{{user.country}} - {{user.city}}</nb-card-footer>
+      </nb-card>
+    </nb-action>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-  </div>
-
-  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6">
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xxxl-9 col-xl-12">
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-md-5">
-  </div>
-
-  <div class="col-xxxl-6 col-xxl-12 col-md-7">
-  </div>
-</div>
+<pagination-controls (pageChange)="p = $event" maxSize="12" directionLinks="true" autoHide="true"
+  responsive="true" previousLabel="" nextLabel="" screenReaderPaginationLabel=""
+  screenReaderPageLabel="" screenReaderCurrentLabel="">
+</pagination-controls>
