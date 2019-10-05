@@ -14,12 +14,18 @@
     }
   }
 
-  nb-action{
+  nb-card{
     cursor: pointer;
   }
 
   nb-card{
     text-align: center !important;
+  }
+
+  nb-card:hover{
+    transform: scale(1.2,1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
   }
 
   pagination-controls{
