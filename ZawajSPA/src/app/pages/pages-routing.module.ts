@@ -1,11 +1,12 @@
-import { AuthGuard } from './../shared/guards/auth.guard';
+import { MemberDetailsComponent } from './member-details/member-details.component';
+import { AuthGuard } from "./../shared/guards/auth.guard";
 import { ChatComponent } from "./chat/chat.component";
 import { SettingComponent } from "./setting/setting.component";
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 import { PagesComponent } from "./pages.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 import { SearchComponent } from "./search/search.component";
 
@@ -16,7 +17,12 @@ const routes: Routes = [
     /* runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard], */
     children: [
-      { path: "dashboard", component: DashboardComponent },
+      { path: "home", component: HomeComponent },
+      {
+        path: "member/:id",
+        component: MemberDetailsComponent,
+        canActivate: [AuthGuard]
+      },
       {
         path: "chat",
         component: ChatComponent
@@ -28,11 +34,11 @@ const routes: Routes = [
       {
         path: "setting",
         component: SettingComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: "",
-        redirectTo: "dashboard",
+        redirectTo: "home",
         pathMatch: "full"
       },
       {

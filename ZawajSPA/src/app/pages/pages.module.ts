@@ -5,20 +5,21 @@ import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardM
 
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { HomeModule } from './home/home.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { SettingComponent } from './setting/setting.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SearchComponent } from './search/search.component';
 import { ChatComponent } from './chat/chat.component';
+import { MemberDetailsComponent } from './member-details/member-details.component';
 
 @NgModule({
   imports: [
     PagesRoutingModule,
     SharedModule,
     NbMenuModule,
-    DashboardModule,
+    HomeModule,
     MiscellaneousModule,
     NbAlertModule,
     FormsModule,
@@ -34,6 +35,7 @@ import { ChatComponent } from './chat/chat.component';
     SettingComponent,
     SearchComponent,
     ChatComponent,
+    MemberDetailsComponent,
   ],
   providers:[AuthGuard]
 })

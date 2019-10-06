@@ -14,11 +14,13 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { SharedModule } from '../../shared/shared.module';
-import { DashboardComponent } from './dashboard.component';
+import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
+    RouterModule,
     FormsModule,
     SharedModule,
     NbCardModule,
@@ -35,7 +37,7 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule
   ],
   declarations: [
-    DashboardComponent,
+    HomeComponent,
   ],
 })
-export class DashboardModule { }
+export class HomeModule { }

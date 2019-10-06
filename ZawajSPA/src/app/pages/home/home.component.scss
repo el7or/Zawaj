@@ -16,10 +16,9 @@
 
   nb-card{
     cursor: pointer;
-  }
-
-  nb-card{
     text-align: center !important;
+    overflow: hidden;
+    position: relative;  
   }
 
   nb-card:hover{
@@ -31,10 +30,41 @@
   pagination-controls{
     text-align: center !important;
   }
+
+  .wrapper{
+    overflow: hidden;
+    position: relative;   
 }
 
-/* :host ::ng-deep div.user-name{
-  font-size: large !important;
-    font-weight: bolder !important;
-    margin-bottom: 10% !important;
-  } */
+.members-icons{
+    position: absolute;
+    bottom: -30%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    opacity:0;
+    
+}
+nb-card:hover .members-icons{
+    bottom: 0;
+    opacity: 1;
+}
+
+.animate{
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-danger:hover {
+    color: #dc3545;
+    background-color: pink;
+  
+    border-color: pink;
+}
+.btn-outline-danger {
+    color: #dc3545;
+    background-color: white;
+    
+    border-color: pink;
+}
+}
