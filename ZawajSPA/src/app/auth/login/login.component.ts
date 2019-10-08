@@ -56,7 +56,7 @@ export class LoginComponent extends NbLoginComponent
       () => {
         this.loading = false;
         if(this.authService.redirectUrl)
-        {this.router.navigateByUrl(this.authService.redirectUrl);}
+        {this.router.navigateByUrl(this.authService.redirectUrl.substring(0, this.router.url.indexOf("/")));}
         else{this.location.back();}
       }
     );
