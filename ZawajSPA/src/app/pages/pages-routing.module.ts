@@ -1,4 +1,4 @@
-import { MemberDetailsComponent } from './member-details/member-details.component';
+import { MemberDetailsComponent } from "./member-details/member-details.component";
 import { AuthGuard } from "./../shared/guards/auth.guard";
 import { ChatComponent } from "./chat/chat.component";
 import { SettingComponent } from "./setting/setting.component";
@@ -17,9 +17,9 @@ const routes: Routes = [
     /* runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard], */
     children: [
-      { path: "home", component: HomeComponent },
+      { path: "members", component: HomeComponent },
       {
-        path: "member/:id",
+        path: "members/:id",
         component: MemberDetailsComponent,
         canActivate: [AuthGuard]
       },
@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        redirectTo: "home",
+        redirectTo: "members",
         pathMatch: "full"
       },
       {

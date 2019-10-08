@@ -51,5 +51,10 @@
     {"ar":"بحث سريع","en":"Quick Search"},
     {"ar":"خطأ 404 الصفحة غير موجودة!","en":"404 Page Not Found"},
     {"ar":"الصفحة التي تبحث عنها غير موجودة","en":"The page you were looking for doesn't exist"},
-    {"ar":"إلى الصفحة الرئيسية","en":"Take me home"}
+    {"ar":"إلى الصفحة الرئيسية","en":"Take me home"},
+    {"ar":"مكان الإقامة","en":"Residence"},
+    {"ar":"العمر","en":"Age"},
+    {"ar":"آخر ظهور","en":"Last Seen"},
+    {"ar":"مشترك منذ","en":"Member from"}
+    
 ]

@@ -26,8 +26,4 @@ export class HomeComponent implements OnInit {
       } */
     );
   }
-
-  alert(){
-    alert(11111111)
-  }
 }
