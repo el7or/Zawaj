@@ -24,7 +24,8 @@
 .nb-theme-default nb-tabset .tab.active .tab-link {
   color: deeppink !important;
 }
-.nb-theme-default nb-tabset .tab.active .tab-link::before{
+.nb-theme-default nb-tabset .tab.active .tab-link::before,
+.nb-theme-default .pace .pace-progress{
   background-color: deeppink !important;
 }
 
