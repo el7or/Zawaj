@@ -20,13 +20,20 @@
   }
 }
 .nb-theme-default nb-menu .menu-item a.active .menu-icon,
-.nb-theme-default nb-menu .menu-item a.active {
+.nb-theme-default nb-menu .menu-item a.active,
+.nb-theme-default nb-tabset .tab.active .tab-link {
   color: deeppink !important;
+}
+.nb-theme-default nb-tabset .tab.active .tab-link::before{
+  background-color: deeppink !important;
 }
 
 .nb-theme-default nb-menu .menu-item a:hover .menu-icon,
 .nb-theme-default nb-menu .menu-item a:hover{
   color:rgba(255, 20, 145, 0.623) !important;
+}
+.nb-theme-default nb-tabset .tab:hover .tab-link::before{
+  background-color: rgba(255, 20, 145, 0.623) !important;
 }
 
 .nb-theme-default a:hover{

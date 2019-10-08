@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-lg-4 col-md-4 col-sm-12">
       <nb-card>
         <nb-card-body>
           <img class="card-img-top img-thumbnail" src="{{userDetails.photoURL || 'assets/images/avatar.png'}}"
@@ -36,7 +36,7 @@
         </nb-card-footer>
       </nb-card>
     </div>
-    <div class="col-sm-8">
+    <div class="col-lg-8 col-md-8 col-sm-12">
         <nb-tabset #memberTabs class="member-tabset">
           <nb-tab tabTitle="About me">
             <nb-card>
@@ -57,8 +57,8 @@
                   <div class="card-text mt-3 p-2">
                     <p #look>{{userDetails.lookingFor | slice:0:200}}</p>
                   </div>
-                  <button [hidden]='!showLook' class="btn btn-primary" (click)="look.innerText = userDetails.lookingFor;showLook=false;">إقرأ المزيد</button>
-                  <button [hidden]='showLook' class="btn btn-danger" (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;">تصغير</button>
+                  <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor.length>200" (click)="look.innerText = userDetails.lookingFor;showLook=false;">إقرأ المزيد</button>
+                  <button nbButton status="danger" [hidden]='showLook' (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;">تصغير</button>
             </nb-card>
 
             
