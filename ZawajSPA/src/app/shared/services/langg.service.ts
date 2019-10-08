@@ -8,6 +8,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class LanggService {
   
+  elementsArray = new BehaviorSubject<[]>([]);
+  PlacholdersArray = new BehaviorSubject<[]>([]);
   language = new BehaviorSubject<string>(localStorage.getItem('langg')=='en'?'en':'ar');
   lang = this.language.asObservable();
   constructor(titleService: Title) {
