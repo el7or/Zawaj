@@ -9,6 +9,7 @@ import { PagesComponent } from "./pages.component";
 import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 import { SearchComponent } from "./search/search.component";
+import { MemberDetailsResolverService } from './member-details/member-details-resolver.service';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
       {
         path: "members/:id",
         component: MemberDetailsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        resolve:{userDetails:MemberDetailsResolverService}
       },
       {
         path: "chat",

@@ -55,6 +55,9 @@
     {"ar":"مكان الإقامة","en":"Residence"},
     {"ar":"العمر","en":"Age"},
     {"ar":"آخر ظهور","en":"Last Seen"},
-    {"ar":"مشترك منذ","en":"Member from"}
+    {"ar":"مشترك منذ","en":"Member from"},
+    {"ar":"لمحة عني","en":"About me"},
+    {"ar":"أعرفك بنفسي","en":"Introduce Myself"},
+    {"ar":"أبحث عن","en":"Look for"}
     
 ]

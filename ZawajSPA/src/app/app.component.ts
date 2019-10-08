@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked() {
     let runTimeElements = document.querySelectorAll(
-      ".menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content, .swal2-confirm, nb-option.ng-star-inserted, span.info"
+      ".menu-title, div.message, span.title.subtitle, #swal2-title, #swal2-content, .swal2-confirm, nb-option.ng-star-inserted, span.info, span.tab-text"
     );
     let runTimeElementsArray = Array.prototype.slice.call(runTimeElements);
     runTimeElementsArray.forEach(element => {
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         (lang: string) => {
           try {
             let words = this._words.filter(o =>
-              Object.keys(o).some(k => o[k] == element.innerText)
+              Object.keys(o).some(k => o[k] == element.innerText ||  o[k] == element.innerHTML)
             );
             element.innerText = words[0][lang];
           } catch {}

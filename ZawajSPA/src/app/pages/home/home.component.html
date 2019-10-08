@@ -1,6 +1,6 @@
 <div class="row">
   <div *ngFor="let user of users | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-2 col-md-3 col-sm-6">
-    <nb-card (click)="alert()">
+    <nb-card>
       <nb-card-header>{{user.nickName}}</nb-card-header>
       <nb-card-body>
         <nb-user size="giant" [name]="user.gender" [title]="user.age"
@@ -21,8 +21,7 @@
 
     <ul dir="ltr" class="list-inline members-icons animate text-center">
       <li class="list-inline-item">
-        <button class="btn btn-outline-danger" [routerLink]="['/pages/members/'+user.id]"
-        [queryParams]="{tab:3}">
+        <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange [queryParams]="{tab:3}">
           <i class="fa fa-envelope"></i>
         </button>
       </li>
@@ -32,7 +31,7 @@
         </button>
       </li>
       <li class="list-inline-item">
-        <button class="btn btn-outline-danger" [routerLink]="['/pages/members/'+user.id]" >
+        <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange>
           <i class="fa fa-user"></i>
         </button>
       </li>

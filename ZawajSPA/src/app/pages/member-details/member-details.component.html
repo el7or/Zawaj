@@ -8,7 +8,7 @@
           <div class="h4">{{userDetails.nickName}}</div>
           <div>
             <strong langg>Residence</strong>
-            <p>{{userDetails.country}}-{{userDetails.city}}</p>
+            <p>{{userDetails.country}} - {{userDetails.city}}</p>
           </div>
           <div>
             <strong langg>Age</strong>
@@ -16,11 +16,12 @@
           </div>
           <div>
             <strong langg>Last Seen</strong>
-            <p>{{userDetails.lastActive <!-- | timeAgo -->}}</p>
+            <p>{{userDetails.lastActive }}</p>
+            <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
           </div>
           <div>
             <strong langg>Member from</strong>
-            <p>{{userDetails.created}}</p>
+            <p>{{userDetails.createdOn}}</p>
           </div>
         </nb-card-body>
 
@@ -37,21 +38,21 @@
     </div>
     <div class="col-sm-8">
         <nb-tabset #memberTabs class="member-tabset">
-          <nb-tab tabTitle="أنا {{userDetails?.nickName}}">
+          <nb-tab tabTitle="About me">
             <nb-card>
                 <nb-card-header>
-                    <h4>أعرفك بنفسي</h4>
+                    <h4 langg>Introduce Myself</h4>
                   </nb-card-header>
                   <nb-card-body>
-                    <p #intro>{{userDetails.about | slice:0:200}}</p>
+                    <p #about>{{userDetails.about | slice:0:200}}</p>
                   </nb-card-body>
-                  <button nbButton status="primary" [hidden]='!showIntro' (click)="intro.innerText = userDetails.about;showIntro=false;">إقرأ المزيد</button>
-                  <button nbButton status="danger" [hidden]='showIntro' (click)="intro.innerText = userDetails.about.slice(0,200);showIntro=true;">تصغير</button>
+                  <button nbButton status="primary" [hidden]='!showIntro' *ngIf="userDetails.about.length>200" (click)="about.innerText = userDetails.about;showIntro=false;">إقرأ المزيد</button>
+                  <button nbButton status="danger" [hidden]='showIntro' (click)="about.innerText = userDetails.about.slice(0,200);showIntro=true;">تصغير</button>
             </nb-card>
             
             <nb-card>
                 <nb-card-header>
-                    <h4>أبحث عن</h4>
+                    <h4 langg>Look for</h4>
                   </nb-card-header>
                   <div class="card-text mt-3 p-2">
                     <p #look>{{userDetails.lookingFor | slice:0:200}}</p>
