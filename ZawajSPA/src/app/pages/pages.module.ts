@@ -1,4 +1,4 @@
-import { HomeComponent } from './home/home.component';
+import { MemberListComponent } from './member-list/member-list.component';
 import { AuthGuard } from './../shared/guards/auth.guard';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -37,7 +37,7 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
   ],
   declarations: [
     PagesComponent,
-    HomeComponent,
+    MemberListComponent,
     SettingComponent,
     SearchComponent,
     ChatComponent,

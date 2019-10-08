@@ -6,7 +6,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 import { PagesComponent } from "./pages.component";
-import { HomeComponent } from "./home/home.component";
+import { MemberListComponent } from "./member-list/member-list.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 import { SearchComponent } from "./search/search.component";
 import { MemberDetailsResolverService } from './member-details/member-details-resolver.service';
@@ -18,7 +18,7 @@ const routes: Routes = [
     /* runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard], */
     children: [
-      { path: "members", component: HomeComponent },
+      { path: "members", component: MemberListComponent },
       {
         path: "members/:id",
         component: MemberDetailsComponent,

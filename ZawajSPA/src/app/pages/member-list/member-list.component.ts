@@ -5,10 +5,10 @@ import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-home",
-  styleUrls: ["./home.component.scss"],
-  templateUrl: "./home.component.html"
+  styleUrls: ["./member-list.component.scss"],
+  templateUrl: "./member-list.component.html"
 })
-export class HomeComponent implements OnInit {
+export class MemberListComponent implements OnInit {
   users: UserList[];
   p: number = 1;
 

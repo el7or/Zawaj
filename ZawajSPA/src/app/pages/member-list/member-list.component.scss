@@ -30,6 +30,9 @@
   pagination-controls{
     text-align: center !important;
   }
+ pagination-controls /deep/ .ngx-pagination .current{
+   background-color: deeppink;
+ }
 
   .wrapper{
     overflow: hidden;
@@ -56,13 +59,13 @@ nb-card:hover .members-icons{
 }
 
 .btn-outline-danger:hover {
-    color: #dc3545;
+    color: deeppink;
     background-color: pink;
   
     border-color: pink;
 }
 .btn-outline-danger {
-    color: #dc3545;
+    color: deeppink;
     background-color: white;
     
     border-color: pink;
