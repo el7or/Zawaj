@@ -22,6 +22,11 @@ import {
 } from '@nebular/theme';
 import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
 import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +47,14 @@ import { TokenInterceptorProvidor } from './shared/interceptors/token-intercepto
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5000'],
+        blacklistedRoutes: ['localhost:5000/api/auth']
+      }
+    })
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor],
   bootstrap: [AppComponent],
