@@ -20,7 +20,6 @@ showLook:boolean=true;
     });
   }
 
-
   deselect(){
       }
 

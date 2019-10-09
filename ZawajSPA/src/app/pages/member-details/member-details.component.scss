@@ -1,26 +1,76 @@
-@import '../../shared/styles/themes';
+@import "../../shared/styles/themes";
 
 @include nb-install-component() {
-
-    .img-thumbnail{
-        border-radius: 5px 5px 0px 0px/25px 25px 25px 5px;
-    }
-  
-    nb-card-footer {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-  
-    .link-icon {
-      font-size: 1.75rem;
-    }
-  
-    nb-icon {
-      font-size: 1.55rem;      
-    }
-    nb-icon:hover{
-        background:lightgray !important;
-        border-radius: 80%;
-    }
+  .img-thumbnail {
+    border-radius: 5px 5px 0px 0px/25px 25px 25px 5px;
   }
+
+  nb-card-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .link-icon {
+    font-size: 1.75rem;
+  }
+
+  nb-icon {
+    font-size: 1.55rem;
+  }
+  nb-icon:hover {
+    background: lightgray !important;
+    border-radius: 80%;
+  }
+}
+
+/* :host nb-card.dialog {
+  margin: 0;
+  height: calc(100vh - 2 * 2.5rem);
+}
+:host .navigation .link {
+  display: inline-block;
+  text-decoration: none;
+}
+:host .navigation .link nb-icon {
+  font-size: 2rem;
+  vertical-align: middle;
+}
+:host .links nb-icon {
+  font-size: 2.5rem;
+}
+:host nb-card-body.dialog {
+  display: flex;
+  width: 100%;
+}
+:host nb-auth-block {
+  margin: auto;
+}
+@media (max-width: 767.98px) {
+  :host nb-card.dialog {
+    border-radius: 0;
+    height: 100vh;
+  }
+}
+:host
+  ::ng-deep
+  nb-layout.dialog 
+  .layout
+  .layout-container
+  .content
+  .columns
+  nb-layout-column.dialog {
+  padding: 2.5rem;
+}
+@media (max-width: 767.98px) {
+  :host
+    ::ng-deep
+    nb-layout
+    .layout
+    .layout-container
+    .content
+    .columns
+    nb-layout-column {
+    padding: 0;
+  }
+} */

@@ -1,94 +1,109 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <nb-card>
-        <nb-card-body>
-          <img class="card-img-top img-thumbnail" src="{{userDetails.photoURL || 'assets/images/avatar.png'}}"
-            alt="{{userDetails.nickName}}">
-          <div class="h4">{{userDetails.nickName}}</div>
-          <div>
-            <strong langg>Residence</strong>
-            <p>{{userDetails.country}} - {{userDetails.city}}</p>
-          </div>
-          <div>
-            <strong langg>Age</strong>
-            <p>{{userDetails.age}}</p>
-          </div>
-          <div>
-            <strong langg>Last Seen</strong>
-            <p>{{userDetails.lastActive }}</p>
-            <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
-          </div>
-          <div>
-            <strong langg>Member from</strong>
-            <p>{{userDetails.createdOn}}</p>
-          </div>
-        </nb-card-body>
+<nb-card class="dialog">
+  <nb-card-header class="dialog">
+    <nav class="navigation"> <a [routerLink]="['/']" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+    </nav>
+  </nb-card-header>
+  <nb-card-body class="dialog">
 
-        <nb-card-footer>
-          <a href="#">
-            <nb-icon status="danger" icon="heart-outline"></nb-icon>
-          </a>
-          <a status="danger" href="#">
-            <nb-icon status="success" icon="email-outline"></nb-icon>
-          </a>
-          <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->
-        </nb-card-footer>
-      </nb-card>
-    </div>
-    <div class="col-lg-8 col-md-8 col-sm-12">
-        <nb-tabset #memberTabs class="member-tabset">
-          <nb-tab tabTitle="About me">
-            <nb-card>
-                <nb-card-header>
-                    <h4 langg>Introduce Myself</h4>
-                  </nb-card-header>
-                  <nb-card-body>
-                    <p #about>{{userDetails.about | slice:0:200}}</p>
-                  </nb-card-body>
-                  <button nbButton status="primary" [hidden]='!showIntro' *ngIf="userDetails.about.length>200" (click)="about.innerText = userDetails.about;showIntro=false;">إقرأ المزيد</button>
-                  <button nbButton status="danger" [hidden]='showIntro' (click)="about.innerText = userDetails.about.slice(0,200);showIntro=true;">تصغير</button>
-            </nb-card>
-            
-            <nb-card>
-                <nb-card-header>
-                    <h4 langg>Look for</h4>
-                  </nb-card-header>
-                  <div class="card-text mt-3 p-2">
-                    <p #look>{{userDetails.lookingFor | slice:0:200}}</p>
-                  </div>
-                  <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor.length>200" (click)="look.innerText = userDetails.lookingFor;showLook=false;">إقرأ المزيد</button>
-                  <button nbButton status="danger" [hidden]='showLook' (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;">تصغير</button>
-            </nb-card>
-
-            
-          </nb-tab>
-      
-      
-
-      <nb-tab tabTitle="هواياتي">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
           <nb-card>
-              <nb-card-header>
-                  <h4>هواياتي</h4>
+            <nb-card-body>
+              <img class="card-img-top img-thumbnail" src="{{userDetails.photoURL || 'assets/images/avatar.png'}}"
+                alt="{{userDetails.nickName}}">
+              <div class="h4">{{userDetails.nickName}}</div>
+              <div>
+                <strong langg>Residence</strong>
+                <p>{{userDetails.country}} - {{userDetails.city}}</p>
+              </div>
+              <div>
+                <strong langg>Age</strong>
+                <p>{{userDetails.age}}</p>
+              </div>
+              <div>
+                <strong langg>Last Seen</strong>
+                <p>{{userDetails.lastActive }}</p>
+                <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
+              </div>
+              <div>
+                <strong langg>Member from</strong>
+                <p>{{userDetails.createdOn}}</p>
+              </div>
+            </nb-card-body>
+
+            <nb-card-footer>
+              <a href="#">
+                <nb-icon status="danger" icon="heart-outline"></nb-icon>
+              </a>
+              <a status="danger" href="#">
+                <nb-icon status="success" icon="email-outline"></nb-icon>
+              </a>
+              <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->
+            </nb-card-footer>
+          </nb-card>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12">
+          <nb-tabset #memberTabs class="member-tabset">
+            <nb-tab tabTitle="About me">
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>Introduce Myself</h4>
+                </nb-card-header>
+                <nb-card-body>
+                  <p #about>{{userDetails.about | slice:0:200}}</p>
+                </nb-card-body>
+                <button nbButton status="primary" [hidden]='!showIntro' *ngIf="userDetails.about.length>200"
+                  (click)="about.innerText = userDetails.about;showIntro=false;">Read more...</button>
+                <button nbButton status="danger" [hidden]='showIntro'
+                  (click)="about.innerText = userDetails.about.slice(0,200);showIntro=true;" langg>Collapse</button>
+              </nb-card>
+
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>Look for</h4>
                 </nb-card-header>
                 <div class="card-text mt-3 p-2">
-                    <p>{{userDetails.interests}}</p>
+                  <p #look>{{userDetails.lookingFor | slice:0:200}}</p>
                 </div>
-          </nb-card>
-      </nb-tab>
+                <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor.length>200"
+                  (click)="look.innerText = userDetails.lookingFor;showLook=false;" langg>Read more...</button>
+                <button nbButton status="danger" [hidden]='showLook'
+                  (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;" langg>Collapse</button>
+              </nb-card>
 
 
-      <nb-tab tabTitle="ألبوم الصور">
+            </nb-tab>
 
-        <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
-      </nb-tab>
 
-      <nb-tab tabTitle="الرسائل" (deselect)="deselect()">
-       <!-- <app-member-messages *ngIf="paid" [recipientId]="userDetails.id"></app-member-messages>
+
+            <nb-tab tabTitle="My hobbies">
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>My hobbies</h4>
+                </nb-card-header>
+                <div class="card-text mt-3 p-2">
+                  <p>{{userDetails.interests}}</p>
+                </div>
+              </nb-card>
+            </nb-tab>
+
+
+            <nb-tab tabTitle="Photo Gallery">
+
+              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+            </nb-tab>
+
+            <nb-tab tabTitle="Messages" (deselect)="deselect()">
+              <!-- <app-member-messages *ngIf="paid" [recipientId]="userDetails.id"></app-member-messages>
        <app-payment *ngIf="!paid"></app-payment> -->
-      </nb-tab>
+            </nb-tab>
 
-      </nb-tabset>
+          </nb-tabset>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </nb-card-body>
+</nb-card>

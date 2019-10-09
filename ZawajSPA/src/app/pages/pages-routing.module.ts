@@ -10,6 +10,7 @@ import { MemberListComponent } from "./member-list/member-list.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 import { SearchComponent } from "./search/search.component";
 import { MemberDetailsResolverService } from './member-details/member-details-resolver.service';
+import { MemberListResolverService } from './member-list/member-list-resolver.service';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
     /* runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard], */
     children: [
-      { path: "members", component: MemberListComponent },
+      { path: "members", component: MemberListComponent,
+      resolve:{userList:MemberListResolverService} },
       {
         path: "members/:id",
         component: MemberDetailsComponent,

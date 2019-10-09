@@ -2,6 +2,7 @@ import { UserList } from "../../shared/models/user-list";
 import { UserService } from "../../shared/services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "ngx-home",
@@ -14,16 +15,14 @@ export class MemberListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private route: ActivatedRoute,
     private toastrService: NbToastrService
   ) {}
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe(
-      res => { this.users = res; }
-      /* err => {
-        console.log(err);
-        this.toastrService.warning('Please refresh page and try again.','Something Wrong!',{ duration:3000 });
-      } */
-    );
+    this.route.data
+    .subscribe(data => {
+      this.users = data.userList;
+    });
   }
 }

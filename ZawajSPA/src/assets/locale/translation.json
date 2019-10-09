@@ -60,6 +60,11 @@
     {"ar":"أعرفك بنفسي","en":"Introduce Myself"},
     {"ar":"أبحث عن","en":"Look for"},
     {"ar":"رجل","en":"Male"},
-    {"ar":"إمرأة","en":"Female"}
+    {"ar":"إمرأة","en":"Female"},
+    {"ar":"هواياتي","en":"My hobbies"},
+    {"ar":"ألبوم الصور","en":"Photo Gallery"},
+    {"ar":"الرسائل","en":"Messages"},
+    {"ar":"إقرأ المزيد...","en":"Read more..."},
+    {"ar":"تصغير","en":"Collapse"}
     
 ]

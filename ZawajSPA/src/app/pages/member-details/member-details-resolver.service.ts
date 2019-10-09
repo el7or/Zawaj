@@ -15,9 +15,11 @@ import { NbToastrService } from '@nebular/theme';
   providedIn: "root"
 })
 export class MemberDetailsResolverService implements Resolve<UserDetails> {
+  
   constructor(private userService:UserService,private router:Router,private toastrService:NbToastrService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserDetails> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  Observable<UserDetails> | Observable<never> {
     return this.userService.getUserById(route.paramMap.get('id')).pipe(catchError(error => {
       return EMPTY
    }), mergeMap(userDetails => {
