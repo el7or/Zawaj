@@ -1,15 +1,53 @@
 @import "../../shared/styles/themes";
 
 @include nb-install-component() {
-  .img-thumbnail {
+  .img-thumbnail{
     border-radius: 5px 5px 0px 0px/25px 25px 25px 5px;
-  }
+}
+nb-card-body{
+    padding: 0 25px;
+    }
+    nb-card-footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
 
-  nb-card-footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+     button:hover{
+        text-decoration: none;
+        color: black !important;
+        letter-spacing:0.5px;
+        
+      }
+      button{
+        text-decoration: none;
+        letter-spacing:0.5px;
+        font-weight:bold;
+        font-family:'JF-Flat' !important;
+        font-size:1rem
+          }
+
+p{
+    letter-spacing:0.5px;
+    font-weight:bold;
+    font-family:'Tajawal' !important;
+    font-size:1.2rem
+}
+strong,span{
+    letter-spacing:0.5px;
+    font-weight:bolder;
+    font-family:'JF-Flat';
+    font-size:1.1rem;
+    margin-top: 20px;
+    margin-bottom: 10px; 
+}
+h4{
+    letter-spacing:0.5px;
+    font-weight:bolder;
+    font-family:'JF-Flat';
+    font-size:1.1rem;
+    margin-top: -2px;
+}
 
   .link-icon {
     font-size: 1.75rem;

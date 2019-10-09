@@ -67,6 +67,8 @@
     {"ar":"إقرأ المزيد...","en":"Read more..."},
     {"ar":"تصغير","en":"Collapse"},
     {"ar":"بياناتي","en":"My Details"},
-    {"ar":"صوري","en":"My Photos"}
+    {"ar":"صوري","en":"My Photos"},
+    {"ar":"البلد","en":"Country"},
+    {"ar":"المدينة","en":"City"}
     
 ]
