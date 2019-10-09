@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     { title: "عربي", group: false, data: "ar" },
     { title: "English", group: false, data: "en" }
   ];
-  userMenu = [{ title: "Profile", link: "/",icon: "person" }, { title: "Log out", icon: "menu-arrow-outline" }];
+  userMenu = [{ title: "Profile",icon: "person" }, { title: "Log out", icon: "menu-arrow-outline" }];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -74,7 +74,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
         case "Log out":
           this.logOut();
           break;
-        case "Profile":          
+        case "Profile":
+          this.router.navigateByUrl('/pages/members/edit');
           break;
         case 'English':
         case 'عربي':

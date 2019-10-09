@@ -15,6 +15,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SearchComponent } from './search/search.component';
 import { ChatComponent } from './chat/chat.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
     SearchComponent,
     ChatComponent,
     MemberDetailsComponent,
+    MemberEditComponent,
   ],
   providers:[AuthGuard]
 })

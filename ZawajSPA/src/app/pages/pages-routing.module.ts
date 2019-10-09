@@ -1,3 +1,5 @@
+import { MemberEditResolverService } from './member-edit/member-edit-resolver.service';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 import { MemberDetailsComponent } from "./member-details/member-details.component";
 import { AuthGuard } from "./../shared/guards/auth.guard";
 import { ChatComponent } from "./chat/chat.component";
@@ -21,6 +23,12 @@ const routes: Routes = [
     children: [
       { path: "members", component: MemberListComponent,
       resolve:{userList:MemberListResolverService} },
+      {
+        path: "members/edit",
+        component: MemberEditComponent,
+        canActivate: [AuthGuard],
+        resolve:{userDetails:MemberEditResolverService}
+      },
       {
         path: "members/:id",
         component: MemberDetailsComponent,

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { NbMenuItem } from '@nebular/theme';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class AuthService {
   baseUrl = environment.API_URL+'auth/';
   jwtHelper = new JwtHelperService();
   currentUserName:string;
+  currentUserId:string;
+ 
   redirectUrl:string;
 
   constructor(private http:HttpClient) { }
@@ -24,7 +27,6 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
-          this.currentUserName=this.jwtHelper.decodeToken(res.token).sub;
         }
       })
     );
@@ -36,7 +38,6 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
-          this.currentUserName=this.jwtHelper.decodeToken(res.token).sub;
         }
       })
     );

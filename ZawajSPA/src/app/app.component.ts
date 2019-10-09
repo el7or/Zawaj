@@ -28,11 +28,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
     const user = JSON.parse(localStorage.getItem("user"));
     if (token) {
       this.authService.currentUserName = this.jwtHelper.decodeToken(token).sub;
+      this.authService.currentUserId = this.jwtHelper.decodeToken(token).jti;
     }
-    /* if (user) {
-      this.authService.currentUser = user;
-      this.authService.changeMemberPhoto(this.authService.currentUser.photoURL);
-    } */
   }
 
   ngAfterViewChecked() {
