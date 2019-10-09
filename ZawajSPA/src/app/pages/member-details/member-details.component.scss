@@ -24,6 +24,10 @@
   }
 }
 
+/deep/ .ngx-gallery-thumbnail:not(.ngx-gallery-active) {  
+  opacity: 0.5;
+}
+
 /* :host nb-card.dialog {
   margin: 0;
   height: calc(100vh - 2 * 2.5rem);

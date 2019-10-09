@@ -73,12 +73,7 @@
                 <button nbButton status="danger" [hidden]='showLook'
                   (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;" langg>Collapse</button>
               </nb-card>
-
-
             </nb-tab>
-
-
-
             <nb-tab tabTitle="My hobbies">
               <nb-card>
                 <nb-card-header>
@@ -89,13 +84,9 @@
                 </div>
               </nb-card>
             </nb-tab>
-
-
             <nb-tab tabTitle="Photo Gallery">
-
-              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </nb-tab>
-
             <nb-tab tabTitle="Messages" (deselect)="deselect()">
               <!-- <app-member-messages *ngIf="paid" [recipientId]="userDetails.id"></app-member-messages>
        <app-payment *ngIf="!paid"></app-payment> -->

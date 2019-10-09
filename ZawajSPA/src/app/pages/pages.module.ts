@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule, NbLayoutModule, NbSidebarModule, NbUserModule, NbIconModule, NbTabsetModule, NbButtonModule } from '@nebular/theme';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
@@ -33,7 +34,8 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
     NbTabsetModule,
     NbButtonModule,
     SweetAlert2Module.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxGalleryModule
   ],
   declarations: [
     PagesComponent,
