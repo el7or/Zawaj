@@ -9,6 +9,9 @@
 
     <div class="container">
       <div class="row">
+        <div class="col-9">
+          <h3 langg class="text-center mt-4 mb-3">Profile</h3>
+        </div>
         <div class="col-lg-4 col-md-4 col-sm-12">
           <nb-card>
             <nb-card-body>
@@ -35,60 +38,64 @@
             </nb-card-body>
 
             <nb-card-footer>
-              <a href="#">
-                <nb-icon status="danger" icon="heart-outline"></nb-icon>
-              </a>
-              <a status="danger" href="#">
-                <nb-icon status="success" icon="email-outline"></nb-icon>
-              </a>
-              <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->
+              <button ngButton status="success" form="editForm" [disabled]="!editForm.dirty" class="btn btn-success btn-block" langg>Save Updates</button>
             </nb-card-footer>
           </nb-card>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12">
           <nb-tabset #memberTabs class="member-tabset">
             <nb-tab tabTitle="My Details">
-              <nb-card>
+                <form #editForm ="ngForm" id="editForm" (ngSubmit)="updateUser()" >
+              <nb-card accent="danger">
                 <nb-card-header>
                   <h4 langg>Introduce Myself</h4>
                 </nb-card-header>
                 <nb-card-body>
-                  <textarea nbInput fullWidth [(ngModel)]="userDetails.about"></textarea>
+                    <div class="card-text mt-2 p-2">
+                  <textarea nbInput fullWidth [(ngModel)]="userDetails.about" name="about" autosize [minRows]="3" [maxRows]="7"></textarea>
+                    </div>
                 </nb-card-body>
               </nb-card>
 
-              <nb-card>
+              <nb-card accent="danger">
                 <nb-card-header>
                   <h4 langg>Look for</h4>
                 </nb-card-header>
-                <div class="card-text mt-3 p-2">
-                  <textarea nbInput fullWidth [(ngModel)]="userDetails.lookingFor"></textarea>
+                <nb-card-body>
+                <div class="card-text mt-2 p-2">
+                    <textarea nbInput fullWidth [(ngModel)]="userDetails.lookingFor" name="lookingFor" autosize [minRows]="3" [maxRows]="7"></textarea>
                 </div>
+              </nb-card-body>
               </nb-card>
-              <nb-card>
+              <nb-card accent="danger">
                 <nb-card-header>
                   <h4 langg>My hobbies</h4>
                 </nb-card-header>
-                <div class="card-text mt-3 p-2">
-                  <textarea nbInput fullWidth [(ngModel)]="userDetails.interests"></textarea>
+                <nb-card-body>
+                <div class="card-text mt-2 p-2">
+                    <textarea nbInput fullWidth [(ngModel)]="userDetails.interests" name="interests" autosize [minRows]="3" [maxRows]="7"></textarea>
                 </div>
+              </nb-card-body>
               </nb-card>
 
               <nb-card>
-                <nb-card-header>
+                <nb-card-header accent="danger">
                   <h4 langg>Residence</h4>
                 </nb-card-header>
-                <div class="card-text mt-3 p-2">
+                <nb-card-body>
+                <div class="card-text mt-2 p-2">
                   <div class="row">
                     <div class="col-6">
-                        <input nbInput fullWidth placeholder="Country" [(ngModel)]="userDetails.country" langg>
+                        <input nbInput fullWidth placeholder="Country" [(ngModel)]="userDetails.country" name="country" langg>
                     </div>
                     <div class="col-6">
-                        <input nbInput fullWidth placeholder="City" [(ngModel)]="userDetails.city" langg>                      
+                        <input nbInput fullWidth placeholder="City" [(ngModel)]="userDetails.city" name="city" langg>                      
                     </div>
                   </div>
                 </div>
+              </nb-card-body>
               </nb-card>
+                </form>
             </nb-tab>
             <nb-tab tabTitle="My Photos">
               <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
@@ -99,3 +106,8 @@
     </div>
   </nb-card-body>
 </nb-card>
+
+<swal #unsavedSwal title="Attention !" text="Your data has been updated. Would you like to continue without saving the data?"
+ type="error" showCancelButton="true" confirmButtonText="Yes, Exit!" cancelButtonText="No, Cancel"
+ focusCancel="true" cancelButtonColor="#d33" langg>
+</swal>

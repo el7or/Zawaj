@@ -1,3 +1,4 @@
+import { UnsavedChangesGuard } from './../shared/guards/unsaved-changes.guard';
 import { MemberEditResolverService } from './member-edit/member-edit-resolver.service';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { MemberDetailsComponent } from "./member-details/member-details.component";
@@ -27,6 +28,7 @@ const routes: Routes = [
         path: "members/edit",
         component: MemberEditComponent,
         canActivate: [AuthGuard],
+        canDeactivate:[UnsavedChangesGuard],
         resolve:{userDetails:MemberEditResolverService}
       },
       {
