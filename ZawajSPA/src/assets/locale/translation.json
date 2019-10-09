@@ -65,6 +65,8 @@
     {"ar":"ألبوم الصور","en":"Photo Gallery"},
     {"ar":"الرسائل","en":"Messages"},
     {"ar":"إقرأ المزيد...","en":"Read more..."},
-    {"ar":"تصغير","en":"Collapse"}
+    {"ar":"تصغير","en":"Collapse"},
+    {"ar":"بياناتي","en":"My Details"},
+    {"ar":"صوري","en":"My Photos"}
     
 ]

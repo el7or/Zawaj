@@ -66,8 +66,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
   ngOnInit() {
-    this.changeLangg(localStorage.getItem("langg"));
-    this.user = { username: this.authService.currentUserName, picture: "assets/images/avatar.png" };
+    this.changeLangg(localStorage.getItem("langg"));    
 
     this.menuService.onItemClick().subscribe(event => {
       switch (event.item.title) {        
@@ -89,6 +88,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked(){
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
+    this.user = { username: this.authService.currentUserName, picture: "assets/images/avatar.png" };
   }
 
   ngOnDestroy() {

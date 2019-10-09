@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./member-edit.component.scss']
 })
 export class MemberEditComponent implements OnInit {
-  user;
+  userDetails;
   created:string;
   age:string;
   options = {weekday : 'long' , year :'numeric' , month : 'long',day:'numeric'};
@@ -17,7 +17,7 @@ export class MemberEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.user = data.userDetails;
+      this.userDetails = data.userDetails;
     });
   }
 

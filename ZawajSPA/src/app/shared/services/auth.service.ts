@@ -27,6 +27,9 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
+          let decodedToken = this.jwtHelper.decodeToken(res.token);
+          this.currentUserName=decodedToken.sub;
+          this.currentUserId=decodedToken.jti;
         }
       })
     );
@@ -38,6 +41,9 @@ export class AuthService {
         if(res){
           localStorage.setItem('token',res.token);
           //localStorage.setItem('user',JSON.stringify(res.user));
+          let decodedToken = this.jwtHelper.decodeToken(res.token);
+          this.currentUserName=decodedToken.sub;
+          this.currentUserId=decodedToken.jti;
         }
       })
     );
