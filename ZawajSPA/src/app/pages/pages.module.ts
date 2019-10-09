@@ -2,7 +2,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { AuthGuard } from './../shared/guards/auth.guard';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule, NbLayoutModule, NbSidebarModule, NbUserModule, NbIconModule, NbTabsetModule, NbButtonModule } from '@nebular/theme';
+import { NbMenuModule, NbAlertModule, NbAccordionModule, NbSelectModule, NbCardModule, NbLayoutModule, NbSidebarModule, NbUserModule, NbIconModule, NbTabsetModule, NbButtonModule, NbInputModule } from '@nebular/theme';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxGalleryModule } from 'ngx-gallery';
 
@@ -34,6 +34,7 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
     NbIconModule,
     NbTabsetModule,
     NbButtonModule,
+    NbInputModule,
     SweetAlert2Module.forRoot(),
     NgxPaginationModule,
     NgxGalleryModule

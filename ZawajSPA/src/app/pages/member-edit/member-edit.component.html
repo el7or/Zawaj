@@ -1,85 +1,111 @@
-<nb-card >
-    <nb-card-header >
-      <nav class="navigation"> <a [routerLink]="['/']" class="link back-link" aria-label="Back">
-          <nb-icon icon="arrow-back"></nb-icon>
-        </a>
-      </nav>
-    </nb-card-header>
-    <nb-card-body >
-  
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12">
-            <nb-card>
-              <nb-card-body>
-                <img class="card-img-top img-thumbnail" src="{{userDetails.photoURL || 'assets/images/avatar.png'}}"
-                  alt="{{userDetails.nickName}}">
-                <div class="h4">{{userDetails.nickName}}</div>
-                <div>
-                  <strong langg>Residence</strong>
-                  <p>{{userDetails.country}} - {{userDetails.city}}</p>
+<nb-card>
+  <nb-card-header>
+    <nav class="navigation"> <a [routerLink]="['/']" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <nb-card>
+            <nb-card-body>
+              <img class="card-img-top img-thumbnail" src="{{userDetails.photoURL || 'assets/images/avatar.png'}}"
+                alt="{{userDetails.nickName}}">
+              <div class="h4">{{userDetails.nickName}}</div>
+              <div>
+                <strong langg>Residence</strong>
+                <p>{{userDetails.country}} - {{userDetails.city}}</p>
+              </div>
+              <div>
+                <strong langg>Age</strong>
+                <p>{{userDetails.age}}</p>
+              </div>
+              <div>
+                <strong langg>Last Seen</strong>
+                <p>{{userDetails.lastActive }}</p>
+                <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
+              </div>
+              <div>
+                <strong langg>Member from</strong>
+                <p>{{userDetails.createdOn}}</p>
+              </div>
+            </nb-card-body>
+
+            <nb-card-footer>
+              <a href="#">
+                <nb-icon status="danger" icon="heart-outline"></nb-icon>
+              </a>
+              <a status="danger" href="#">
+                <nb-icon status="success" icon="email-outline"></nb-icon>
+              </a>
+              <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->
+            </nb-card-footer>
+          </nb-card>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12">
+          <nb-tabset #memberTabs class="member-tabset">
+            <nb-tab tabTitle="My Details">
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>Introduce Myself</h4>
+                </nb-card-header>
+                <nb-card-body>
+                  <textarea nbInput fullWidth [(ngModel)]="userDetails.about"></textarea>
+                </nb-card-body>
+              </nb-card>
+
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>Look for</h4>
+                </nb-card-header>
+                <div class="card-text mt-3 p-2">
+                  <textarea nbInput fullWidth [(ngModel)]="userDetails.lookingFor"></textarea>
                 </div>
-                <div>
-                  <strong langg>Age</strong>
-                  <p>{{userDetails.age}}</p>
+              </nb-card>
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>My hobbies</h4>
+                </nb-card-header>
+                <div class="card-text mt-3 p-2">
+                  <textarea nbInput fullWidth [(ngModel)]="userDetails.interests"></textarea>
                 </div>
-                <div>
-                  <strong langg>Last Seen</strong>
-                  <p>{{userDetails.lastActive }}</p>
-                  <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
-                </div>
-                <div>
-                  <strong langg>Member from</strong>
-                  <p>{{userDetails.createdOn}}</p>
-                </div>
-              </nb-card-body>
-  
-              <nb-card-footer>
-                <a href="#">
-                  <nb-icon status="danger" icon="heart-outline"></nb-icon>
-                </a>
-                <a status="danger" href="#">
-                  <nb-icon status="success" icon="email-outline"></nb-icon>
-                </a>
-                <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->
-              </nb-card-footer>
-            </nb-card>
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-12">
-            <nb-tabset #memberTabs class="member-tabset">
-              <nb-tab tabTitle="My Details">
-                <nb-card>
-                  <nb-card-header>
-                    <h4 langg>Introduce Myself</h4>
-                  </nb-card-header>
-                  <nb-card-body>
-                    <p #about>{{userDetails.about}}</p>
-                  </nb-card-body>                  
-                </nb-card>
-  
-                <nb-card>
-                  <nb-card-header>
-                    <h4 langg>Look for</h4>
-                  </nb-card-header>
-                  <div class="card-text mt-3 p-2">
-                    <p #look>{{userDetails.lookingFor}}</p>
-                  </div>                  
-                </nb-card>
-                <nb-card>
-                  <nb-card-header>
-                    <h4 langg>My hobbies</h4>
-                  </nb-card-header>
-                  <div class="card-text mt-3 p-2">
-                    <p>{{userDetails.interests}}</p>
+              </nb-card>
+
+              <nb-card>
+                <nb-card-header>
+                  <h4 langg>Residence</h4>
+                </nb-card-header>
+                <div class="card-text mt-3 p-2">
+                  <div class="row">
+                    <div class="col-6">
+                      <nb-select fullWidth placeholder="Country" [(ngModel)]="userDetails.country">
+                        <nb-option value="الجزائر">الجزائر</nb-option>
+                        <nb-option value="2">Option 2</nb-option>
+                        <nb-option value="3">Option 3</nb-option>
+                        <nb-option value="4">Option 4</nb-option>
+                      </nb-select>
+                    </div>
+                    <div class="col-6">
+                      <nb-select fullWidth placeholder="City" [(ngModel)]="userDetails.city">
+                        <nb-option value="1">Option 1</nb-option>
+                        <nb-option value="2">Option 2</nb-option>
+                        <nb-option value="3">Option 3</nb-option>
+                        <nb-option value="4">Option 4</nb-option>
+                      </nb-select>
+                    </div>
                   </div>
-                </nb-card>
-              </nb-tab>
-              <nb-tab tabTitle="My Photos">
-                  <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
-              </nb-tab>  
-            </nb-tabset>
-          </div>
+                </div>
+              </nb-card>
+            </nb-tab>
+            <nb-tab tabTitle="My Photos">
+              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+            </nb-tab>
+          </nb-tabset>
         </div>
       </div>
-    </nb-card-body>
-  </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>
