@@ -28,6 +28,9 @@
 .nb-theme-default .pace .pace-progress{
   background-color: deeppink !important;
 }
+.nb-theme-default .pace .pace-progress-inner{
+  box-shadow: 0 0 10px rgba(255, 20, 145, 0.623), 0 0 5px rgba(255, 20, 145, 0.623) !important;
+}
 
 .nb-theme-default nb-menu .menu-item a:hover .menu-icon,
 .nb-theme-default nb-menu .menu-item a:hover{
