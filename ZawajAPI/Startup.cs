@@ -88,7 +88,7 @@ namespace ZawajAPI
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<TrialData>();
-            services.AddAllRepository(Configuration);
+            //services.AddAllRepository(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

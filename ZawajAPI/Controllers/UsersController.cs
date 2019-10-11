@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Data;
-using ZawajAPI.Domain.IRepository;
 using ZawajAPI.DTOs;
 using ZawajAPI.Models;
 
@@ -19,13 +19,13 @@ namespace ZawajAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepo _repo;
+        public ZawajDbContext _context { get; }
         private readonly IMapper _mapper;
 
-        public UsersController(IUserRepo repo, IMapper mapper)
+        public UsersController(ZawajDbContext context, IMapper mapper)
         {
             _mapper = mapper;
-            _repo = repo;
+             _context = context;
         }
 
         // GET: api/Users
@@ -33,7 +33,7 @@ namespace ZawajAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _repo.GetAllUsers();
+            var users = await _context.Users.Include(u=>u.Photos).OrderByDescending(u=>u.LastActive).ToListAsync();
             var model = _mapper.Map<IEnumerable<UserListDTO>>(users);
             return Ok(model);
         }
@@ -42,7 +42,7 @@ namespace ZawajAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _repo.GetUser(id);
+            var user = await _context.Users.Include(u=>u.Photos).FirstOrDefaultAsync(u=>u.Id==id);
             var model = _mapper.Map<UserDetailsDTO>(user);
 
             if (user == null)
@@ -57,23 +57,23 @@ namespace ZawajAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser(User user)
         {
-            await _repo.AddUser(user);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
             return Ok();
             //return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, User user)
+        public async Task<IActionResult> PutUser(string id, UserUpdateDTO model)
         {
-            if (id != user.Id)
+            if (id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value)
             {
-                return BadRequest();
+                return Unauthorized();
             }
-            await _repo.UpdateUser(user);
-            return Ok();
-
-            /* try
+            var user = await _context.Users.FindAsync(id);
+            _mapper.Map(model, user);
+            try
             {
                 await _context.SaveChangesAsync();
             }
@@ -89,24 +89,26 @@ namespace ZawajAPI.Controllers
                 }
             } 
 
-            return NoContent();*/
+            return NoContent();
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            await _repo.DeleteUser(id);
-            return Ok();
-            /* if (user == null)
+            var user = _context.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
-            } */
+            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();            
         }
 
-        /* private bool UserExists(string id)
+        private bool UserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
-        } */
+        }
     }
 }

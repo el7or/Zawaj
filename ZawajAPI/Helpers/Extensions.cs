@@ -2,8 +2,6 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ZawajAPI.Domain.IRepository;
-using ZawajAPI.Domain.Repository;
 
 namespace ZawajAPI.Helpers
 {
@@ -18,7 +16,8 @@ namespace ZawajAPI.Helpers
 
         public static IServiceCollection AddAllRepository(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IUserRepo, UserRepo>();
+            //services.AddScoped<IUserRepo, UserRepo>();
+            //services.AddScoped<IMessageRepo, MessageRepo>();
             return services;
         }
 
