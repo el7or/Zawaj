@@ -1,3 +1,4 @@
+import { UserUpdate } from './../models/user-update';
 import { UserDetails } from './../models/user-details';
 import { UserList } from './../models/user-list';
 import { HttpClient } from "@angular/common/http";
@@ -35,5 +36,9 @@ export class UserService {
 
   getUserById(id: string): Observable<UserDetails> {
     return this.http.get<UserDetails>(this.baseUrl + id);
+  }
+
+  putUser(id:string,user:UserUpdate){
+    return this.http.put(this.baseUrl + id, user);
   }
 }

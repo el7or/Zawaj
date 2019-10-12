@@ -48,6 +48,10 @@
   </button>
 </form>
 
+<section class="another-action" aria-label="Register">
+  <span langg>Don't have an account:</span>&nbsp;<a class="text-link" routerLink="../register" langg>Register</a>
+</section>
+
 <swal #unAuthSwal title="Unauthorized" text="Wrong UserName or Password!"
   type="error" timer="3000" [showConfirmButton]="false" langg>
 </swal>
@@ -55,7 +59,3 @@
 <swal #authSwal title="Success" text="Login successfully!"
   type="success" timer="2000" [showConfirmButton]="false" langg>
 </swal>
-
-<section class="another-action" aria-label="Register">
-  <span langg>Don't have an account:</span>&nbsp;<a class="text-link" routerLink="../register" langg>Register</a>
-</section>
