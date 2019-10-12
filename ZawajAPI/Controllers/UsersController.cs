@@ -24,8 +24,8 @@ namespace ZawajAPI.Controllers
 
         public UsersController(ZawajDbContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
-             _context = context;
         }
 
         // GET: api/Users
@@ -33,7 +33,7 @@ namespace ZawajAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _context.Users.Include(u=>u.Photos).OrderByDescending(u=>u.LastActive).ToListAsync();
+            var users = await _context.Users.Include(u => u.Photos).OrderByDescending(u => u.LastActive).ToListAsync();
             var model = _mapper.Map<IEnumerable<UserListDTO>>(users);
             return Ok(model);
         }
@@ -42,7 +42,7 @@ namespace ZawajAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _context.Users.Include(u=>u.Photos).FirstOrDefaultAsync(u=>u.Id==id);
+            var user = await _context.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Id == id);
             var model = _mapper.Map<UserDetailsDTO>(user);
 
             if (user == null)
@@ -59,8 +59,8 @@ namespace ZawajAPI.Controllers
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return Ok();
-            //return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            //return Ok();
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // PUT: api/Users/5
@@ -87,7 +87,7 @@ namespace ZawajAPI.Controllers
                 {
                     throw;
                 }
-            } 
+            }
 
             return NoContent();
         }
@@ -103,7 +103,7 @@ namespace ZawajAPI.Controllers
             }
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-            return Ok();            
+            return Ok();
         }
 
         private bool UserExists(string id)

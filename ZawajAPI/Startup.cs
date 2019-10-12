@@ -76,6 +76,7 @@ namespace ZawajAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
                 };
             });
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // <--- added
 
             /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */

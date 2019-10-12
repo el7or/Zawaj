@@ -18,6 +18,7 @@ namespace ZawajAPI.Models
         public bool IsMain { get; set; }
         public bool IsApproved { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }        
+        public DateTime UpdatedOn { get; set; }
+        public string PublicId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,12 +23,14 @@ namespace ZawajAPI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -57,8 +60,8 @@ namespace ZawajAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterDTO userDTO)
         {
-            //var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            var user = new User { UserName = userDTO.UserName, Email = userDTO.UserName, FullName = userDTO.FullName };
+            var user= _mapper.Map<User>(userDTO);
+            //var user = new User { UserName = userDTO.UserName, Email = userDTO.UserName, FullName = userDTO.FullName };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             //var userToReturn = _mapper.Map<UserForDetailsDTO>(userToCreate);
             if (result.Succeeded)

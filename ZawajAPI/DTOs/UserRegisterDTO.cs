@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ZawajAPI.DTOs
@@ -12,5 +13,8 @@ namespace ZawajAPI.DTOs
 
         [Required]
         public string FullName { get; set; }
+
+        public DateTime CreatedOn { get{return DateTime.Now;} }  
+        public DateTime UpdatedOn { get{return DateTime.Now;} }  
     }
 }
