@@ -78,5 +78,21 @@
     {"ar":"تم الحفظ بنجاح!","en":"Saved successfully!"},
     {"ar":"بانتظار الموافقة","en":"Approval Pending"},
     {"ar":"رئيسية","en":"Main"},
-    {"ar":"الصورة الرئيسية","en":"Main Photo"}    
+    {"ar":"الصورة الرئيسية","en":"Main Photo"},
+    {"ar":"إضافة صور أخرى","en":"Add new photos"},
+    {"ar":"أسقط الصور هنا","en":"Drop Photos here"},
+    {"ar":"أو اختار الصور:","en":"Or Select Photos:"},
+    {"ar":"قائمة الرفع:","en":"Upload queue:"},
+    {"ar":"عدد الصور المحددة:","en":"Queue length:"},
+    {"ar":"الاسم","en":"Name"},
+    {"ar":"الحجم","en":"Size"},
+    {"ar":"التقدم","en":"Progress"},
+    {"ar":"إجراءات","en":"Actions"},
+    {"ar":"رفع","en":"Upload"},
+    {"ar":"إلغاء","en":"Cancel"},
+    {"ar":"حذف","en":"Remove"},
+    {"ar":"تقدم التحميل:","en":"Queue progress:"},
+    {"ar":"رفع الكل","en":"Upload all"},
+    {"ar":"إلغاء الكل","en":"Cancel all"},
+    {"ar":"حذف الكل","en":"Remove all"}
 ]

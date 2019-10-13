@@ -1,5 +1,7 @@
 import { PhotoDetails } from './../../shared/models/photo-details';
 import { Component, OnInit, Input } from '@angular/core';
+import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'photo-editor',
@@ -8,10 +10,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() photos: PhotoDetails[]
-
+  uploader:FileUploader;
+  baseUrl = environment.API_URL + "photos/";
+  hasBaseDropZoneOver:boolean = false;
+ 
   constructor() { }
 
   ngOnInit() {
+    this.uploader= new FileUploader({url: this.baseUrl,isHTML5: true});
+  }
+  
+  public fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
   }
 
   setMainPhoto(photo:PhotoDetails){
