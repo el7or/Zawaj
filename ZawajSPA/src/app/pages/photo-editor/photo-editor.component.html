@@ -61,14 +61,14 @@
             </div>
           </td>
           <td nowrap>
-            <button type="button" class="btn btn-success btn-xs" (click)="item.upload()"
+            <button type="button" nbButton status="success" size="tiny" (click)="item.upload()"
               [disabled]="item.isReady || item.isUploading || item.isSuccess">
-              <nb-icon icon="upload-outline"></nb-icon> <span langg>Upload</span> 
+              <nb-icon icon="cloud-upload-outline"></nb-icon> <span langg>Upload</span> 
             </button>
-            <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+            <button type="button" nbButton status="warning" size="tiny" (click)="item.cancel()" [disabled]="!item.isUploading">
               <nb-icon icon="slash-outline"></nb-icon><span langg>Cancel</span> 
             </button>
-            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+            <button type="button" nbButton status="danger" size="tiny" (click)="item.remove()">
               <nb-icon icon="trash-2-outline"></nb-icon><span langg>Remove</span> 
             </button>
           </td>
@@ -84,15 +84,15 @@
         </div>
       </div>
       <div class="mt-2">
-        <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+        <button type="button" nbButton status="success" (click)="uploader.uploadAll()"
           [disabled]="!uploader.getNotUploadedItems().length">
-          <nb-icon icon="upload-outline"></nb-icon><span langg>Upload all</span> 
+          <nb-icon icon="cloud-upload-outline"></nb-icon><span langg>Upload all</span> 
         </button>
-        <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
+        <button type="button" nbButton status="warning" (click)="uploader.cancelAll()"
           [disabled]="!uploader.isUploading">
           <nb-icon icon="slash-outline"></nb-icon><span langg>Cancel all</span> 
         </button>
-        <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+        <button type="button" nbButton status="danger" (click)="uploader.clearQueue()"
           [disabled]="!uploader.queue.length">
           <nb-icon icon="trash-2-outline"></nb-icon><span langg>Remove all</span> 
         </button>
