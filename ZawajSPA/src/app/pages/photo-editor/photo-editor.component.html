@@ -1,0 +1,26 @@
+<div class="row">
+  <div *ngFor="let photo of photos" class="col-lg-4 col-md-6 col-sm-12">
+    <nb-card class="text-center">
+      <nb-card-body>
+        <img src="{{photo.url}}" class="img-thumbnail" alt="">
+        <div class="text-center img-text" *ngIf="!photo.isApproved">
+          <span class="text-danger" langg>Approval Pending</span>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <div *ngIf="photo.isMain">
+        <strong langg>Main Photo</strong>
+      </div>
+        <div *ngIf="!photo.isMain">
+        <button nbButton size="small" type="button" (click)="setMainPhoto(photo)"
+          [disabled]="photo.isMain" [outline]="photo.isMain ? false : true"
+          status="success"><strong langg>Main</strong></button>
+        <button nbButton outline status="danger" size="small" type="button" [disabled]="photo.isMain"
+          (click)="delete(photo.id)">
+          <nb-icon icon="trash-2-outline" size="small"></nb-icon>
+        </button>
+      </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

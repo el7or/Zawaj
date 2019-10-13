@@ -75,6 +75,8 @@
     {"ar":"تم تحديث بياناتك. هل ترغب في المتابعة دون حفظ البيانات؟","en":"Your data has been updated. Would you like to continue without saving the data?"},
     {"ar":"نعم، خروج!","en":"Yes, Exit!"},
     {"ar":"لا، إلغاء","en":"No, Cancel"},
-    {"ar":"تم الحفظ بنجاح!","en":"Saved successfully!"}
-    
+    {"ar":"تم الحفظ بنجاح!","en":"Saved successfully!"},
+    {"ar":"بانتظار الموافقة","en":"Approval Pending"},
+    {"ar":"رئيسية","en":"Main"},
+    {"ar":"الصورة الرئيسية","en":"Main Photo"}    
 ]

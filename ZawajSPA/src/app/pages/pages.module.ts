@@ -17,6 +17,7 @@ import { SearchComponent } from './search/search.component';
 import { ChatComponent } from './chat/chat.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 import { MemberEditComponent } from './member-edit/member-edit.component';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
     ChatComponent,
     MemberDetailsComponent,
     MemberEditComponent,
+    PhotoEditorComponent,
   ],
   providers:[AuthGuard]
 })
