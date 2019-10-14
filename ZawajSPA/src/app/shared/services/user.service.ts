@@ -39,6 +39,6 @@ export class UserService {
   }
 
   putUser(id:string,user:UserUpdate){
-    return this.http.put(this.baseUrl + id, user);
+    return this.http.put<UserUpdate>(this.baseUrl + id, user);
   }
 }

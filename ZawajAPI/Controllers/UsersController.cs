@@ -42,7 +42,8 @@ namespace ZawajAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _context.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Where(u => u.Id == id).Include(u => u.Photos).FirstOrDefaultAsync();
+            user.Photos = user.Photos.OrderByDescending(p=>p.IsMain).ToList();
             var model = _mapper.Map<UserDetailsDTO>(user);
 
             if (user == null)

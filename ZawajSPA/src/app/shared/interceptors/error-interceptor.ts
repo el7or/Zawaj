@@ -19,11 +19,13 @@ export class ErrorInterceptor implements HttpInterceptor{
                     
                     //Unauthorized errors
                     if(error.status===401){
+                        console.error(error);
                         return throwError(error.statusText);
                     }
 
                     //Duplicate UserName error
                     if(error.error.filter(err=>err.code=='DuplicateUserName')){
+                        console.error(error.error);
                         return throwError('DuplicateUserName');
                     }
 

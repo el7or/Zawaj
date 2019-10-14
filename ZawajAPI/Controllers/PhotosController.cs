@@ -70,7 +70,7 @@ namespace ZawajAPI.Controllers
             if (id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value)
             {
                 return Unauthorized();
-            }            
+            }
 
             var file = photoModel.File;
             var uploadResult = new ImageUploadResult();
@@ -89,9 +89,10 @@ namespace ZawajAPI.Controllers
             photoModel.Url = uploadResult.Uri.ToString();
             photoModel.PublicId = uploadResult.PublicId;
             var photo = _mapper.Map<Photo>(photoModel);
-            var user = await _context.Users.Include(p=>p.Photos).FirstOrDefaultAsync(u=>u.Id==id);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
             if (!user.Photos.Any(p => p.IsMain))
-                photo.IsMain = true;
+            { photo.IsMain = true; }
+            else { photo.IsMain = false; }
             user.Photos.Add(photo);
             if (await _context.SaveChangesAsync() > 0)
             {
@@ -145,9 +146,26 @@ namespace ZawajAPI.Controllers
             }
 
             _context.Photos.Remove(photo);
-            await _context.SaveChangesAsync();
+            if (await _context.SaveChangesAsync() > 0)
+            { return Ok(); }
+            else { return BadRequest(); }
+        }
 
-            return Ok(photo);
+        // Set Main: api/Photos/SetMain/5
+        [HttpGet("setMain/{id}")]
+        public async Task<IActionResult> SetMain(int id)
+        {
+            var photo = await _context.Photos.FindAsync(id);
+            if (photo == null)
+            {
+                return NotFound();
+            }
+            var prevMainPhoto = await _context.Photos.FirstOrDefaultAsync(p => p.UserId == photo.UserId && p.IsMain == true);
+            prevMainPhoto.IsMain = false;
+            photo.IsMain = true;
+            if (await _context.SaveChangesAsync() > 0)
+            { return Ok(); }
+            else { return BadRequest(); }
         }
 
         private bool PhotoExists(int id)

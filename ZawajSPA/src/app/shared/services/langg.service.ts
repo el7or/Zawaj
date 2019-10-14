@@ -35,7 +35,7 @@ export class LanggService {
     );
     let runTimeElementsArray = Array.prototype.slice.call(runTimeElements);
     let lastElementsArray = this.elementsArray.value;
-    if (lastElementsArray.length != runTimeElementsArray.length) {
+    if (lastElementsArray.length != runTimeElementsArray.lenght) {
       runTimeElementsArray.forEach(element => {
         this.lang.subscribe((lang: string) => {
           try {
