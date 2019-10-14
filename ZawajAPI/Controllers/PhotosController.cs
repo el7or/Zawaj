@@ -144,6 +144,12 @@ namespace ZawajAPI.Controllers
             {
                 return NotFound();
             }
+            if (photo.PublicId != null)
+            {
+                var deletionParams = new DeletionParams(photo.PublicId);
+                var deletionResult = _cloudinary.Destroy(deletionParams);
+                if(deletionResult.Result != "ok"){return BadRequest();}
+            }
 
             _context.Photos.Remove(photo);
             if (await _context.SaveChangesAsync() > 0)
