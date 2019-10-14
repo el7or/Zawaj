@@ -28,7 +28,7 @@ export class RegisterComponent extends NbRegisterComponent {
 
   register() {
     this.authService.register(this.user).subscribe(
-      (res) => {
+      () => {
         this.registerSwal.fire();
         this.loading = false;
         this.router.navigate(["/pages"]);

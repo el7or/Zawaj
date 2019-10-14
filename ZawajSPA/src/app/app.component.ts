@@ -25,11 +25,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
     if (token) {
-      this.authService.currentUserName = this.jwtHelper.decodeToken(token).sub;
-      this.authService.currentUserId = this.jwtHelper.decodeToken(token).jti;
+      this.authService.currentUserId = this.jwtHelper.decodeToken(token).jti;  
+      this.authService.currentUserName= this.jwtHelper.decodeToken(token).sub;        
     }
+    this.authService.currentUserPhoto = localStorage.getItem("userPhoto")!=null? localStorage.getItem("userPhoto"):'assets/images/avatar.png';
   }
 
   ngAfterViewChecked() {

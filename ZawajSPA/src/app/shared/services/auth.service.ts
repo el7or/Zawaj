@@ -1,3 +1,4 @@
+import { UserDetails } from './../models/user-details';
 import { UserRegister } from '../models/user-register';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -14,8 +15,10 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   baseUrl = environment.API_URL+'auth/';
   jwtHelper = new JwtHelperService();
-  currentUserName:string;
   currentUserId:string;
+  currentUserName:string;
+  currentUserPhoto:string;
+  
  
   redirectUrl:string;
 
@@ -26,10 +29,11 @@ export class AuthService {
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
-          //localStorage.setItem('user',JSON.stringify(res.user));
+          localStorage.setItem('userPhoto',res.userPhotoURL);
           let decodedToken = this.jwtHelper.decodeToken(res.token);
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
+          this.currentUserPhoto = res.userPhotoURL!=null? res.userPhotoURL:'assets/images/avatar.png';
         }
       })
     );
@@ -40,10 +44,11 @@ export class AuthService {
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
-          //localStorage.setItem('user',JSON.stringify(res.user));
+          localStorage.setItem('userPhoto',res.userPhotoURL);
           let decodedToken = this.jwtHelper.decodeToken(res.token);
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
+          this.currentUserPhoto = res.userPhotoURL!=null? res.userPhotoURL:'assets/images/avatar.png';
         }
       })
     );

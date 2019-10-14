@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
+import { Router } from "@angular/router";
+import { AuthService } from "./../../services/auth.service";
 import {
   Component,
   OnDestroy,
@@ -47,7 +47,10 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     { title: "عربي", group: false, data: "ar" },
     { title: "English", group: false, data: "en" }
   ];
-  userMenu = [{ title: "Profile",icon: "person" }, { title: "Log out", icon: "menu-arrow-outline" }];
+  userMenu = [
+    { title: "Profile", icon: "person" },
+    { title: "Log out", icon: "menu-arrow-outline" }
+  ];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -56,39 +59,42 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
     private langgService: LanggService,
-    private authService:AuthService,
+    private authService: AuthService,
     private searchService: NbSearchService,
-    private router:Router) {
-      this.searchService.onSearchSubmit()
-      .subscribe((data: any) => {
-        alert(data.term);
-      })
-    }
+    private router: Router
+  ) {
+    this.searchService.onSearchSubmit().subscribe((data: any) => {
+      alert(data.term);
+    });
+  }
 
   ngOnInit() {
-    this.changeLangg(localStorage.getItem("langg"));    
+    this.changeLangg(localStorage.getItem("langg"));
 
     this.menuService.onItemClick().subscribe(event => {
-      switch (event.item.title) {        
+      switch (event.item.title) {
         case "Log out":
           this.logOut();
           break;
         case "Profile":
-          this.router.navigateByUrl('/pages/members/edit');
+          this.router.navigateByUrl("/pages/members/edit");
           break;
-        case 'English':
-        case 'عربي':
+        case "English":
+        case "عربي":
           this.changeLangg(event.item.data);
           break;
-        default:            
+        default:
           break;
       }
     });
   }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
-    this.user = { username: this.authService.currentUserName, picture: "assets/images/avatar.png" };
+      this.user = {
+                username: this.authService.currentUserName,
+        picture: this.authService.currentUserPhoto
+      };    
   }
 
   ngOnDestroy() {
@@ -101,14 +107,16 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.langgService.language.next("en");
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
-      if(this.dirService.isRtl)
-      {this.dirService.setDirection(NbLayoutDirection.LTR);}
+      if (this.dirService.isRtl) {
+        this.dirService.setDirection(NbLayoutDirection.LTR);
+      }
     } else {
       this.langgService.language.next("ar");
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;
-      if(this.dirService.isLtr)
-      {this.dirService.setDirection(NbLayoutDirection.RTL);}
+      if (this.dirService.isLtr) {
+        this.dirService.setDirection(NbLayoutDirection.RTL);
+      }
     }
   }
 
@@ -119,6 +127,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
   logOut() {
     this.logoutSwal.fire();
     localStorage.removeItem("token");
+    localStorage.removeItem("userPhoto");
     this.router.navigate(["/pages"]);
   }
 

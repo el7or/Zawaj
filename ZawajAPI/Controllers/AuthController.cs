@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ZawajAPI.DTOs;
@@ -42,17 +43,15 @@ namespace ZawajAPI.Controllers
             //var result = await _signInManager.PasswordSignInAsync(userDTO.UserName, userDTO.Password, userDTO.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                /* var appUser = await _userManager.Users.Include(p => p.Photos).FirstOrDefaultAsync(
-                    u => u.NormalizedUserName == userForLoginDto.UserName.ToUpper()
+                var loginUser = await _userManager.Users.Include(p => p.Photos).FirstOrDefaultAsync(
+                    u => u.NormalizedUserName == userDTO.UserName.ToUpper()
                 );
-                var userToReturn = _mapper.Map<UserForListDTO>(appUser);
+                var userDetails = _mapper.Map<UserDetailsDTO>(loginUser);
                 return Ok(new
                 {
-                    token = GenerateJwtToken(appUser).Result,
-                    user = userToReturn
-                }); */
-
-                return Ok(new { token = GenerateJWToken(user).Result, user = user });
+                    token = GenerateJWToken(loginUser).Result,
+                    userPhotoURL = userDetails.PhotoURL
+                });
             }
             else return Unauthorized();
         }
@@ -61,16 +60,20 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> Register(UserRegisterDTO userDTO)
         {
             var user= _mapper.Map<User>(userDTO);
-            //var user = new User { UserName = userDTO.UserName, Email = userDTO.UserName, FullName = userDTO.FullName };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             //var userToReturn = _mapper.Map<UserForDetailsDTO>(userToCreate);
             if (result.Succeeded)
             {
                 //return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
                 //await _signInManager.SignInAsync(user, isPersistent:false);
-                return Ok(new { token = GenerateJWToken(user).Result, user = user });
+                var userDetails = _mapper.Map<UserDetailsDTO>(user);
+                return Ok(new
+                {
+                    token = GenerateJWToken(user).Result,
+                    userPhotoURL = userDetails.PhotoURL
+                });
             }
-            return BadRequest(result.Errors);
+            else return BadRequest(result.Errors);
         }
 
         private async Task<string> GenerateJWToken(User user)

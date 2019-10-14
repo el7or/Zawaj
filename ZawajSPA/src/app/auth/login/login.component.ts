@@ -46,7 +46,7 @@ export class LoginComponent extends NbLoginComponent
   login() {
     this.loading = true;
     this.authSubscription = this.authService.login(this.user).subscribe(
-      (res) => {
+      () => {
         this.authSwal.fire();
       },
       err => {
