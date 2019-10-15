@@ -68,7 +68,7 @@
       </p>
     </ng-container>
     <ng-container *ngIf="rePass.valid">
-        <p class="error-message text-danger" *ngIf="password.value != rePass.value && !rePass.errors?.required" langg>
+        <p class="error-message text-danger" *ngIf="password.value != rePass.value && !rePass.errors?.required && rePass.touched" langg>
           Password does not match the confirm password!
         </p>
       </ng-container>
