@@ -1,6 +1,6 @@
 import { LanggService } from "./../shared/services/langg.service";
 import { AuthService } from "./../shared/services/auth.service";
-import { Component, AfterViewChecked, ChangeDetectorRef } from "@angular/core";
+import { Component, AfterViewChecked, ChangeDetectorRef, OnInit } from "@angular/core";
 import { MENU_ITEMS } from "./pages-menu";
 import { NbMenuItem } from "@nebular/theme";
 
@@ -33,18 +33,21 @@ import { NbMenuItem } from "@nebular/theme";
     </nb-layout>
   `
 })
-export class PagesComponent implements AfterViewChecked {
+export class PagesComponent implements OnInit, AfterViewChecked {
   menu = MENU_ITEMS;
   langgloading: boolean;
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    langgService: LanggService
-  ) {
-    langgService.langLoading.subscribe(
+    private langgService: LanggService
+  ) {}
+
+  ngOnInit(){
+    this.langgService.langLoading.subscribe(
       langSpin => (this.langgloading = langSpin)
     );
   }
+
   ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
     this.cdr.detectChanges();

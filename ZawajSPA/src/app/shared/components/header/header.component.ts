@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           setTimeout(() => {
           this.changeLangg(event.item.data);
           this.langgService.langLoading.next(false);
-          }, 1);
+          }, 1000);
           break;
         default:
           break;
