@@ -26,7 +26,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import {LOCALE_ID} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeAR from '@angular/common/locales/ar';
+import localeEN from '@angular/common/locales/en';
 
+registerLocaleData(localeEN);
 registerLocaleData(localeAR);
 
 export function tokenGetter() {
@@ -62,7 +64,7 @@ export function tokenGetter() {
     })
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
-    { provide: LOCALE_ID, useValue: 'ar' }],
+    { provide: LOCALE_ID, useValue: localStorage.getItem('langg') }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

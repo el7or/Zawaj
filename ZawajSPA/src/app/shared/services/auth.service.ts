@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   register(user:UserRegister){
+    debugger;
     return this.http.post(this.baseUrl+'register/',user).pipe(
       map((res:any)=>{
         if(res){

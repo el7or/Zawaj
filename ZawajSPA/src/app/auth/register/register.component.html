@@ -81,7 +81,7 @@
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="form-control-group">
       <label class="label" for="input-birthDate" langg>Birth Date:</label>
-      <nb-datepicker #datepicker format="yyyy/MM/dd" ></nb-datepicker>
+      <nb-datepicker #datepicker format="yyyy/MM/dd"></nb-datepicker>
       <input [nbDatepicker]="datepicker" nbInput [(ngModel)]="user.birthDate" #birthDate="ngModel" id="input-birthDate" name="birthDate" fullWidth
         [status]="birthDate.dirty ? (birthDate.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.email.required')"
