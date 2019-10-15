@@ -15,6 +15,7 @@ export class LanggService {
     localStorage.getItem("langg") == "en" ? "en" : "ar"
   );
   lang = this.language.asObservable();
+  langLoading = new BehaviorSubject<boolean>(false);
 
   constructor(titleService: Title) {
     this.lang.subscribe(lang => {

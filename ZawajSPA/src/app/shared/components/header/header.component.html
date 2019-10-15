@@ -20,7 +20,7 @@
         <p>Here is the text provided via config: "{{ data.text }}"</p>
       </ng-template>
     </nb-action>
-    <nb-action [nbSpinner]="loading" class="control-item" icon="globe-outline" [nbContextMenu]="langMenu">      
+    <nb-action class="control-item" icon="globe-outline" [nbContextMenu]="langMenu">      
     </nb-action>
     <nb-action *ngIf="!isLoggedIn()" class="control-item" >
         <a langg routerLink="/auth/login" nbButton outline shape="round" size="small" status="danger" uppercase={false}>Login</a>

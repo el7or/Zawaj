@@ -31,7 +31,6 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
 })
 export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild("logoutSwal", { static: false }) private logoutSwal: SwalComponent;
-  loading = false;
   menuTitles: any;
   menu = MENU_ITEMS;
 
@@ -81,7 +80,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           break;
         case "English":
         case "عربي":
+            this.langgService.langLoading.next(true);
+          setTimeout(() => {
           this.changeLangg(event.item.data);
+          this.langgService.langLoading.next(false);
+          }, 1);
           break;
         default:
           break;
