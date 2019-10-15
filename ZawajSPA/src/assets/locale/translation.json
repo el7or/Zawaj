@@ -68,7 +68,7 @@
     {"ar":"تصغير","en":"Collapse"},
     {"ar":"بياناتي","en":"My Details"},
     {"ar":"صوري","en":"My Photos"},
-    {"ar":"البلد","en":"Country"},
+    {"ar":"الدولة","en":"Country"},
     {"ar":"المدينة","en":"City"},
     {"ar":"حفظ التعديلات","en":"Save Updates"},
     {"ar":"انتباه !","en":"Attention !"},
@@ -79,7 +79,7 @@
     {"ar":"بانتظار الموافقة","en":"Approval Pending"},
     {"ar":"رئيسية","en":"Main"},
     {"ar":"الصورة الرئيسية","en":"Main Photo"},
-    {"ar":"إضافة صور أخرى","en":"Add new photos"},
+    {"ar":"إضافة صور جديدة","en":"Add new photos"},
     {"ar":"سحب وإفلات الصور","en":"Drop Photos here"},
     {"ar":"أو","en":"OR"},
     {"ar":"اختار الصور من الكومبيوتر","en":"Choose Photos from Computer"},
@@ -98,5 +98,11 @@
     {"ar":"حذف الكل","en":"Remove all"},
     {"ar":"هل أنت متأكد من الحذف؟","en":"Are you sure you want to delete it?"},
     {"ar":"حذف","en":"Delete"},
-    {"ar":"إلغاء","en":"Cancel"}
+    {"ar":"إلغاء","en":"Cancel"},
+    {"ar":"تاريخ الميلاد:","en":"Birth Date:"},
+    {"ar":"لابد من إدخال تاريخ الميلاد!","en":"Birth Date is required!"},
+    {"ar":"الدولة:","en":"Country:"},
+    {"ar":"لابد من تحديد الدولة!","en":"Country is required!"},
+    {"ar":"المدينة:","en":"City:"},
+    {"ar":"لابد من تحديد المدينة!","en":"City is required!"}
 ]

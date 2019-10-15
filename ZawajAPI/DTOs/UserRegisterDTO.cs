@@ -14,7 +14,15 @@ namespace ZawajAPI.DTOs
         [Required]
         public string FullName { get; set; }
 
-        public DateTime CreatedOn { get{return DateTime.Now;} }  
-        public DateTime UpdatedOn { get{return DateTime.Now;} }  
+        [Required]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        public int Gender { get; set; }
+
+        public string Country { get; set; }
+        public string City { get; set; }
+        public DateTime CreatedOn { get { return DateTime.Now; } }
+        public DateTime UpdatedOn { get { return DateTime.Now; } }
     }
 }

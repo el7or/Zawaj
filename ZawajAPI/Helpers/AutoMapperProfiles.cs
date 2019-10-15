@@ -9,7 +9,8 @@ namespace ZawajAPI.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<UserRegisterDTO, User>();
+            CreateMap<UserRegisterDTO, User>()
+            .ForMember(dest => dest.Gender,map => {map.MapFrom(src => src.Gender==1?"رجل":"إمرأة");});
 
             CreateMap<User, UserListDTO>()
             .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })

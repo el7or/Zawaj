@@ -1,3 +1,4 @@
+import { UserRegister } from './../../shared/models/user-register';
 import { AuthService } from './../../shared/services/auth.service';
 import { OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -12,6 +13,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends NbRegisterComponent {
+  user:UserRegister;
   @ViewChild('form', {static: false}) form: NgForm;
   @ViewChild("registerSwal", { static: false }) private registerSwal: SwalComponent;
   @ViewChild("duplicateSwal", { static: false }) private duplicateSwal: SwalComponent;

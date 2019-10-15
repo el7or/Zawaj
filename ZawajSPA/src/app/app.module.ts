@@ -23,6 +23,11 @@ import {
 import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
 import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
+import {LOCALE_ID} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeAR from '@angular/common/locales/ar';
+
+registerLocaleData(localeAR);
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,7 +61,8 @@ export function tokenGetter() {
       }
     })
   ],
-  providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor],
+  providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
+    { provide: LOCALE_ID, useValue: 'ar' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {
