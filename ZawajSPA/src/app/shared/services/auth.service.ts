@@ -23,7 +23,6 @@ export class AuthService {
   redirectUrl:string;
 
   constructor(private http:HttpClient) { }
-
   login(user:UserLogin){
     return this.http.post(this.baseUrl+'login/',user).pipe(
       map((res:any)=>{
@@ -40,7 +39,6 @@ export class AuthService {
   }
 
   register(user:UserRegister){
-    debugger;
     return this.http.post(this.baseUrl+'register/',user).pipe(
       map((res:any)=>{
         if(res){

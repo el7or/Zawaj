@@ -27,9 +27,11 @@ import {LOCALE_ID} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
+import localeARExtra from '@angular/common/locales/extra/ar';
+import localeENExtra from '@angular/common/locales/extra/en';
 
-registerLocaleData(localeEN);
-registerLocaleData(localeAR);
+registerLocaleData(localeAR,'ar',localeARExtra);
+registerLocaleData(localeEN,'en',localeENExtra);
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -64,7 +66,8 @@ export function tokenGetter() {
     })
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
-    { provide: LOCALE_ID, useValue: localStorage.getItem('langg') }],
+    { provide: LOCALE_ID, useValue: localStorage.getItem('langg') }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

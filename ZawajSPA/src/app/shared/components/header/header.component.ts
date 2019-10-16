@@ -7,7 +7,6 @@ import {
   ViewChild,
   TemplateRef,
   AfterViewChecked,
-  ChangeDetectorRef
 } from "@angular/core";
 import {
   NbMenuService,
@@ -84,6 +83,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           setTimeout(() => {
           this.changeLangg(event.item.data);
           this.langgService.langLoading.next(false);
+          //window.location.reload();
           }, 1000);
           break;
         default:

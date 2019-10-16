@@ -19,7 +19,6 @@ export class RegisterComponent extends NbRegisterComponent {
   @ViewChild("duplicateSwal", { static: false }) private duplicateSwal: SwalComponent;
   loading = false;
 
-
   constructor(private ser: NbAuthService, 
     service: NbAuthService, 
     @Inject(NB_AUTH_OPTIONS) options:{},
@@ -33,7 +32,7 @@ export class RegisterComponent extends NbRegisterComponent {
       () => {
         this.registerSwal.fire();
         this.loading = false;
-        this.router.navigate(["/pages"]);
+        this.router.navigate(["/pages"]);        
       },
       err => {
         if(err=='DuplicateUserName'){this.duplicateSwal.fire()}

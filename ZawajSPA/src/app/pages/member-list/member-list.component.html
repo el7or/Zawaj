@@ -1,7 +1,7 @@
 <div class="row">
   <div *ngFor="let user of users | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-2 col-md-3 col-sm-6">
     <nb-card>
-      <nb-card-header>{{user.nickName}}</nb-card-header>
+      <nb-card-header>{{user.nickName || user.userName}}</nb-card-header>
       <nb-card-body>
         <nb-user size="giant" [name]="user.gender" [title]="user.age"
           [picture]="user.photoURL || 'assets/images/avatar.png'">

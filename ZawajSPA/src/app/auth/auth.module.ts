@@ -6,7 +6,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { NgxAuthRoutingModule } from "./auth-routing.module";
 import { NbAuthModule } from "@nebular/auth";
-import { NbMomentDateModule } from "@nebular/moment";
 import {
   NbAlertModule,
   NbButtonModule,
@@ -14,7 +13,6 @@ import {
   NbInputModule,
   NbSpinnerModule,
   NbRadioModule,
-  NbDatepickerModule,
 } from "@nebular/theme";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
@@ -33,8 +31,6 @@ import { SharedModule } from "../shared/shared.module";
     NgxAuthRoutingModule,
     NbSpinnerModule,
     NbRadioModule,
-    NbDatepickerModule,
-    NbMomentDateModule,
     SweetAlert2Module.forRoot(),
     NbAuthModule.forRoot({
       forms: {
