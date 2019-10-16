@@ -1,4 +1,3 @@
-import { NbMomentDateModule } from '@nebular/moment';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -34,7 +33,6 @@ import { SharedModule } from "../shared/shared.module";
     NbSpinnerModule,
     NbRadioModule,
     NbDatepickerModule,
-    NbMomentDateModule,
     SweetAlert2Module.forRoot(),
     NbAuthModule.forRoot({
       forms: {

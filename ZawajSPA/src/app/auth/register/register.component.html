@@ -81,14 +81,13 @@
     <div class="form-control-group">
         <p>{{today | localDate}}</p>
       <label class="label" for="input-birthDate" langg>Birth Date:</label>
-      <nb-datepicker #datepicker format="yyyy/MM/dd"></nb-datepicker>
-      <input [nbDatepicker]="datepicker" nbInput id="input-birthDate" name="birthDate" #birthDate="ngModel" fullWidth
-      [(ngModel)]="user.birthDate"
+      <input type="date" nbInput id="input-birthDate" name="birthDate" #birthDate="ngModel" fullWidth
+      [ngModel]="user.birthDate | localDate" (onchange)="user.birthDate=$event"
       placeholder="Birth Date"
       [status]="birthDate.dirty ? (birthDate.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.email.required')"
       [attr.aria-invalid]="birthDate.invalid && birthDate.touched ? true : null" langg>
-      <p>{{birthDate.errors | json}}</p>
+      <p>{{birthDate.value | json}}</p>
       <ng-container *ngIf="birthDate.invalid && birthDate.touched">
         <p class="error-message text-danger" *ngIf="birthDate?.errors.required" langg>          
           Birth Date is required!
