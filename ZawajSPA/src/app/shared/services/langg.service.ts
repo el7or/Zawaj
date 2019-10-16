@@ -6,6 +6,7 @@ import { registerLocaleData } from '@angular/common';
 import * as words from "../../../assets/locale/translation.json";
 import localeArabic from '@angular/common/locales/ar';
 import localeEnglish from '@angular/common/locales/en';
+import { NbLayoutDirectionService, NbLayoutDirection } from '@nebular/theme';
 
 @Injectable({
   providedIn: "root"
@@ -20,14 +21,20 @@ export class LanggService {
   lang = this.language.asObservable();
   langLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(titleService: Title) {
+  constructor(titleService: Title, private dirService: NbLayoutDirectionService) {
     this.lang.subscribe(lang => {
       if (lang == "en") {
         localStorage.setItem("langg", "en");
         titleService.setTitle("Zawaj");
+        if (this.dirService.isRtl) {
+          this.dirService.setDirection(NbLayoutDirection.LTR);
+        }
       } else {
         localStorage.setItem("langg", "ar");
         titleService.setTitle("موقع زواج");
+        if (this.dirService.isLtr) {
+          this.dirService.setDirection(NbLayoutDirection.RTL);
+        }
       }
     });
   }
@@ -92,7 +99,6 @@ export class LanggService {
         }
         this.locale = culture;
 
-        // Register locale data since only the en-US locale data comes with Angular
         switch (culture) {
             case 'ar': {
                 registerLocaleData(localeArabic);

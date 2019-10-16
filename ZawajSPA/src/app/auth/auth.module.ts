@@ -1,3 +1,4 @@
+import { NbMomentDateModule } from '@nebular/moment';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -13,6 +14,7 @@ import {
   NbInputModule,
   NbSpinnerModule,
   NbRadioModule,
+  NbDatepickerModule,
 } from "@nebular/theme";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
@@ -31,6 +33,8 @@ import { SharedModule } from "../shared/shared.module";
     NgxAuthRoutingModule,
     NbSpinnerModule,
     NbRadioModule,
+    NbDatepickerModule,
+    NbMomentDateModule,
     SweetAlert2Module.forRoot(),
     NbAuthModule.forRoot({
       forms: {

@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit() {
-    this.changeLangg(localStorage.getItem("langg"));
+    this.checkLangg(localStorage.getItem("langg"));
 
     this.menuService.onItemClick().subscribe(event => {
       switch (event.item.title) {
@@ -82,9 +82,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.langgService.registerCulture(event.item.data);
           this.langgService.langLoading.next(true);
           setTimeout(() => {
-            this.changeLangg(event.item.data);
+            this.langgService.language.next(event.item.data);
+            this.checkLangg(event.item.data);
             this.langgService.langLoading.next(false);
-            //window.location.reload();
           }, 1000);
           break;
         default:
@@ -106,21 +106,21 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.destroy$.complete();
   }
 
-  changeLangg(lang: string) {
+  checkLangg(lang: string) {
     if (lang == "en") {
-      this.langgService.language.next("en");
+      /* this.langgService.language.next("en"); */
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
-      if (this.dirService.isRtl) {
+      /* if (this.dirService.isRtl) {
         this.dirService.setDirection(NbLayoutDirection.LTR);
-      }
+      } */
     } else {
-      this.langgService.language.next("ar");
+      /* this.langgService.language.next("ar"); */
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;
-      if (this.dirService.isLtr) {
+      /* if (this.dirService.isLtr) {
         this.dirService.setDirection(NbLayoutDirection.RTL);
-      }
+      } */
     }
   }
 

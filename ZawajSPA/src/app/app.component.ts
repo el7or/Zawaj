@@ -30,6 +30,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
       this.authService.currentUserName= this.jwtHelper.decodeToken(token).sub;        
     }
     this.authService.currentUserPhoto = localStorage.getItem("userPhoto")!=null? localStorage.getItem("userPhoto"):'assets/images/avatar.png';
+
+    this.langgService.language.next(localStorage.getItem("langg"));
   }
 
   ngAfterViewChecked() {

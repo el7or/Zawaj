@@ -53,3 +53,9 @@
 nb-datepicker-container nb-card-header{
   display: none;
 }
+.menu-item a[title="English"] .menu-title{
+  text-align: center !important;
+}
+.menu-group span{
+  display: unset !important;
+}
