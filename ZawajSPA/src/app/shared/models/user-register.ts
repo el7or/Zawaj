@@ -3,7 +3,7 @@ export interface UserRegister {
     password:string,
     fullName:string,
     gender:number,
-    birthDate:Date,
+    birthDate:string,
     country:string,
     city:string
 }

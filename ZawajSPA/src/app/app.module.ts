@@ -28,6 +28,11 @@ import { LanggService } from './shared/services/langg.service';
 import { registerLocaleData } from '@angular/common';
 import localeArabic from '@angular/common/locales/ar';
 import localeEnglish from '@angular/common/locales/en';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { arLocale } from 'ngx-bootstrap/locale';
+
+defineLocale('ar', arLocale);
 
 registerLocaleData(localeArabic);
 registerLocaleData(localeEnglish);
@@ -62,7 +67,8 @@ export function tokenGetter() {
         whitelistedDomains: ['localhost:5000'],
         blacklistedRoutes: ['localhost:5000/api/auth']
       }
-    })
+    }),
+    BsDatepickerModule.forRoot()
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
     {provide: LOCALE_ID,
