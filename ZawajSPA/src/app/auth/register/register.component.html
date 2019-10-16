@@ -79,9 +79,10 @@
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="form-control-group">
+        <p>{{today | localDate}}</p>
       <label class="label" for="input-birthDate" langg>Birth Date:</label>
       <input type="date" nbInput id="input-birthDate" name="birthDate" #birthDate="ngModel" fullWidth
-      [ngModel]="user.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="user.birthDate = $event" [value]="user.birthDate | date:'yyyy-MM-dd'"
+      [ngModel]="user.birthDate | localDate" (ngModelChange)="user.birthDate = $event" [value]="user.birthDate | localDate"
       [status]="birthDate.dirty ? (birthDate.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.email.required')"
       [attr.aria-invalid]="birthDate.invalid && birthDate.touched ? true : null" langg>

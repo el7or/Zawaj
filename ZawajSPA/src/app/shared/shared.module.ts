@@ -39,6 +39,7 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { LanggDirective } from './directives/langg.directive';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LocalDatePipe } from './pipes/local-date.pipe';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -67,12 +68,13 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  LocalDatePipe
 ];
 
 @NgModule({
   imports: [CommonModule, ...NB_MODULES,RouterModule, SweetAlert2Module.forRoot()],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
-  declarations: [...COMPONENTS, ...PIPES, LanggDirective],
+  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

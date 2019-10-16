@@ -18,6 +18,7 @@ export class RegisterComponent extends NbRegisterComponent {
   @ViewChild("registerSwal", { static: false }) private registerSwal: SwalComponent;
   @ViewChild("duplicateSwal", { static: false }) private duplicateSwal: SwalComponent;
   loading = false;
+  today = new Date();
 
   constructor(private ser: NbAuthService, 
     service: NbAuthService, 

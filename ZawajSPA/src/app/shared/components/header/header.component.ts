@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
   TemplateRef,
-  AfterViewChecked,
+  AfterViewChecked
 } from "@angular/core";
 import {
   NbMenuService,
@@ -79,11 +79,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           break;
         case "English":
         case "عربي":
-            this.langgService.langLoading.next(true);
+          this.langgService.langLoading.next(true);
           setTimeout(() => {
-          this.changeLangg(event.item.data);
-          this.langgService.langLoading.next(false);
-          //window.location.reload();
+            this.changeLangg(event.item.data);
+            this.langgService.langLoading.next(false);
+            //window.location.reload();
           }, 1000);
           break;
         default:
@@ -94,10 +94,10 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
-      this.user = {
-                username: this.authService.currentUserName,
-        picture: this.authService.currentUserPhoto
-      };    
+    this.user = {
+      username: this.authService.currentUserName,
+      picture: this.authService.currentUserPhoto
+    };
   }
 
   ngOnDestroy() {
@@ -107,6 +107,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   changeLangg(lang: string) {
     if (lang == "en") {
+      this.langgService.registerCulture('en');
       this.langgService.language.next("en");
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
@@ -114,6 +115,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.dirService.setDirection(NbLayoutDirection.LTR);
       }
     } else {
+      this.langgService.registerCulture('ar');
       this.langgService.language.next("ar");
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;

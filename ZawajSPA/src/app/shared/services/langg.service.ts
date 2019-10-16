@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Title } from "@angular/platform-browser";
+import { registerLocaleData } from '@angular/common';
 // @ts-ignore
 import * as words from "../../../assets/locale/translation.json";
+import localeArabic from '@angular/common/locales/ar';
+import localeEnglish from '@angular/common/locales/en';
 
 @Injectable({
   providedIn: "root"
@@ -72,4 +75,33 @@ export class LanggService {
       this.PlacholdersArray.next(runTimePlacholdersArray);
     }
   }
+
+
+  private _locale: string;
+
+    set locale(value: string) {
+        this._locale = value;
+    }
+    get locale(): string {
+        return this._locale || 'en-US';
+    }
+
+    registerCulture(culture: string) {
+        if (!culture) {
+            return;
+        }
+        this.locale = culture;
+
+        // Register locale data since only the en-US locale data comes with Angular
+        switch (culture) {
+            case 'ar': {
+                registerLocaleData(localeArabic);
+                break;
+            }
+            case 'en': {
+                registerLocaleData(localeEnglish);
+                break;
+            }
+        }
+    }
 }

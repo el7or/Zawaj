@@ -30,8 +30,8 @@ import localeEN from '@angular/common/locales/en';
 import localeARExtra from '@angular/common/locales/extra/ar';
 import localeENExtra from '@angular/common/locales/extra/en';
 
-registerLocaleData(localeAR,'ar',localeARExtra);
-registerLocaleData(localeEN,'en',localeENExtra);
+/* registerLocaleData(localeAR,'ar',localeARExtra);
+registerLocaleData(localeEN,'en',localeENExtra); */
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -66,7 +66,7 @@ export function tokenGetter() {
     })
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
-    { provide: LOCALE_ID, useValue: localStorage.getItem('langg') }
+    /* { provide: LOCALE_ID, useValue: localStorage.getItem('langg') } */
   ],
   bootstrap: [AppComponent],
 })
