@@ -23,15 +23,14 @@ import {
 import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
 import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
-import {LOCALE_ID} from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
+import { LanggService } from './shared/services/langg.service';
 import { registerLocaleData } from '@angular/common';
-import localeAR from '@angular/common/locales/ar';
-import localeEN from '@angular/common/locales/en';
-import localeARExtra from '@angular/common/locales/extra/ar';
-import localeENExtra from '@angular/common/locales/extra/en';
+import localeArabic from '@angular/common/locales/ar';
+import localeEnglish from '@angular/common/locales/en';
 
-/* registerLocaleData(localeAR,'ar',localeARExtra);
-registerLocaleData(localeEN,'en',localeENExtra); */
+registerLocaleData(localeArabic);
+registerLocaleData(localeEnglish);
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -66,7 +65,10 @@ export function tokenGetter() {
     })
   ],
   providers:[TokenInterceptorProvidor,ErrorInterceptorProvidor,
-    /* { provide: LOCALE_ID, useValue: localStorage.getItem('langg') } */
+    {provide: LOCALE_ID,
+      deps: [LanggService],
+      useFactory: (LanggService: { locale: string; }) => LanggService.locale
+     }
   ],
   bootstrap: [AppComponent],
 })

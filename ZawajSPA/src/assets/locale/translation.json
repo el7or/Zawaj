@@ -100,6 +100,7 @@
     {"ar":"حذف","en":"Delete"},
     {"ar":"إلغاء","en":"Cancel"},
     {"ar":"تاريخ الميلاد:","en":"Birth Date:"},
+    {"ar":"تاريخ الميلاد","en":"Birth Date"},
     {"ar":"لابد من إدخال تاريخ الميلاد!","en":"Birth Date is required!"},
     {"ar":"الدولة:","en":"Country:"},
     {"ar":"لابد من تحديد الدولة!","en":"Country is required!"},

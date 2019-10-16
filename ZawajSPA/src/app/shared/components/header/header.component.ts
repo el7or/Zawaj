@@ -78,7 +78,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.router.navigateByUrl("/pages/members/edit");
           break;
         case "English":
-        case "عربي":
+        case "عربي":          
+      this.langgService.registerCulture(event.item.data);
           this.langgService.langLoading.next(true);
           setTimeout(() => {
             this.changeLangg(event.item.data);
@@ -107,7 +108,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   changeLangg(lang: string) {
     if (lang == "en") {
-      this.langgService.registerCulture('en');
       this.langgService.language.next("en");
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
@@ -115,7 +115,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.dirService.setDirection(NbLayoutDirection.LTR);
       }
     } else {
-      this.langgService.registerCulture('ar');
       this.langgService.language.next("ar");
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;

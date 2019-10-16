@@ -83,7 +83,7 @@ export class LanggService {
         this._locale = value;
     }
     get locale(): string {
-        return this._locale || 'en-US';
+        return localStorage.getItem('langg') || 'ar';
     }
 
     registerCulture(culture: string) {
