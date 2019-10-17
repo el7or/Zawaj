@@ -33,18 +33,23 @@ export class RegisterComponent extends NbRegisterComponent {
      }
 
   register() {
+    const birthDate = this.user.birthDate;
     this.user.birthDate = this.langgService.resetDateTime(this.user.birthDate);
     this.authService.register(this.user).subscribe(
       () => {
+        this.user.birthDate = birthDate;
         this.registerSwal.fire();
         this.loading = false;
         this.router.navigate(["/pages"]);        
       },
       err => {
-        if(err=='DuplicateUserName'){this.duplicateSwal.fire()}
+        if(err=='DuplicateUserName'){
+          this.duplicateSwal.fire();
+        this.user.birthDate = birthDate;
+        }
         this.loading = false;
-      },
-      () => {this.loading = false;}
+
+      }
     )
   }
 }
