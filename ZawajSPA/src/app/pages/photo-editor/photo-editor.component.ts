@@ -58,9 +58,11 @@ export class PhotoEditorComponent implements OnInit, AfterViewInit {
     this.uploader.onSuccessItem = (item, response) => {
       const addedPhoto: PhotoDetails = JSON.parse(response);
       this.photos.push(addedPhoto);
+      if (addedPhoto.isMain==true) {
       this.userDetails.photoURL = addedPhoto.url;
         this.authService.currentUserPhoto=addedPhoto.url;
-        localStorage.setItem('userPhoto',addedPhoto.url);
+        localStorage.setItem('userPhoto',addedPhoto.url);        
+      }
       this.loading = false;
       this.doneSwal.fire();
     };
