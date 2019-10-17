@@ -91,7 +91,8 @@ namespace ZawajAPI.Controllers
             var photo = _mapper.Map<Photo>(photoModel);
             var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
             if (!user.Photos.Any(p => p.IsMain))
-            { photo.IsMain = true; }
+            { photo.IsMain = true;
+            photo.IsApproved = true; }
             else { photo.IsMain = false; }
             user.Photos.Add(photo);
             if (await _context.SaveChangesAsync() > 0)
