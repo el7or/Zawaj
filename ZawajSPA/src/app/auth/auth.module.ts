@@ -47,10 +47,10 @@ import { SharedModule } from "../shared/shared.module";
           userName: {
             required: true
           },
-          fullName: {
+          nickName: {
             required: true,
-            minLength: 10,
-            maxLength: 50
+            minLength: 3,
+            maxLength: 12
           },
           birthDate:{
             required: true

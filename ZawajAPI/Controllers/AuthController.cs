@@ -50,7 +50,8 @@ namespace ZawajAPI.Controllers
                 return Ok(new
                 {
                     token = GenerateJWToken(loginUser).Result,
-                    userPhotoURL = userDetails.PhotoURL
+                    userPhotoURL = userDetails.PhotoURL,
+                    userGender = userDetails.Gender
                 });
             }
             else return Unauthorized();
@@ -70,7 +71,8 @@ namespace ZawajAPI.Controllers
                 return Ok(new
                 {
                     token = GenerateJWToken(user).Result,
-                    userPhotoURL = userDetails.PhotoURL
+                    userPhotoURL = userDetails.PhotoURL,
+                    userGender = userDetails.Gender
                 });
             }
             else return BadRequest(result.Errors);

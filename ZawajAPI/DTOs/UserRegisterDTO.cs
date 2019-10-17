@@ -12,7 +12,7 @@ namespace ZawajAPI.DTOs
         public string Password { get; set; }
 
         [Required]
-        public string FullName { get; set; }
+        public string NickName { get; set; }
 
         [Required]
         public DateTime BirthDate { get; set; }

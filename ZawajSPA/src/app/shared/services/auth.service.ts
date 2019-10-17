@@ -28,11 +28,11 @@ export class AuthService {
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
-          localStorage.setItem('userPhoto',res.userPhotoURL);
           let decodedToken = this.jwtHelper.decodeToken(res.token);
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
-          this.currentUserPhoto = res.userPhotoURL!=null? res.userPhotoURL:'assets/images/avatar.png';
+          this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
+          localStorage.setItem('userPhoto',this.currentUserPhoto);
         }
       })
     );
@@ -43,11 +43,11 @@ export class AuthService {
       map((res:any)=>{
         if(res){
           localStorage.setItem('token',res.token);
-          localStorage.setItem('userPhoto',res.userPhotoURL);
           let decodedToken = this.jwtHelper.decodeToken(res.token);
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
-          this.currentUserPhoto = res.userPhotoURL!=null? res.userPhotoURL:'assets/images/avatar.png';
+          this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
+          localStorage.setItem('userPhoto',this.currentUserPhoto);
         }
       })
     );
