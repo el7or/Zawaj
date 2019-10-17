@@ -14,7 +14,7 @@ export class LocalDatePipe implements PipeTransform {
         if (!value) { return ''; }
         if (!format) { format = 'shortDate'; }
 
-        return formatDate(value, format, this.session.locale);       
+        return formatDate(value, format, this.session.locale);        
     }
 
 }

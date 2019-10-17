@@ -41,6 +41,9 @@ import { DARK_THEME } from './styles/theme.dark';
 import { LanggDirective } from './directives/langg.directive';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LocalDatePipe } from './pipes/local-date.pipe';
+import { LocalNumberPipe } from './pipes/local-number.pipe';
+import { LocalDayPipe } from './pipes/local-day.pipe';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -70,13 +73,16 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-  LocalDatePipe
+  LocalDatePipe,
+  LocalNumberPipe,
+  LocalDayPipe,
+  TimeAgoPipe
 ];
 
 @NgModule({
   imports: [CommonModule, ...NB_MODULES,RouterModule, SweetAlert2Module.forRoot()],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
-  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe],
+  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe, LocalNumberPipe, LocalDayPipe, TimeAgoPipe],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

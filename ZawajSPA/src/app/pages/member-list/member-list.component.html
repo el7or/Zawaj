@@ -3,42 +3,34 @@
     <nb-card>
       <nb-card-header>{{user.nickName || user.userName}}</nb-card-header>
       <nb-card-body>
-        <nb-user size="giant" [name]="user.gender" [title]="user.age"
+        <nb-user size="giant" [name]="user.gender" [title]="user.age|localNumber"
           [picture]="user.photoURL || 'assets/images/avatar.png'">
         </nb-user>
       </nb-card-body>
       <nb-card-footer>{{user.country}} - {{user.city}}</nb-card-footer>
-      <!-- <nb-actions size="small">
-        <nb-action icon="info-outline"></nb-action>
-        <nb-action icon="heart-outline"></nb-action>
-        <nb-action icon="email-outline"></nb-action>
-      </nb-actions> 
-      <nb-action class="list-inline text-center">
-      <button nbButton outline status="danger" size="tiny" class="list-inline-item"><nb-icon icon="info-outline"></nb-icon></button>
-      <button nbButton outline status="danger" size="tiny" class="list-inline-item"><nb-icon icon="heart-outline"></nb-icon></button>
-      <button nbButton outline status="danger" size="tiny" class="list-inline-item"><nb-icon icon="email-outline"></nb-icon></button>
-    </nb-action>-->
 
-    <ul dir="ltr" class="list-inline members-icons animate text-center">
-      <li class="list-inline-item">
-        <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange [queryParams]="{tab:3}">
-          <i class="fa fa-envelope"></i>
-        </button>
-      </li>
-      <li class="list-inline-item">
-        <button class="btn btn-outline-danger">
-          <i class="fa fa-heart"></i>
-        </button>
-      </li>
-      <li class="list-inline-item">
-        <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange>
-          <i class="fa fa-user"></i>
-        </button>
-      </li>
-    </ul>
+      <ul dir="ltr" class="list-inline members-icons animate text-center">
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange
+            [queryParams]="{tab:3}">
+            <i class="fa fa-envelope"></i>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger">
+            <i class="fa fa-heart"></i>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange>
+            <i class="fa fa-user"></i>
+          </button>
+        </li>
+      </ul>
     </nb-card>
   </div>
 </div>
 <pagination-controls (pageChange)="p = $event" maxSize="12" directionLinks="true" autoHide="true" responsive="true"
-  previousLabel="" nextLabel="" screenReaderPaginationLabel="" screenReaderPageLabel="" screenReaderCurrentLabel="">
+  previousLabel="" nextLabel="" screenReaderPageLabel="" screenReaderPaginationLabel=""
+  screenReaderCurrentLabel="">
 </pagination-controls>

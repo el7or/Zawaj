@@ -21,16 +21,16 @@
               </div>
               <div>
                 <strong langg>Age</strong>
-                <p>{{userDetails.age}}</p>
+                <p>{{userDetails.age | localNumber}}</p>
               </div>
               <div>
                 <strong langg>Last Seen</strong>
-                <p>{{userDetails.lastActive }}</p>
+                <p>{{userDetails.lastActive |timeAgo }}</p>
                 <!-- <p>{{userDetails.lastActive | timeAgo}}</p> -->
               </div>
               <div>
                 <strong langg>Member from</strong>
-                <p>{{userDetails.createdOn}}</p>
+                <p>{{userDetails.createdOn | localDay}}</p>
               </div>
             </nb-card-body>
 
