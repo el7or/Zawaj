@@ -6,15 +6,15 @@ import {
   OnInit,
   ViewChild,
   TemplateRef,
-  AfterViewChecked
+  AfterViewChecked,
+  AfterViewInit
 } from "@angular/core";
 import {
   NbMenuService,
   NbSidebarService,
-  NbLayoutDirection,
-  NbLayoutDirectionService,
   NbWindowService,
-  NbSearchService
+  NbSearchService,
+  NbDialogService
 } from "@nebular/theme";
 
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
@@ -28,8 +28,10 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   styleUrls: ["./header.component.scss"],
   templateUrl: "./header.component.html"
 })
-export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class HeaderComponent
+  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @ViewChild("logoutSwal", { static: false }) private logoutSwal: SwalComponent;
+  @ViewChild("dialog", { static: false }) private dialog;
   menuTitles: any;
   menu = MENU_ITEMS;
 
@@ -54,12 +56,12 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private layoutService: LayoutService,
-    private dirService: NbLayoutDirectionService,
     private windowService: NbWindowService,
     private langgService: LanggService,
     private authService: AuthService,
     private searchService: NbSearchService,
-    private router: Router
+    private router: Router,
+    private dialogService: NbDialogService
   ) {
     this.searchService.onSearchSubmit().subscribe((data: any) => {
       alert(data.term);
@@ -78,8 +80,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.router.navigateByUrl("/pages/members/edit");
           break;
         case "English":
-        case "عربي":          
-      this.langgService.registerCulture(event.item.data);
+        case "عربي":
+          this.langgService.registerCulture(event.item.data);
           this.langgService.langLoading.next(true);
           setTimeout(() => {
             this.langgService.language.next(event.item.data);
@@ -91,6 +93,19 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
           break;
       }
     });
+  }
+
+  ngAfterViewInit() {
+    if (localStorage.getItem("isFirstLogin")=="firstLogin") {
+      let el: HTMLElement = document.getElementById("userMenu") as HTMLElement;
+      setTimeout(() => {
+        this.dialogService.open(this.dialog);
+      }, 2000);
+      setTimeout(() => {
+        el.click();
+        localStorage.removeItem("isFirstLogin")
+      }, 4000);
+    }
   }
 
   ngAfterViewChecked() {
@@ -108,19 +123,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   checkLangg(lang: string) {
     if (lang == "en") {
-      /* this.langgService.language.next("en"); */
       this.langMenu.find(lang => lang.title == "English").group = true;
       this.langMenu.find(lang => lang.title == "عربي").group = false;
-      /* if (this.dirService.isRtl) {
-        this.dirService.setDirection(NbLayoutDirection.LTR);
-      } */
     } else {
-      /* this.langgService.language.next("ar"); */
       this.langMenu.find(lang => lang.title == "عربي").group = true;
       this.langMenu.find(lang => lang.title == "English").group = false;
-      /* if (this.dirService.isLtr) {
-        this.dirService.setDirection(NbLayoutDirection.RTL);
-      } */
     }
   }
 

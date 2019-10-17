@@ -39,3 +39,13 @@
 <swal #logoutSwal title="Success" text="Logout successfully!"
   type="success" timer="2000" [showConfirmButton]="false" langg>
 </swal>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header langg>Welcome new Member !</nb-card-header>
+      <nb-card-body langg>Now you can add new photos and update all your personal information by clicking on the menu in the top right of the page.</nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" langg status="danger">OK</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>

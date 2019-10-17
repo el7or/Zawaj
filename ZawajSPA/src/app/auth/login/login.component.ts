@@ -48,16 +48,14 @@ export class LoginComponent extends NbLoginComponent
     this.authSubscription = this.authService.login(this.user).subscribe(
       () => {
         this.authSwal.fire();
-      },
-      err => {
-        if (err == "Unauthorized") {this.unAuthSwal.fire();}
-        this.loading = false;
-      },
-      () => {
         this.loading = false;
         if(this.authService.redirectUrl)
         {this.router.navigateByUrl(this.authService.redirectUrl.substring(0, this.router.url.indexOf("/")));}
         else{this.location.back();}
+      },
+      err => {
+        if (err == "Unauthorized") {this.unAuthSwal.fire();}
+        this.loading = false;
       }
     );
   }

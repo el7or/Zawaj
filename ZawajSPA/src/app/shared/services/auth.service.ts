@@ -48,6 +48,7 @@ export class AuthService {
           this.currentUserId=decodedToken.jti;
           this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
           localStorage.setItem('userPhoto',this.currentUserPhoto);
+          localStorage.setItem("isFirstLogin","firstLogin")
         }
       })
     );
