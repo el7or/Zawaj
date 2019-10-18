@@ -19,7 +19,7 @@ namespace ZawajAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public ZawajDbContext _context { get; }
+        private readonly ZawajDbContext _context;
         private readonly IMapper _mapper;
 
         public UsersController(ZawajDbContext context, IMapper mapper)

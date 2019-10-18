@@ -69,7 +69,8 @@ namespace ZawajAPI
             {
                 option.RequireHttpsMetadata = false;
                 option.SaveToken = true;
-                option.TokenValidationParameters = new TokenValidationParameters(){
+                option.TokenValidationParameters = new TokenValidationParameters()
+                {
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Tokens:Issuer"],
                     ValidAudience = Configuration["Tokens:Issuer"],
@@ -80,15 +81,15 @@ namespace ZawajAPI
 
             /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc(options =>
+            { options.Filters.Add<UserActiveActionFilter>(); })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(option =>
-            {
-                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
-            });
+            { option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<TrialData>();
+            services.AddScoped<UserActiveActionFilter>();
             //services.AddAllRepository(Configuration);
         }
 
@@ -110,7 +111,7 @@ namespace ZawajAPI
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
-                            context.Response.AddApplicationError(error.Error.Message,corsOrigin);
+                            context.Response.AddApplicationError(error.Error.Message, corsOrigin);
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });
@@ -119,7 +120,7 @@ namespace ZawajAPI
             }
 
             trialData.TrialUsers();
-            app.UseHttpsRedirection();            
+            app.UseHttpsRedirection();
             app.UseCors(x => x.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseMvc();
