@@ -20,10 +20,12 @@ namespace ZawajAPI.Helpers
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var resultContext = await next();
+            if(resultContext.HttpContext.User.Identity.IsAuthenticated){
             string userId = resultContext.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Jti).Value;
             var user = await _userManager.FindByIdAsync(userId);
             user.LastActive = DateTime.Now;
             await _userManager.UpdateAsync(user);
+            }
         }
     }
 }
