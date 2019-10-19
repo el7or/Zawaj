@@ -22,7 +22,9 @@ namespace ZawajAPI.DTOs
 
         public string Country { get; set; }
         public string City { get; set; }
-        public DateTime CreatedOn { get { return DateTime.Now; } }
-        public DateTime UpdatedOn { get { return DateTime.Now; } }
+        /* public DateTime CreatedOn { get { return DateTime.Now; } }
+        public DateTime UpdatedOn { get { return DateTime.Now; } } */
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public DateTime UpdatedOn { get; set; } = DateTime.Now;
     }
 }

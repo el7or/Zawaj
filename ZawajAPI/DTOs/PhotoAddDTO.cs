@@ -9,7 +9,9 @@ namespace ZawajAPI.DTOs
         public IFormFile File { get; set; }
         public string Description { get; set; }  
         public string PublicId { get; set; }
-        public DateTime CreatedOn { get{return DateTime.Now;} }  
-        public DateTime UpdatedOn { get{return DateTime.Now;} }
+        /* public DateTime CreatedOn { get { return DateTime.Now; } }
+        public DateTime UpdatedOn { get { return DateTime.Now; } } */
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public DateTime UpdatedOn { get; set; } = DateTime.Now;
     }
 }
