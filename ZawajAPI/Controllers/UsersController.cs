@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 using ZawajAPI.Data;
 using ZawajAPI.DTOs;
+using ZawajAPI.Helpers;
 using ZawajAPI.Models;
 
 namespace ZawajAPI.Controllers
@@ -31,9 +33,10 @@ namespace ZawajAPI.Controllers
         // GET: api/Users
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]PagingParams pagingParams)
         {
-            var users = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).ToListAsync();
+            var users = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+            .ToPagedListAsync(pagingParams.PageNumber,pagingParams.PageSize);
             var model = _mapper.Map<IEnumerable<UserListDTO>>(users);
             return Ok(model);
         }

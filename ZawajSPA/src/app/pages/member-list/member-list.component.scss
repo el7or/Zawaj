@@ -1,6 +1,6 @@
-@import '../../shared/styles/themes';
-@import '~bootstrap/scss/mixins/breakpoints';
-@import '~@nebular/theme/styles/global/breakpoints';
+@import "../../shared/styles/themes";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~@nebular/theme/styles/global/breakpoints";
 
 @include nb-install-component() {
   .solar-card nb-card-header {
@@ -14,64 +14,69 @@
     }
   }
 
-  nb-card{
+  nb-card {
     cursor: pointer;
     text-align: center !important;
     overflow: hidden;
-    position: relative;  
+    position: relative;
   }
 
-  nb-card:hover{
-    transform: scale(1.2,1.2);
+  nb-card:hover {
+    transform: scale(1.2, 1.2);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
   }
 
-  nb-card-footer{
+  nb-card-footer {
     font-size: smaller;
   }
 
-  pagination-controls{
-    text-align: center !important;
+  pagination /deep/ .page-item .page-link {
+    border-radius: 5px 5px 5px 5px/5px 5px 5px 5px !important;
+    color: deeppink;
   }
- pagination-controls /deep/ .ngx-pagination .current{
-   background-color: deeppink;
- }
+  pagination /deep/ .page-item.disabled .page-link {
+    color: #6c757d;
+  }
+  pagination /deep/ .page-item.active .page-link{
+    background-color: pink;
+    color: black;
+    border-color: #dee2e6;
+  }
 
-  .wrapper{
+  .wrapper {
     overflow: hidden;
-    position: relative;   
-}
+    position: relative;
+  }
 
-.members-icons{
+  .members-icons {
     position: absolute;
     bottom: -30%;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    opacity:0;
-    
-}
-nb-card:hover .members-icons{
+    opacity: 0;
+  }
+  nb-card:hover .members-icons {
     bottom: 0;
     opacity: 1;
-}
+  }
 
-.animate{
+  .animate {
     transition: all 0.3s ease-in-out;
-}
+  }
 
-.btn-outline-danger:hover {
+  .btn-outline-danger:hover {
     color: deeppink;
     background-color: pink;
-  
+
     border-color: pink;
-}
-.btn-outline-danger {
+  }
+  .btn-outline-danger {
     color: deeppink;
     background-color: white;
-    
+
     border-color: pink;
-}
+  }
 }
