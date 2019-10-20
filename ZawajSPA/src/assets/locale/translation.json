@@ -107,5 +107,7 @@
     {"ar":"المدينة:","en":"City:"},
     {"ar":"لابد من تحديد المدينة!","en":"City is required!"},
     {"ar":"مرحبا بالعضو الجديد !","en":"Welcome new Member !"},
-    {"ar":"يمكنك الآن إضافة صور جديدة وتحديث جميع معلوماتك الشخصية من خلال الضغط على القائمة في الجزء العلوي الأيسر من الصفحة.","en":"Now you can add new photos and update all your personal information by clicking on the menu in the top right of the page."}
+    {"ar":"يمكنك الآن إضافة صور جديدة وتحديث جميع معلوماتك الشخصية من خلال الضغط على القائمة في الجزء العلوي الأيسر من الصفحة.","en":"Now you can add new photos and update all your personal information by clicking on the menu in the top right of the page."},
+    {"ar":"لاتوجد معلومات لعرضها.","en":"There is no information to display."},
+    {"ar":"لاتوجد صور لعرضها.","en":"There is no photos to display."}
 ]

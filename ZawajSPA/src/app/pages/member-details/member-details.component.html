@@ -54,6 +54,7 @@
                 </nb-card-header>
                 <nb-card-body>
                     <div class="card-text mt-3 p-2">
+                      <p *ngIf="!userDetails.about" langg>There is no information to display.</p>
                   <p #about>{{userDetails.about | slice:0:200 }}</p>
                   </div>
                 </nb-card-body>
@@ -68,6 +69,7 @@
                   <h4 langg>Look for</h4>
                 </nb-card-header>
                 <div class="card-text mt-3 p-2">
+                    <p *ngIf="!userDetails.lookingFor" langg>There is no information to display.</p>
                   <p #look>{{userDetails.lookingFor | slice:0:200 }}</p>
                 </div>
                 <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor!=null && userDetails.lookingFor.length>200"
@@ -82,11 +84,13 @@
                   <h4 langg>My hobbies</h4>
                 </nb-card-header>
                 <div class="card-text mt-3 p-2">
+                    <p *ngIf="!userDetails.interests" langg>There is no information to display.</p>
                   <p>{{userDetails.interests}}</p>
                 </div>
               </nb-card>
             </nb-tab>
             <nb-tab tabTitle="Photo Gallery">
+                <p *ngIf="userDetails.photos.length == 0" langg>There is no photos to display.</p>
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </nb-tab>
             <nb-tab tabTitle="Messages" (deselect)="deselect()">
