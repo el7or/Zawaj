@@ -1,6 +1,6 @@
 import { UserList } from "../../shared/models/user-list";
 import { UserService } from "../../shared/services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NbToastrService } from "@nebular/theme";
 import { Pagination } from "../../shared/models/pagination";
@@ -10,21 +10,35 @@ import { Pagination } from "../../shared/models/pagination";
   styleUrls: ["./member-list.component.scss"],
   templateUrl: "./member-list.component.html"
 })
-export class MemberListComponent implements OnInit {
+export class MemberListComponent implements OnInit, AfterViewInit, AfterViewChecked {
   users: UserList[];
   pagination: Pagination;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.users = data.userPagedList.users;
-      this.pagination = data.userPagedList.pagination;
+      this.pagination = data.userPagedList.pagination;  
     });
+  }
+
+  ngAfterViewInit(){
+  }
+
+  ngAfterViewChecked() {
+    let paginationNumbers = document.querySelectorAll(".pagination-page .page-link");
+    let paginationNumbersArray = Array.prototype.slice.call(paginationNumbers);
+    paginationNumbersArray.forEach(element => {
+      if(!isNaN(element.innerHTML))
+      element.innerHTML = Number(element.innerHTML).toLocaleString(localStorage.getItem("langg"));
+    });
+    this.cdr.detectChanges();
   }
 
   pageChanged(event: any): void {
@@ -34,7 +48,7 @@ export class MemberListComponent implements OnInit {
       .subscribe(
         userPagedList => {
           this.users = userPagedList.users;
-          this.pagination = userPagedList.pagination;
+          this.pagination = userPagedList.pagination;   
         },
         error => {
           console.error(error);
