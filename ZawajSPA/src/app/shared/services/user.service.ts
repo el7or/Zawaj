@@ -1,10 +1,11 @@
-import { UserUpdate } from './../models/user-update';
-import { UserDetails } from './../models/user-details';
-import { UserList } from './../models/user-list';
-import { HttpClient } from "@angular/common/http";
+import { UserUpdate } from "./../models/user-update";
+import { UserDetails } from "./../models/user-details";
+import { UserList, UserPagedList } from "./../models/user-list";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -14,10 +15,15 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getAllUsers(): Observable<UserList[]> {
-    return this.http.get<UserList[]>(this.baseUrl);
+  getAllUsers(pageNumber?, pageSize?): Observable<UserPagedList> {
+    let params = new HttpParams();
+    if (pageNumber != null && pageSize != null) {
+      params = params.append("pageNumber", pageNumber);
+      params = params.append("pageSize", pageSize);
+    }
+    return this.http.get<UserPagedList>(this.baseUrl, { params });
   }
-   /* getAllUsers(): Observable<User[]> {
+  /* getAllUsers(): Observable<User[]> {
     return this.http
       .get<User[]>("https://jsonplaceholder.typicode.com/users")
       .pipe(
@@ -38,7 +44,7 @@ export class UserService {
     return this.http.get<UserDetails>(this.baseUrl + id);
   }
 
-  putUser(id:string,user:UserUpdate){
+  putUser(id: string, user: UserUpdate) {
     return this.http.put<UserUpdate>(this.baseUrl + id, user);
   }
 }

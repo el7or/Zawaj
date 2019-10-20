@@ -1,3 +1,9 @@
+import { Pagination } from './pagination';
+export interface UserPagedList {
+  users: UserList[],
+  pagination:Pagination
+}
+
 export interface UserList {
   id: string,
   userName: string,

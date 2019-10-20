@@ -1,7 +1,18 @@
 using System;
+using System.Collections.Generic;
+using X.PagedList;
+using ZawajAPI.Helpers;
 
 namespace ZawajAPI.DTOs
 {
+    public class UserPagedListDTO{
+        public IEnumerable<UserListDTO> Users { get; set; }
+        public PagedList Pagination { get; set; }
+        /* public int PageNumber { get; set; }
+        public int PageCount { get; set; }
+        public int PageSize { get; set; }
+        public int TotalItemCount { get; set; } */
+    }
     public class UserListDTO
     {
         public string Id { get; set; }

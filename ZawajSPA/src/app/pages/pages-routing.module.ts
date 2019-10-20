@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard], */
     children: [
       { path: "members", component: MemberListComponent,
-      resolve:{userList:MemberListResolverService} },
+      resolve:{userPagedList:MemberListResolverService} },
       {
         path: "members/edit",
         component: MemberEditComponent,

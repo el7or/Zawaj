@@ -35,9 +35,24 @@ namespace ZawajAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetUsers([FromQuery]PagingParams pagingParams)
         {
-            var users = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
-            .ToPagedListAsync(pagingParams.PageNumber,pagingParams.PageSize);
-            var model = _mapper.Map<IEnumerable<UserListDTO>>(users);
+            var usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+            .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
+            var model = new UserPagedListDTO
+            {
+                Users = users,
+                Pagination = new PagedList
+                {
+                    PageCount = usersPaged.PageCount,
+                    PageNumber = usersPaged.PageNumber,
+                    PageSize = usersPaged.PageSize,
+                    TotalItemCount = usersPaged.TotalItemCount
+                }
+                /* PageCount = usersPaged.PageCount,
+                PageNumber = usersPaged.PageNumber,
+                PageSize = usersPaged.PageSize,
+                TotalItemCount = usersPaged.TotalItemCount */
+            };
             return Ok(model);
         }
 
@@ -46,7 +61,7 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> GetUser(string id)
         {
             var user = await _context.Users.Where(u => u.Id == id).Include(p => p.Photos).FirstOrDefaultAsync();
-            user.Photos = user.Photos.OrderByDescending(p=>p.IsMain).ToList();
+            user.Photos = user.Photos.OrderByDescending(p => p.IsMain).ToList();
             var model = _mapper.Map<UserDetailsDTO>(user);
 
             if (user == null)
