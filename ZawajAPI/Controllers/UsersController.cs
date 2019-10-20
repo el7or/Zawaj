@@ -35,8 +35,19 @@ namespace ZawajAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetUsers([FromQuery]PagingParams pagingParams)
         {
-            var usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
-            .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            IPagedList<User> usersPaged;
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
+                usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+                .Where(u=>u.Id!=currentUser.Id&&u.Gender!=currentUser.Gender)
+                .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+                .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            }
             var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
             var model = new UserPagedListDTO
             {
@@ -48,10 +59,6 @@ namespace ZawajAPI.Controllers
                     PageSize = usersPaged.PageSize,
                     TotalItemCount = usersPaged.TotalItemCount
                 }
-                /* PageCount = usersPaged.PageCount,
-                PageNumber = usersPaged.PageNumber,
-                PageSize = usersPaged.PageSize,
-                TotalItemCount = usersPaged.TotalItemCount */
             };
             return Ok(model);
         }
@@ -86,7 +93,7 @@ namespace ZawajAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, UserUpdateDTO model)
         {
-            if (id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value)
+            if (id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
             {
                 return Unauthorized();
             }

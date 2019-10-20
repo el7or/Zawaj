@@ -139,7 +139,7 @@ export class HeaderComponent
     this.logoutSwal.fire();
     localStorage.removeItem("token");
     localStorage.removeItem("userPhoto");
-    this.router.navigate(["/pages"]);
+    this.router.navigate(["/pages/members/"]);
   }
 
   toggleSidebar(): boolean {
