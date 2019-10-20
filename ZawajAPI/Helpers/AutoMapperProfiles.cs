@@ -11,9 +11,9 @@ namespace ZawajAPI.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<UserRegisterDTO, User>()
-            .ForMember(dest => dest.Gender,map => {map.MapFrom(src => src.Gender==1?"رجل":"إمرأة");});
+            .ForMember(dest => dest.Gender, map => { map.MapFrom(src => src.Gender == 1 ? "رجل" : "إمرأة"); });
 
-CreateMap<IPagedList, UserListDTO>();
+            CreateMap<IPagedList, PagedList>();
             CreateMap<User, UserListDTO>()
             .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
             .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
@@ -25,7 +25,7 @@ CreateMap<IPagedList, UserListDTO>();
             CreateMap<UserUpdateDTO, User>();
 
             CreateMap<Photo, PhotoDetailsDTO>();
-            CreateMap<PhotoAddDTO,Photo>();
+            CreateMap<PhotoAddDTO, Photo>();
         }
     }
 }

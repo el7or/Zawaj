@@ -49,16 +49,11 @@ namespace ZawajAPI.Controllers
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
+            var usersPagedList = _mapper.Map<PagedList>(usersPaged);
             var model = new UserPagedListDTO
             {
                 Users = users,
-                Pagination = new PagedList
-                {
-                    PageCount = usersPaged.PageCount,
-                    PageNumber = usersPaged.PageNumber,
-                    PageSize = usersPaged.PageSize,
-                    TotalItemCount = usersPaged.TotalItemCount
-                }
+                Pagination = usersPagedList
             };
             return Ok(model);
         }
