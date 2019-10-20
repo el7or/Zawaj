@@ -54,10 +54,10 @@
                 </nb-card-header>
                 <nb-card-body>
                     <div class="card-text mt-3 p-2">
-                  <p #about>{{userDetails.about | slice:0:200}}</p>
+                  <p #about>{{userDetails.about | slice:0:200 }}</p>
                   </div>
                 </nb-card-body>
-                <button nbButton status="primary" [hidden]='!showIntro' *ngIf="userDetails.about.length>200"
+                <button nbButton status="primary" [hidden]='!showIntro' *ngIf="userDetails.about !=null && userDetails.about.length>200"
                   (click)="about.innerText = userDetails.about;showIntro=false;">Read more...</button>
                 <button nbButton status="danger" [hidden]='showIntro'
                   (click)="about.innerText = userDetails.about.slice(0,200);showIntro=true;" langg>Collapse</button>
@@ -68,9 +68,9 @@
                   <h4 langg>Look for</h4>
                 </nb-card-header>
                 <div class="card-text mt-3 p-2">
-                  <p #look>{{userDetails.lookingFor | slice:0:200}}</p>
+                  <p #look>{{userDetails.lookingFor | slice:0:200 }}</p>
                 </div>
-                <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor.length>200"
+                <button nbButton status="primary" [hidden]='!showLook' *ngIf="userDetails.lookingFor!=null && userDetails.lookingFor.length>200"
                   (click)="look.innerText = userDetails.lookingFor;showLook=false;" langg>Read more...</button>
                 <button nbButton status="danger" [hidden]='showLook'
                   (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;" langg>Collapse</button>
