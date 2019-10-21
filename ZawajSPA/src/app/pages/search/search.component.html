@@ -1,3 +1,84 @@
-<p>
-  search works!
-</p>
+  <form form="ngForm" (ngSubmit)="loadUsers();" class="form-inline row d-flex justify-content-center" novalidate>
+
+    <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center">
+      <label for="minAge">Minimum Age:</label>&nbsp;
+      <input nbInput type="number" [(ngModel)]="searchParams.minAge" id="minAge" name="minAge" min="14" max="99"
+        status="info">
+    </div>
+
+    <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
+      <label for="maxAge">Maximum Age:</label>&nbsp;
+      <input nbInput type="number" [(ngModel)]="searchParams.maxAge" id="maxAge" name="maxAge" min="14" max="99"
+        status="info">
+    </div>
+
+    <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
+      <label for="gender">Gender:</label>&nbsp;
+      <nb-select [(ngModel)]="searchParams.gender" id="gender" name="gender" status="info">
+        <nb-option [value]="0">All Genders</nb-option>
+        <nb-option [value]="1">Male</nb-option>
+        <nb-option [value]="2">Female</nb-option>
+      </nb-select>
+    </div>
+    <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
+      <button nbButton type="submit" status="danger">Search</button>&nbsp;
+      <button nbButton type="button" status="warning" (click)="resetFilter()">Reset</button>
+    </div>
+  </form>
+
+<div *ngIf="pagination">
+  <div class="text-center">
+    <h4><span>We Found</span> {{pagination.totalItemCount}} <span *ngIf="pagination.totalItemCount>10">Suggestion</span>
+      <span *ngIf="pagination.totalItemCount<=10&&pagination.totalItemCount!=0">Suggestions</span>
+    </h4>
+    <h4 *ngIf="pagination.totalItemCount==0"><span>There are no suitable suggestions!</span> </h4>
+  </div>
+  <div class="form-group">
+    <label for="orderBy">Sort:</label>&nbsp;
+    <nb-select [(ngModel)]="searchParams.orderBy" id="orderBy" name="orderBy" status="info">
+      <nb-option value="lastActive">Last Active</nb-option>
+      <nb-option value="createdOn">Join Date</nb-option>
+      <nb-option value="Age">Age</nb-option>
+    </nb-select>
+  </div>
+</div>
+<div class="row">
+  <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+    <nb-card>
+      <nb-card-header>{{user.nickName || user.userName}}</nb-card-header>
+      <nb-card-body>
+        <nb-user size="giant" [name]="user.gender" [title]="user.age|localNumber"
+          [picture]="user.photoURL || 'assets/images/avatar.png'">
+        </nb-user>
+      </nb-card-body>
+      <nb-card-footer>{{user.country}} - {{user.city}}</nb-card-footer>
+
+      <ul dir="ltr" class="list-inline members-icons animate text-center">
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange
+            [queryParams]="{tab:3}">
+            <i class="fa fa-envelope"></i>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger">
+            <i class="fa fa-heart"></i>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange>
+            <i class="fa fa-user"></i>
+          </button>
+        </li>
+      </ul>
+    </nb-card>
+  </div>
+</div>
+
+<div *ngIf="pagination" class="d-flex justify-content-center">
+  <pagination *ngIf="pagination!= null && pagination.totalItemCount>0" [boundaryLinks]="true"
+    [itemsPerPage]="pagination.pageSize" [totalItems]="pagination.totalItemCount" [(ngModel)]="pagination.pageNumber"
+    (pageChanged)="pageChanged($event);" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+    lastText="&raquo;">
+  </pagination>
+</div>

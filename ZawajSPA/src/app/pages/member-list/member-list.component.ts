@@ -10,7 +10,7 @@ import { Pagination } from "../../shared/models/pagination";
   styleUrls: ["./member-list.component.scss"],
   templateUrl: "./member-list.component.html"
 })
-export class MemberListComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class MemberListComponent implements OnInit, AfterViewChecked {
   users: UserList[];
   pagination: Pagination;
 
@@ -26,9 +26,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, AfterViewChec
       this.users = data.userPagedList.users;
       this.pagination = data.userPagedList.pagination;  
     });
-  }
-
-  ngAfterViewInit(){
   }
 
   ngAfterViewChecked() {
