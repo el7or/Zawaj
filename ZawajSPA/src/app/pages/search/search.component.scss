@@ -9,9 +9,89 @@
     input{
         width: 75px;
     }
-    label{
+    label,h4{
         font-size: 1.25rem;
         font-family: 'Tajawal';  
         font-weight: bolder;
     }
+nb-selsct{
+    min-width: 10%;
+}
+
+    .solar-card nb-card-header {
+        border: none;
+        padding-bottom: 0;
+      }
+    
+      @include media-breakpoint-down(sm) {
+        ngx-traffic {
+          display: none;
+        }
+      }
+    
+      nb-card {
+        cursor: pointer;
+        text-align: center !important;
+        overflow: hidden;
+        position: relative;
+      }
+    
+      nb-card:hover {
+        transform: scale(1.2, 1.2);
+        transition-duration: 500ms;
+        transition-timing-function: ease-out;
+      }
+    
+      nb-card-footer {
+        font-size: smaller;
+      }
+    
+      pagination /deep/ .page-item .page-link {
+        border-radius: 5px 5px 5px 5px/5px 5px 5px 5px !important;
+        color: deeppink;
+      }
+      pagination /deep/ .page-item.disabled .page-link {
+        color: #6c757d;
+      }
+      pagination /deep/ .page-item.active .page-link{
+        background-color: pink;
+        color: black;
+        border-color: #dee2e6;
+      }
+    
+      .wrapper {
+        overflow: hidden;
+        position: relative;
+      }
+    
+      .members-icons {
+        position: absolute;
+        bottom: -30%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0;
+      }
+      nb-card:hover .members-icons {
+        bottom: 0;
+        opacity: 1;
+      }
+    
+      .animate {
+        transition: all 0.3s ease-in-out;
+      }
+    
+      .btn-outline-danger:hover {
+        color: deeppink;
+        background-color: pink;
+    
+        border-color: pink;
+      }
+      .btn-outline-danger {
+        color: deeppink;
+        background-color: white;
+    
+        border-color: pink;
+      }
 }

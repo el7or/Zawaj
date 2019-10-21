@@ -1,47 +1,45 @@
-  <form form="ngForm" (ngSubmit)="loadUsers();" class="form-inline row d-flex justify-content-center" novalidate>
+  <form form="ngForm" (ngSubmit)="isSearch=true;loadUsers();" class="form-inline row d-flex justify-content-center" novalidate>
 
     <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center">
-      <label for="minAge">Minimum Age:</label>&nbsp;
+      <label for="minAge" langg>Minimum Age:</label>&nbsp;
       <input nbInput type="number" [(ngModel)]="searchParams.minAge" id="minAge" name="minAge" min="14" max="99"
         status="info">
     </div>
 
     <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
-      <label for="maxAge">Maximum Age:</label>&nbsp;
+      <label for="maxAge" langg>Maximum Age:</label>&nbsp;
       <input nbInput type="number" [(ngModel)]="searchParams.maxAge" id="maxAge" name="maxAge" min="14" max="99"
         status="info">
     </div>
 
     <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
-      <label for="gender">Gender:</label>&nbsp;
+      <label for="gender" langg>Gender:</label>&nbsp;
       <nb-select [(ngModel)]="searchParams.gender" id="gender" name="gender" status="info">
-        <nb-option [value]="0">All Genders</nb-option>
-        <nb-option [value]="1">Male</nb-option>
-        <nb-option [value]="2">Female</nb-option>
+        <nb-option [value]="0" langg>All Genders</nb-option>
+        <nb-option [value]="1" langg>Males</nb-option>
+        <nb-option [value]="2" langg>Females</nb-option>
       </nb-select>
     </div>
     <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
-      <button nbButton type="submit" status="danger">Search</button>&nbsp;
-      <button nbButton type="button" status="warning" (click)="resetFilter()">Reset</button>
+      <button nbButton type="submit" status="danger" langg>Search</button>&nbsp;
+      <button nbButton type="button" status="warning" (click)="resetFilter()" langg>Reset</button>
     </div>
   </form>
-
-<div *ngIf="pagination">
-  <div class="text-center">
-    <h4><span>We Found</span> {{pagination.totalItemCount}} <span *ngIf="pagination.totalItemCount>10">Suggestion</span>
-      <span *ngIf="pagination.totalItemCount<=10&&pagination.totalItemCount!=0">Suggestions</span>
-    </h4>
-    <h4 *ngIf="pagination.totalItemCount==0"><span>There are no suitable suggestions!</span> </h4>
-  </div>
-  <div class="form-group">
-    <label for="orderBy">Sort:</label>&nbsp;
-    <nb-select [(ngModel)]="searchParams.orderBy" id="orderBy" name="orderBy" status="info">
-      <nb-option value="lastActive">Last Active</nb-option>
-      <nb-option value="createdOn">Join Date</nb-option>
-      <nb-option value="Age">Age</nb-option>
+      <div *ngIf="pagination" class="text-center mt-3">
+          <h4 *ngIf="pagination.totalItemCount>0" class="alert-success">
+            <span langg>We Found</span> {{pagination.totalItemCount}} <span *ngIf="pagination.totalItemCount>10" langg>Suggestion</span>
+            <span *ngIf="pagination.totalItemCount<=10&&pagination.totalItemCount!=0" langg>Suggestions</span>
+          </h4>
+          <h4 *ngIf="pagination.totalItemCount==0" class="alert-warning" langg>There are no suitable suggestions!</h4>
+        </div>
+  <div *ngIf="users && pagination.totalItemCount>0" class="form-group">
+    <label for="orderBy" langg>Sort:</label>&nbsp;
+    <nb-select [(ngModel)]="searchParams.orderBy" id="orderBy" name="orderBy" status="info" (selectedChange)="loadUsers()">
+      <nb-option value="lastActive" langg>Latest Activity</nb-option>
+      <nb-option value="createdOn" langg>Latest Registered</nb-option>
+      <nb-option value="Age" langg>Age</nb-option>
     </nb-select>
-  </div>
-</div>
+  </div>  
 <div class="row">
   <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
     <nb-card>

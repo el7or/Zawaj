@@ -58,6 +58,41 @@ namespace ZawajAPI.Controllers
             return Ok(model);
         }
 
+        // GET: api/Users/Search
+        [HttpGet("search")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchUsers([FromQuery]SearchParams searchParams,[FromQuery]PagingParams pagingParams)
+        {
+            IPagedList<User> usersPaged;
+            var minBirthDate = DateTime.Today.AddYears(-searchParams.MaxAge-1);
+               var maxBirthDate = DateTime.Today.AddYears(-searchParams.MinAge);
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
+                usersPaged = await _context.Users.Include(p => p.Photos)
+                .OrderByDescending(u=>searchParams.OrderBy=="createdOn"?u.CreatedOn:(searchParams.OrderBy=="Age"?u.BirthDate:u.LastActive))
+                .Where(u=>u.Id!=currentUser.Id && u.BirthDate>=minBirthDate && u.BirthDate<=maxBirthDate)
+                .Where(g=>searchParams.Gender==0?true:(searchParams.Gender==1?g.Gender=="رجل":g.Gender=="إمرأة"))
+                .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            else
+            {
+                usersPaged = await _context.Users.Include(p => p.Photos)
+                .OrderByDescending(u=>searchParams.OrderBy=="createdOn"?u.CreatedOn:(searchParams.OrderBy=="Age"?u.BirthDate:u.LastActive))
+                .Where(u=>u.BirthDate>=minBirthDate && u.BirthDate<=maxBirthDate)
+                .Where(g=>searchParams.Gender==0?true:(searchParams.Gender==1?g.Gender=="رجل":g.Gender=="إمرأة"))
+                .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
+            }
+            var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
+            var usersPagedList = _mapper.Map<PagedList>(usersPaged);
+            var model = new UserPagedListDTO
+            {
+                Users = users,
+                Pagination = usersPagedList
+            };
+            return Ok(model);
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)

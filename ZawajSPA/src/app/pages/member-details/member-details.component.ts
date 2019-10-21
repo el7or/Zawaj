@@ -1,6 +1,6 @@
 import { UserDetails } from "./../../shared/models/user-details";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import {
   NgxGalleryOptions,
   NgxGalleryImage,
@@ -16,7 +16,7 @@ export class MemberDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
   userDetails: UserDetails;
   showIntro: boolean = true;
   showLook: boolean = true;
@@ -31,8 +31,8 @@ export class MemberDetailsComponent implements OnInit {
         height: "500px",
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        previewCloseOnEsc:true,
-        previewKeyboardNavigation:true
+        previewCloseOnEsc: true,
+        previewKeyboardNavigation: true
       },
       // max-width 800
       {
@@ -50,13 +50,13 @@ export class MemberDetailsComponent implements OnInit {
         preview: false
       }
     ];
-    this.galleryImages = this.userDetails.photos.map(photo=>{
+    this.galleryImages = this.userDetails.photos.map(photo => {
       return {
-        small:photo.url,
-        medium:photo.url,
-        big:photo.url,
-      }
-    })
+        small: photo.url,
+        medium: photo.url,
+        big: photo.url
+      };
+    });
   }
 
   deselect() {}

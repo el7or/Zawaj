@@ -109,5 +109,19 @@
     {"ar":"مرحبا بالعضو الجديد !","en":"Welcome new Member !"},
     {"ar":"يمكنك الآن إضافة صور جديدة وتحديث جميع معلوماتك الشخصية من خلال الضغط على القائمة في الجزء العلوي الأيسر من الصفحة.","en":"Now you can add new photos and update all your personal information by clicking on the menu in the top right of the page."},
     {"ar":"لاتوجد معلومات لعرضها.","en":"There is no information to display."},
-    {"ar":"لاتوجد صور لعرضها.","en":"There is no photos to display."}
+    {"ar":"لاتوجد صور لعرضها.","en":"There is no photos to display."},
+    {"ar":"العمر الأدنى:","en":"Minimum Age:"},
+    {"ar":"العمر الأقصى:","en":"Maximum Age:"},
+    {"ar":"النوع:","en":"Gender:"},
+    {"ar":"الكل","en":"All Genders"},
+    {"ar":"الرجال","en":"Males"},
+    {"ar":"النساء","en":"Females"},
+    {"ar":"إعادة تعيين","en":"Reset"},
+    {"ar":"ترتيب:","en":"Sort:"},
+    {"ar":"الأحدث نشاطاً","en":"Latest Activity"},
+    {"ar":"الأحدث اشتراكاً","en":"Latest Registered"},
+    {"ar":"يوجد","en":"We Found"},
+    {"ar":"نتيجة","en":"Suggestion"},
+    {"ar":"نتائج","en":"Suggestions"},
+    {"ar":"لاتوجد نتائج مناسبة!","en":"There are no suitable suggestions!"}
 ]
