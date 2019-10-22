@@ -44,6 +44,7 @@ import { LocalDatePipe } from './pipes/local-date.pipe';
 import { LocalNumberPipe } from './pipes/local-number.pipe';
 import { LocalDayPipe } from './pipes/local-day.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { DateWithoutTimePipe } from './pipes/date-without-time.pipe';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -82,7 +83,7 @@ const PIPES = [
 @NgModule({
   imports: [CommonModule, ...NB_MODULES,RouterModule, SweetAlert2Module.forRoot()],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
-  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe, LocalNumberPipe, LocalDayPipe, TimeAgoPipe],
+  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe, LocalNumberPipe, LocalDayPipe, TimeAgoPipe, DateWithoutTimePipe],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

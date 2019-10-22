@@ -1,4 +1,3 @@
-import { LanggService } from './../../shared/services/langg.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { UserRegister } from './../../shared/models/user-register';
 import { AuthService } from './../../shared/services/auth.service';
@@ -8,6 +7,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NbRegisterComponent, NbAuthService, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { Router } from '@angular/router';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { DateWithoutTimePipe } from '../../shared/pipes/date-without-time.pipe';
 
 @Component({
   selector: 'ngx-register',
@@ -24,7 +24,7 @@ export class RegisterComponent extends NbRegisterComponent {
 
   constructor(private ser: NbAuthService, service: NbAuthService, @Inject(NB_AUTH_OPTIONS) options:{},
      cd: ChangeDetectorRef, router: Router, private authService:AuthService,
-     private localeService: BsLocaleService, private langgService:LanggService){       
+     private localeService: BsLocaleService){       
       super(service, options, cd, router);
       this.user.gender = 1;
       this.localeService.use(localStorage.getItem('langg'));
@@ -34,7 +34,8 @@ export class RegisterComponent extends NbRegisterComponent {
 
   register() {
     const birthDate = this.user.birthDate;
-    this.user.birthDate = this.langgService.resetDateTime(this.user.birthDate);
+    debugger;
+    this.user.birthDate = new DateWithoutTimePipe().transform(this.user.birthDate);
     this.authService.register(this.user).subscribe(
       () => {
         this.user.birthDate = birthDate;
