@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { UserDetails } from "./../../shared/models/user-details";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import {
   NgxGalleryOptions,
   NgxGalleryImage,
@@ -13,13 +14,14 @@ import {
   styleUrls: ["./member-details.component.scss"]
 })
 export class MemberDetailsComponent implements OnInit {
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
-
-  constructor(private route: ActivatedRoute, private router: Router) {}
   userDetails: UserDetails;
   showIntro: boolean = true;
   showLook: boolean = true;
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
+
+  constructor(private route: ActivatedRoute, private location: Location) {}
+
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userDetails = data.userDetails;
@@ -57,7 +59,11 @@ export class MemberDetailsComponent implements OnInit {
         big: photo.url
       };
     });
+    this.location.replaceState('pages/'+'members');
   }
 
+  goBack(){
+this.location.back();
+  }
   deselect() {}
 }
