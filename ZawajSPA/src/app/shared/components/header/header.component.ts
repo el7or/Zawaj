@@ -81,7 +81,6 @@ export class HeaderComponent
           break;
         case "English":
         case "عربي":
-          this.langgService.registerCulture(event.item.data);
           this.langgService.langLoading.next(true);
           setTimeout(() => {
             this.langgService.language.next(event.item.data);

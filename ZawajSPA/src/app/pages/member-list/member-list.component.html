@@ -11,18 +11,19 @@
 
       <ul dir="ltr" class="list-inline members-icons animate text-center">
         <li class="list-inline-item">
-          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange
-            [queryParams]="{tab:3}">
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
+          skipLocationChange [queryParams]="{tab:3}" nbTooltip="Connect">
             <i class="fa fa-envelope"></i>
           </button>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-outline-danger">
+          <button class="btn btn-outline-danger" nbTooltip="Like">
             <i class="fa fa-heart"></i>
           </button>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]" skipLocationChange>
+          <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
+          skipLocationChange nbTooltip="Member Details">
             <i class="fa fa-user"></i>
           </button>
         </li>

@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Title } from "@angular/platform-browser";
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData } from "@angular/common";
 // @ts-ignore
 import * as words from "../../../assets/locale/translation.json";
-import localeArabic from '@angular/common/locales/ar';
-import localeEnglish from '@angular/common/locales/en';
-import { NbLayoutDirectionService, NbLayoutDirection } from '@nebular/theme';
+import localeArabic from "@angular/common/locales/ar";
+import localeEnglish from "@angular/common/locales/en";
+import { NbLayoutDirectionService, NbLayoutDirection } from "@nebular/theme";
 
 @Injectable({
   providedIn: "root"
@@ -14,24 +14,39 @@ import { NbLayoutDirectionService, NbLayoutDirection } from '@nebular/theme';
 export class LanggService {
   _words = [];
   elementsArray = new BehaviorSubject<[]>([]);
-  PlacholdersArray = new BehaviorSubject<[]>([]);
+  placholdersArray = new BehaviorSubject<[]>([]);
+  tooltipsArray = new BehaviorSubject<[]>([]);
   language = new BehaviorSubject<string>(
     localStorage.getItem("langg") == "en" ? "en" : "ar"
   );
   lang = this.language.asObservable();
   langLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(titleService: Title, private dirService: NbLayoutDirectionService) {
+  _locale: string;
+  set locale(value: string) {
+    this._locale = value;
+  }
+  get locale(): string {
+    return localStorage.getItem("langg") || "ar";
+  }
+
+  // change language from button to translate from langg directive:
+  constructor(
+    titleService: Title,
+    private dirService: NbLayoutDirectionService
+  ) {
     this.lang.subscribe(lang => {
       if (lang == "en") {
         localStorage.setItem("langg", "en");
         titleService.setTitle("Zawaj");
+        this.registerCulture("en");
         if (this.dirService.isRtl) {
           this.dirService.setDirection(NbLayoutDirection.LTR);
         }
       } else {
         localStorage.setItem("langg", "ar");
         titleService.setTitle("موقع زواج");
+        this.registerCulture("ar");
         if (this.dirService.isLtr) {
           this.dirService.setDirection(NbLayoutDirection.RTL);
         }
@@ -39,10 +54,31 @@ export class LanggService {
     });
   }
 
+  registerCulture(culture: string) {
+    if (!culture) {
+      return;
+    }
+    this.locale = culture;
+
+    switch (culture) {
+      case "ar": {
+        registerLocaleData(localeArabic);
+        break;
+      }
+      case "en": {
+        registerLocaleData(localeEnglish);
+        break;
+      }
+    }
+  }
+
+  /*** translate elements without langg directive: ***/
   translateWithoutDerctive() {
+
+    // translate runtime elements:
     this._words = words.default;
     let runTimeElements = document.querySelectorAll(
-      ".menu-title, div.message, span.title.subtitle, nb-select-label, #swal2-title, #swal2-content, .swal2-confirm, .swal2-cancel, nb-option.ng-star-inserted, span.info, span.tab-text, div.user-name"
+      ".menu-title, div.message, span.title.subtitle, nb-select-label, #swal2-title, #swal2-content, .swal2-confirm, .swal2-cancel, nb-option.ng-star-inserted, span.info, span.tab-text, div.user-name, nb-tooltip div span"
     );
     let runTimeElementsArray = Array.prototype.slice.call(runTimeElements);
     let lastElementsArray = this.elementsArray.value;
@@ -62,13 +98,13 @@ export class LanggService {
       this.elementsArray.next(runTimeElementsArray);
     }
 
+    // translate placeholders for input elements:
     let runTimePlacholders = document.querySelectorAll("input.search-input");
     let runTimePlacholdersArray = Array.prototype.slice.call(
       runTimePlacholders
     );
-    let lastPlacholdersArray = this.PlacholdersArray.value;
+    let lastPlacholdersArray = this.placholdersArray.value;
     if (lastPlacholdersArray.length != runTimePlacholdersArray.length) {
-      console.log(runTimePlacholdersArray);
       runTimePlacholdersArray.forEach(element => {
         this.lang.subscribe((lang: string) => {
           try {
@@ -79,39 +115,18 @@ export class LanggService {
           } catch {}
         });
       });
-      this.PlacholdersArray.next(runTimePlacholdersArray);
+      this.placholdersArray.next(runTimePlacholdersArray);
     }
   }
 
-
-  private _locale: string;
-
-    set locale(value: string) {
-        this._locale = value;
-    }
-    get locale(): string {
-        return localStorage.getItem('langg') || 'ar';
-    }
-
-    registerCulture(culture: string) {
-        if (!culture) {
-            return;
-        }
-        this.locale = culture;
-
-        switch (culture) {
-            case 'ar': {
-                registerLocaleData(localeArabic);
-                break;
-            }
-            case 'en': {
-                registerLocaleData(localeEnglish);
-                break;
-            }
-        }
-    }
-
-    resetDateTime(date){
-      return new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate();
-    }
+  // remove time from datetime
+  resetDateTime(date) {
+    return (
+      new Date(date).getFullYear() +
+      "-" +
+      (new Date(date).getMonth() + 1) +
+      "-" +
+      new Date(date).getDate()
+    );
+  }
 }

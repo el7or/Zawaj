@@ -28,34 +28,48 @@
   color: deeppink !important;
 }
 .nb-theme-default nb-tabset .tab.active .tab-link::before,
-.nb-theme-default .pace .pace-progress{
+.nb-theme-default .pace .pace-progress {
   background-color: deeppink !important;
 }
-.nb-theme-default .pace .pace-progress-inner{
-  box-shadow: 0 0 10px rgba(255, 20, 145, 0.623), 0 0 5px rgba(255, 20, 145, 0.623) !important;
+.nb-theme-default .pace .pace-progress-inner {
+  box-shadow: 0 0 10px rgba(255, 20, 145, 0.623),
+    0 0 5px rgba(255, 20, 145, 0.623) !important;
 }
 
 .nb-theme-default nb-menu .menu-item a:hover .menu-icon,
-.nb-theme-default nb-menu .menu-item a:hover{
-  color:rgba(255, 20, 145, 0.623) !important;
+.nb-theme-default nb-menu .menu-item a:hover {
+  color: rgba(255, 20, 145, 0.623) !important;
 }
-.nb-theme-default nb-tabset .tab:hover .tab-link::before{
+.nb-theme-default nb-tabset .tab:hover .tab-link::before {
   background-color: rgba(255, 20, 145, 0.623) !important;
 }
 
-.nb-theme-default a:hover{
-  color:rgba(255, 20, 145, 0.623) !important;
+.nb-theme-default a:hover {
+  color: rgba(255, 20, 145, 0.623) !important;
 }
-.nb-theme-default a:focus{
+.nb-theme-default a:focus {
   outline-color: rgba(255, 20, 145, 0.623) !important;
 }
 
-nb-datepicker-container nb-card-header{
+nb-datepicker-container nb-card-header {
   display: none;
 }
-.menu-item a[title="English"] .menu-title{
+.menu-item a[title="English"] .menu-title {
   text-align: center !important;
 }
-.menu-group span{
+.menu-group span {
   display: unset !important;
+}
+nb-popover div {
+  padding: 0 0.5rem 0.25rem;
+  color: #ffffff !important;
+  
+}
+nb-popover {
+  background: #151a30 !important;
+}
+
+nb-popover .arrow:after {
+
+  border-bottom-color: #151a30 !important;
 }

@@ -123,5 +123,8 @@
     {"ar":"يوجد","en":"We Found"},
     {"ar":"نتيجة","en":"Suggestion"},
     {"ar":"نتائج","en":"Suggestions"},
-    {"ar":"لاتوجد نتائج مناسبة!","en":"There are no suitable suggestions!"}
+    {"ar":"لاتوجد نتائج مناسبة!","en":"There are no suitable suggestions!"},
+    {"ar":"بيانات العضو","en":"Member Details"},
+    {"ar":"إعجاب","en":"Like"},
+    {"ar":"تواصل","en":"Connect"}
 ]
