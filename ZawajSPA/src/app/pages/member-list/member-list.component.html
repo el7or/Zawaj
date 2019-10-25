@@ -13,18 +13,21 @@
         <li class="list-inline-item">
           <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
           [queryParams]="{tab:3}" nbTooltip="Connect">
-            <i class="fa fa-envelope"></i>
+            <nb-icon icon="email-outline"></nb-icon>
           </button>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-outline-danger" nbTooltip="Like">
-            <i class="fa fa-heart"></i>
+          <button *ngIf="user.isLiking" class="btn btn-outline-danger" nbTooltip="Dislike">
+            <nb-icon icon="heart"></nb-icon>
+          </button>
+          <button *ngIf="!user.isLiking" class="btn btn-outline-danger" nbTooltip="Like">
+            <nb-icon icon="heart-outline"></nb-icon>
           </button>
         </li>
         <li class="list-inline-item">
           <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
           nbTooltip="Member Details">
-            <i class="fa fa-user"></i>
+            <nb-icon icon="person-outline"></nb-icon>
           </button>
         </li>
       </ul>

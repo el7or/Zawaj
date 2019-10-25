@@ -125,6 +125,7 @@
     {"ar":"نتائج","en":"Suggestions"},
     {"ar":"لاتوجد نتائج مناسبة!","en":"There are no suitable suggestions!"},
     {"ar":"بيانات العضو","en":"Member Details"},
+    {"ar":"إلغاء الإعجاب","en":"Dislike"},
     {"ar":"إعجاب","en":"Like"},
     {"ar":"تواصل","en":"Connect"}
 ]

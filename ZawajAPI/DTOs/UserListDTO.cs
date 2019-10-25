@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using X.PagedList;
 using ZawajAPI.Helpers;
+using ZawajAPI.Models;
 
 namespace ZawajAPI.DTOs
 {
@@ -27,5 +28,6 @@ namespace ZawajAPI.DTOs
         public string Country { get; set; }
         public string City { get; set; }
         public string PhotoURL { get; set; }
+        public bool? isLiking { get; set; }
     }
 }

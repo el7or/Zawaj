@@ -39,13 +39,15 @@ namespace ZawajAPI.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
-                usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+                usersPaged = await _context.Users.Include(p => p.Photos).Include(u=>u.LikesFrom)
+                .OrderByDescending(u => u.LastActive)
                 .Where(u=>u.Id!=currentUser.Id&&u.Gender!=currentUser.Gender)
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
             {
-                usersPaged = await _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive)
+                usersPaged = await _context.Users.Include(p => p.Photos)
+                .OrderByDescending(u => u.LastActive)
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
@@ -69,7 +71,7 @@ namespace ZawajAPI.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
-                usersPaged = await _context.Users.Include(p => p.Photos)
+                usersPaged = await _context.Users.Include(p => p.Photos).Include(u=>u.LikesFrom)
                 .OrderByDescending(u=>searchParams.OrderBy=="createdOn"?u.CreatedOn:(searchParams.OrderBy=="Age"?u.BirthDate:u.LastActive))
                 .Where(u=>u.Id!=currentUser.Id && u.BirthDate>=minBirthDate && u.BirthDate<=maxBirthDate)
                 .Where(g=>searchParams.Gender==0?true:(searchParams.Gender==1?g.Gender=="رجل":g.Gender=="إمرأة"))

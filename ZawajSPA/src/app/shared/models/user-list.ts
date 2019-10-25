@@ -17,4 +17,5 @@ export interface UserList {
   country: string,
   city: string,
   photoURL: string
+  isLiking:boolean
 }

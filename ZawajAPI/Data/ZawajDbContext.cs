@@ -67,5 +67,7 @@ namespace ZawajAPI.Data
             .HasForeignKey(l=>l.LikeToUserId)
             .OnDelete(DeleteBehavior.Restrict); */
         }
+
+        public DbSet<ZawajAPI.Models.Like> Like { get; set; }
     }
 }
