@@ -19,6 +19,8 @@ namespace ZawajAPI.Models
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Like> LikesFrom { get; set; }
+        public ICollection<Like> LikesTo { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
     }
 }

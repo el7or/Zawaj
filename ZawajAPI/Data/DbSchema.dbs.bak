@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Sqlite" id="Project_a1563d" template="Default" database="Sqlite" >
+	<schema name="Default" schemaname="Default" >
+		<table name="AspNetRoleClaims" >
+			<column name="Id" type="integer" jt="4" mandatory="y" />
+			<column name="RoleId" type="text" jt="-1" mandatory="y" />
+			<column name="ClaimType" type="text" jt="-1" />
+			<column name="ClaimValue" type="text" jt="-1" />
+			<index name="pk_AspNetRoleClaims" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<index name="IX_AspNetRoleClaims_RoleId" unique="NORMAL" >
+				<column name="RoleId" />
+			</index>
+			<fk name="Fk_AspNetRoleClaims" to_schema="Default" to_table="AspNetRoles" delete_action="cascade" >
+				<fk_column name="RoleId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetRoles" >
+			<column name="Id" type="text" jt="-1" mandatory="y" />
+			<column name="Name" type="text" jt="-1" />
+			<column name="NormalizedName" type="text" jt="-1" />
+			<column name="ConcurrencyStamp" type="text" jt="-1" />
+			<index name="pk_AspNetRoles" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<index name="RoleNameIndex" unique="UNIQUE" >
+				<column name="NormalizedName" />
+			</index>
+		</table>
+		<table name="AspNetUserClaims" >
+			<column name="Id" type="integer" jt="4" mandatory="y" />
+			<column name="UserId" type="text" jt="-1" mandatory="y" />
+			<column name="ClaimType" type="text" jt="-1" />
+			<column name="ClaimValue" type="text" jt="-1" />
+			<index name="pk_AspNetUserClaims" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<index name="IX_AspNetUserClaims_UserId" unique="NORMAL" >
+				<column name="UserId" />
+			</index>
+			<fk name="Fk_AspNetUserClaims" to_schema="Default" to_table="AspNetUsers" delete_action="cascade" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserLogins" >
+			<column name="LoginProvider" type="text" jt="-1" mandatory="y" />
+			<column name="ProviderKey" type="text" jt="-1" mandatory="y" />
+			<column name="ProviderDisplayName" type="text" jt="-1" />
+			<column name="UserId" type="text" jt="-1" mandatory="y" />
+			<index name="PK_AspNetUserLogins" unique="PRIMARY_KEY" >
+				<column name="LoginProvider" />
+				<column name="ProviderKey" />
+			</index>
+			<index name="IX_AspNetUserLogins_UserId" unique="NORMAL" >
+				<column name="UserId" />
+			</index>
+			<fk name="Fk_AspNetUserLogins" to_schema="Default" to_table="AspNetUsers" delete_action="cascade" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserRoles" >
+			<column name="UserId" type="text" jt="-1" mandatory="y" />
+			<column name="RoleId" type="text" jt="-1" mandatory="y" />
+			<index name="PK_AspNetUserRoles" unique="PRIMARY_KEY" >
+				<column name="UserId" />
+				<column name="RoleId" />
+			</index>
+			<index name="IX_AspNetUserRoles_RoleId" unique="NORMAL" >
+				<column name="RoleId" />
+			</index>
+			<fk name="Fk_AspNetUserRoles" to_schema="Default" to_table="AspNetRoles" delete_action="cascade" >
+				<fk_column name="RoleId" pk="Id" />
+			</fk>
+			<fk name="Fk_AspNetUserRoles" to_schema="Default" to_table="AspNetUsers" delete_action="cascade" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserTokens" >
+			<column name="UserId" type="text" jt="-1" mandatory="y" />
+			<column name="LoginProvider" type="text" jt="-1" mandatory="y" />
+			<column name="Name" type="text" jt="-1" mandatory="y" />
+			<column name="Value" type="text" jt="-1" />
+			<index name="PK_AspNetUserTokens" unique="PRIMARY_KEY" >
+				<column name="UserId" />
+				<column name="LoginProvider" />
+				<column name="Name" />
+			</index>
+			<fk name="Fk_AspNetUserTokens" to_schema="Default" to_table="AspNetUsers" delete_action="cascade" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUsers" >
+			<column name="Id" type="text" jt="-1" mandatory="y" />
+			<column name="UserName" type="text" jt="-1" />
+			<column name="NormalizedUserName" type="text" jt="-1" />
+			<column name="Email" type="text" jt="-1" />
+			<column name="NormalizedEmail" type="text" jt="-1" />
+			<column name="EmailConfirmed" type="integer" jt="4" mandatory="y" />
+			<column name="PasswordHash" type="text" jt="-1" />
+			<column name="SecurityStamp" type="text" jt="-1" />
+			<column name="ConcurrencyStamp" type="text" jt="-1" />
+			<column name="PhoneNumber" type="text" jt="-1" />
+			<column name="PhoneNumberConfirmed" type="integer" jt="4" mandatory="y" />
+			<column name="TwoFactorEnabled" type="integer" jt="4" mandatory="y" />
+			<column name="LockoutEnd" type="text" jt="-1" />
+			<column name="LockoutEnabled" type="integer" jt="4" mandatory="y" />
+			<column name="AccessFailedCount" type="integer" jt="4" mandatory="y" />
+			<column name="FullName" type="text" jt="-1" />
+			<column name="About" type="text" jt="-1" />
+			<column name="BirthDate" type="text" jt="-1" mandatory="y" >
+				<defo>&#039;0001-01-01 00:00:00&#039;</defo>
+			</column>
+			<column name="City" type="text" jt="-1" />
+			<column name="Country" type="text" jt="-1" />
+			<column name="CreatedOn" type="text" jt="-1" mandatory="y" >
+				<defo>&#039;0001-01-01 00:00:00&#039;</defo>
+			</column>
+			<column name="Gender" type="text" jt="-1" />
+			<column name="Interests" type="text" jt="-1" />
+			<column name="LastActive" type="text" jt="-1" mandatory="y" >
+				<defo>&#039;0001-01-01 00:00:00&#039;</defo>
+			</column>
+			<column name="LookingFor" type="text" jt="-1" />
+			<column name="NickName" type="text" jt="-1" />
+			<column name="UpdatedOn" type="text" jt="-1" mandatory="y" >
+				<defo>&#039;0001-01-01 00:00:00&#039;</defo>
+			</column>
+			<index name="PK_AspNetUsers" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<index name="EmailIndex" unique="NORMAL" >
+				<column name="NormalizedEmail" />
+			</index>
+			<index name="UserNameIndex" unique="UNIQUE" >
+				<column name="NormalizedUserName" />
+			</index>
+		</table>
+		<table name="Photos" >
+			<column name="Id" type="integer" jt="4" mandatory="y" />
+			<column name="UserId" type="text" jt="-1" />
+			<column name="Url" type="text" jt="-1" />
+			<column name="Description" type="text" jt="-1" />
+			<column name="IsMain" type="integer" jt="4" mandatory="y" />
+			<column name="IsApproved" type="integer" jt="4" mandatory="y" />
+			<column name="CreatedOn" type="text" jt="-1" mandatory="y" />
+			<column name="UpdatedOn" type="text" jt="-1" mandatory="y" />
+			<index name="pk_Photos" unique="PRIMARY_KEY" >
+				<column name="Id" />
+			</index>
+			<index name="IX_Photos_UserId" unique="NORMAL" >
+				<column name="UserId" />
+			</index>
+			<fk name="Fk_Photos" to_schema="Default" to_table="AspNetUsers" delete_action="restrict" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="__EFMigrationsHistory" >
+			<column name="MigrationId" type="text" jt="-1" mandatory="y" />
+			<column name="ProductVersion" type="text" jt="-1" mandatory="y" />
+			<index name="pk___EFMigrationsHistory" unique="PRIMARY_KEY" >
+				<column name="MigrationId" />
+			</index>
+		</table>
+	</schema>
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.27.2.1.jar" driver_desc="Standard" host="localhost" port="7210" instance="D:/00 Projects 00/_Tests/Zawaj/ZawajAPI/Data/ZawajAPI.db" />
+	<layout name="Default Layout" id="Layout_4bc2f60" show_relation="columns" >
+		<entity schema="Default" name="AspNetRoleClaims" color="BED3F4" x="784" y="48" />
+		<entity schema="Default" name="AspNetRoles" color="BED3F4" x="560" y="48" />
+		<entity schema="Default" name="AspNetUserClaims" color="BED3F4" x="80" y="592" />
+		<entity schema="Default" name="AspNetUserLogins" color="BED3F4" x="48" y="416" />
+		<entity schema="Default" name="AspNetUserRoles" color="BED3F4" x="560" y="448" />
+		<entity schema="Default" name="AspNetUserTokens" color="BED3F4" x="560" y="592" />
+		<entity schema="Default" name="AspNetUsers" color="BED3F4" x="288" y="48" />
+		<entity schema="Default" name="__EFMigrationsHistory" color="3986C1" x="1024" y="48" />
+		<entity schema="Default" name="Photos" color="BED3F4" x="288" y="592" />
+	</layout>
+	<layout name="Sample Layout with Tools" id="Layout_5cf4960" show_column_type="y" show_relation="columns" >
+		<entity schema="Default" name="AspNetRoleClaims" color="BED3F4" x="896" y="176" />
+		<entity schema="Default" name="AspNetRoles" color="BED3F4" x="640" y="176" />
+		<entity schema="Default" name="AspNetUserClaims" color="BED3F4" x="112" y="720" />
+		<entity schema="Default" name="AspNetUserLogins" color="BED3F4" x="48" y="544" />
+		<entity schema="Default" name="AspNetUserRoles" color="BED3F4" x="640" y="576" />
+		<entity schema="Default" name="AspNetUserTokens" color="BED3F4" x="640" y="720" />
+		<entity schema="Default" name="AspNetUsers" color="BED3F4" x="320" y="176" />
+		<entity schema="Default" name="Photos" color="BED3F4" x="320" y="720" />
+		<entity schema="Default" name="__EFMigrationsHistory" color="3986C1" x="1136" y="176" />
+		<callout x="320" y="80" pointer="Round" >
+			<comment><![CDATA[This is a sample layout with tools. 
+Double-click any table, column or foreign key to edit.
+For better understanding the schema create multiple layouts. 
+Layouts and schema structure are saved to project file.]]></comment>
+		</callout>
+		<group name="AspNetUsers" color="ECF0F7" >
+			<entity schema="Default" name="AspNetUsers" />
+			<entity schema="Default" name="AspNetRoles" />
+			<entity schema="Default" name="AspNetUserRoles" />
+			<entity schema="Default" name="AspNetRoleClaims" />
+			<entity schema="Default" name="AspNetUserTokens" />
+			<entity schema="Default" name="Photos" />
+			<entity schema="Default" name="AspNetUserClaims" />
+			<entity schema="Default" name="AspNetUserLogins" />
+		</group>
+		<script name="Sample SQL Editor" id="Editor_26f2a1b" language="SQL" >
+			<string><![CDATA[SELECT * 
+FROM
+	AspNetUsers s;]]></string>
+		</script>
+		<browser id="Browse_84ab7d" name="Sample Relational Data Browse" confirm_updates="y" >
+			<browse_table schema="Default" entity="AspNetUsers" x="20" y="20" width="400" height="300" >
+				<browse_table schema="Default" entity="AspNetUserClaims" fk="Fk_AspNetUserClaims" x="440" y="20" width="500" height="350" />
+			</browse_table>
+		</browser>
+		<query id="Query_25ee4dd" name="Sample Query Builder" >
+			<query_table schema="Default" name="AspNetUsers" alias="a" x="48" y="48" >
+				<column name="Id" />
+				<column name="UserName" />
+				<column name="NormalizedUserName" />
+				<column name="Email" />
+				<column name="NormalizedEmail" />
+				<column name="EmailConfirmed" />
+				<column name="PasswordHash" />
+				<column name="SecurityStamp" />
+				<column name="ConcurrencyStamp" />
+				<column name="PhoneNumber" />
+				<column name="PhoneNumberConfirmed" />
+				<column name="TwoFactorEnabled" />
+				<column name="LockoutEnd" />
+				<column name="LockoutEnabled" />
+				<column name="AccessFailedCount" />
+				<column name="FullName" />
+				<column name="About" />
+				<column name="BirthDate" />
+				<column name="City" />
+				<column name="Country" />
+				<column name="CreatedOn" />
+				<column name="Gender" />
+				<column name="Interests" />
+				<column name="LastActive" />
+				<column name="LookingFor" />
+				<column name="NickName" />
+				<column name="UpdatedOn" />
+				<query_table schema="Default" name="AspNetUserClaims" alias="a1" x="320" y="48" fk="Fk_AspNetUserClaims" type="Inner Join" >
+					<column name="Id" />
+					<column name="UserId" />
+					<column name="ClaimType" />
+					<column name="ClaimValue" />
+				</query_table>
+			</query_table>
+		</query>
+	</layout>
+</project>
