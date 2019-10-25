@@ -17,10 +17,10 @@
           </button>
         </li>
         <li class="list-inline-item">
-          <button *ngIf="user.isLiking" class="btn btn-outline-danger" nbTooltip="Dislike">
+          <button *ngIf="user.isLiking" class="btn btn-outline-danger" nbTooltip="Dislike" (click)="dislike(user.id);user.isLiking=false;">
             <nb-icon icon="heart"></nb-icon>
           </button>
-          <button *ngIf="!user.isLiking" class="btn btn-outline-danger" nbTooltip="Like">
+          <button *ngIf="!user.isLiking" class="btn btn-outline-danger" nbTooltip="Like" (click)="like(user.id);user.isLiking=true;">
             <nb-icon icon="heart-outline"></nb-icon>
           </button>
         </li>

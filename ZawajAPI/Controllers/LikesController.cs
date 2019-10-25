@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -44,7 +45,50 @@ namespace ZawajAPI.Controllers
             return like;
         }
 
-        // PUT: api/Likes/5
+        // POST: api/Likes
+        [HttpPost]
+        public async Task<ActionResult<Like>> PostLike(Like like)
+        {
+            if (like.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
+            {
+                return Unauthorized();
+            }
+            if (LikeExists(like.LikeFromUserId, like.LikeToUserId))
+            {
+                return BadRequest("Liked this before !");
+            }
+            _context.Like.Add(like);
+
+            if (await _context.SaveChangesAsync() > 0)
+            { return Ok(); }
+            else { return BadRequest(); }
+        }
+
+        // DELETE: api/Likes/5
+        [HttpDelete]
+        public async Task<ActionResult<Like>> DeleteLike(Like like)
+        {
+            if (like.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
+            {
+                return Unauthorized();
+            }
+            if (!LikeExists(like.LikeFromUserId, like.LikeToUserId))
+            {
+                return NotFound();
+            }
+
+            _context.Like.Remove(like);
+            if (await _context.SaveChangesAsync() > 0)
+            { return Ok(); }
+            else { return BadRequest(); }
+        }
+
+        private bool LikeExists(string fromUserId, string toUserId)
+        {
+            return _context.Like.Any(e => e.LikeFromUserId == fromUserId && e.LikeToUserId == toUserId);
+        }
+
+        /* // PUT: api/Likes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLike(string id, Like like)
         {
@@ -72,51 +116,6 @@ namespace ZawajAPI.Controllers
             }
 
             return NoContent();
-        }
-
-        // POST: api/Likes
-        [HttpPost]
-        public async Task<ActionResult<Like>> PostLike(Like like)
-        {
-            _context.Like.Add(like);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (LikeExists(like.LikeFromUserId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetLike", new { id = like.LikeFromUserId }, like);
-        }
-
-        // DELETE: api/Likes/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Like>> DeleteLike(string id)
-        {
-            var like = await _context.Like.FindAsync(id);
-            if (like == null)
-            {
-                return NotFound();
-            }
-
-            _context.Like.Remove(like);
-            await _context.SaveChangesAsync();
-
-            return like;
-        }
-
-        private bool LikeExists(string id)
-        {
-            return _context.Like.Any(e => e.LikeFromUserId == id);
-        }
+        } */
     }
 }
