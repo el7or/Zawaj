@@ -1,4 +1,4 @@
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { AuthService } from "./../../services/auth.service";
 import {
   Component,
@@ -133,12 +133,16 @@ export class HeaderComponent
   isLoggedIn() {
     return this.authService.isAuthenticated();
   }
-
+  mySubscription: any;
   logOut() {
     this.logoutSwal.fire();
     localStorage.removeItem("token");
     localStorage.removeItem("userPhoto");
-    this.router.navigate(["/pages/members/"]);
+    //this.router.navigate(["/pages/members/"]);
+
+    this.router.navigateByUrl('/auth/logout', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["/pages/members/"]);
+  }); 
   }
 
   toggleSidebar(): boolean {

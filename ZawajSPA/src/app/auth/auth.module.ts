@@ -19,6 +19,7 @@ import {
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { SharedModule } from "../shared/shared.module";
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,6 @@ import { SharedModule } from "../shared/shared.module";
       }
     })
   ],
-  declarations: [LoginComponent, RegisterComponent]
+  declarations: [LoginComponent, RegisterComponent, LogoutComponent]
 })
 export class NgxAuthModule {}

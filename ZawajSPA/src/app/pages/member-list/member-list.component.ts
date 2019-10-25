@@ -1,12 +1,18 @@
-import { AuthService } from './../../shared/services/auth.service';
-import { LikeUser } from './../../shared/models/like-user';
+import { AuthService } from "./../../shared/services/auth.service";
+import { LikeUser } from "./../../shared/models/like-user";
 import { UserList } from "../../shared/models/user-list";
 import { UserService } from "../../shared/services/user.service";
-import { Component, OnInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NbToastrService } from "@nebular/theme";
 import { Pagination } from "../../shared/models/pagination";
-import { LikeService } from '../../shared/services/like.service';
+import { LikeService } from "../../shared/services/like.service";
 
 @Component({
   selector: "ngx-home",
@@ -19,9 +25,10 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private userService: UserService,
-    private authService:AuthService,
+    private authService: AuthService,
     private likeService: LikeService,
     private route: ActivatedRoute,
+    private router: Router,
     private toastrService: NbToastrService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -29,16 +36,20 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.users = data.userPagedList.users;
-      this.pagination = data.userPagedList.pagination;  
+      this.pagination = data.userPagedList.pagination;
     });
   }
 
   ngAfterViewChecked() {
-    let paginationNumbers = document.querySelectorAll(".pagination-page .page-link");
+    let paginationNumbers = document.querySelectorAll(
+      ".pagination-page .page-link"
+    );
     let paginationNumbersArray = Array.prototype.slice.call(paginationNumbers);
     paginationNumbersArray.forEach(element => {
-      if(!isNaN(element.innerHTML))
-      element.innerHTML = Number(element.innerHTML).toLocaleString(localStorage.getItem("langg"));
+      if (!isNaN(element.innerHTML))
+        element.innerHTML = Number(element.innerHTML).toLocaleString(
+          localStorage.getItem("langg")
+        );
     });
     this.cdr.detectChanges();
   }
@@ -50,7 +61,7 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
       .subscribe(
         userPagedList => {
           this.users = userPagedList.users;
-          this.pagination = userPagedList.pagination;   
+          this.pagination = userPagedList.pagination;
         },
         error => {
           console.error(error);
@@ -63,51 +74,61 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
       );
   }
 
-  like(likeToUserId:string){
-    let newLike:LikeUser = {
-      likeFromUserId:this.authService.currentUserId,
-      likeToUserId: likeToUserId
+  like(likeToUserId: string) {
+    if (!this.authService.isAuthenticated()) {
+      this.authService.redirectUrl = this.router.url;
+      this.router.navigate(["/auth/login"]);
+    } else {
+      let newLike: LikeUser = {
+        likeFromUserId: this.authService.currentUserId,
+        likeToUserId: likeToUserId
+      };
+      this.likeService.postLike(newLike).subscribe(
+        () => {
+          this.toastrService.danger(
+            "Added to likes list successfully.",
+            "Success!",
+            { duration: 3000 }
+          );
+        },
+        error => {
+          console.error(error);
+          this.toastrService.warning(
+            "Please refresh page and try again.",
+            "Something Wrong!",
+            { duration: 3000 }
+          );
+        }
+      );
     }
-    this.likeService.postLike(newLike).subscribe(
-      ()=>{
-        this.toastrService.danger(
-          "Added to likes list successfully.",
-          "Success!",
-          { duration: 3000 }
-        );
-      },
-      error => {
-        console.error(error);
-        this.toastrService.warning(
-          "Please refresh page and try again.",
-          "Something Wrong!",
-          { duration: 3000 }
-        );
-      }
-    );
   }
 
-  dislike(likeToUserId:string){
-    let deletedLike:LikeUser = {
-      likeFromUserId:this.authService.currentUserId,
-      likeToUserId: likeToUserId
+  dislike(likeToUserId: string) {
+    if (!this.authService.isAuthenticated()) {
+      this.authService.redirectUrl = this.router.url;
+      this.router.navigate(["/auth/login"]);
+    } else {
+      let deletedLike: LikeUser = {
+        likeFromUserId: this.authService.currentUserId,
+        likeToUserId: likeToUserId
+      };
+      this.likeService.deleteLike(deletedLike).subscribe(
+        () => {
+          this.toastrService.danger(
+            "Removed from likes list successfully.",
+            "Success!",
+            { duration: 3000 }
+          );
+        },
+        error => {
+          console.error(error);
+          this.toastrService.warning(
+            "Please refresh page and try again.",
+            "Something Wrong!",
+            { duration: 3000 }
+          );
+        }
+      );
     }
-    this.likeService.deleteLike(deletedLike).subscribe(
-      ()=>{
-        this.toastrService.danger(
-          "Removed from likes list successfully.",
-          "Success!",
-          { duration: 3000 }
-        );
-      },
-      error => {
-        console.error(error);
-        this.toastrService.warning(
-          "Please refresh page and try again.",
-          "Something Wrong!",
-          { duration: 3000 }
-        );
-      }
-    );
   }
 }

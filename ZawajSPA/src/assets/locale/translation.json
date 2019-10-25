@@ -130,5 +130,6 @@
     {"ar":"تواصل","en":"Connect"},
     {"ar":"عملية ناجحة!","en":"Success!"},
     {"ar":"تمت الإضافة إلى قائمة الإعجابات بنجاح.","en":"Added to likes list successfully."},
-    {"ar":"تمت الإزالة من قائمة الإعجابات بنجاح.","en":"Removed from likes list successfully."}
+    {"ar":"تمت الإزالة من قائمة الإعجابات بنجاح.","en":"Removed from likes list successfully."},
+    {"ar":"تسجيل خروج !","en":"Log Out !"}
 ]
