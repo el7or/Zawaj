@@ -14,6 +14,7 @@ import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component
 import { SearchComponent } from "./search/search.component";
 import { MemberDetailsResolverService } from './member-details/member-details-resolver.service';
 import { MemberListResolverService } from './member-list/member-list-resolver.service';
+import { LikesComponent } from './likes/likes.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
         component: MemberDetailsComponent,
         canActivate: [AuthGuard],
         resolve:{userDetails:MemberDetailsResolverService}
+      },
+      {
+        path: "likes",
+        component: LikesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: "chat",

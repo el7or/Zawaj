@@ -12,6 +12,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/chat'
   },
   {
+    title: 'Likes',
+    icon: 'heart-outline',
+    link: '/pages/likes',
+    data: 'user'
+  },
+  {
     title: 'Search',
     icon: 'search',
     link: '/pages/search'

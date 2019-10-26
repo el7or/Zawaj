@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Data;
 using ZawajAPI.DTOs;
+using ZawajAPI.Helpers;
 using ZawajAPI.Models;
 
 namespace ZawajAPI.Controllers
@@ -30,22 +31,22 @@ namespace ZawajAPI.Controllers
 
         // GET: api/Likes
         [HttpGet]
-        public async Task<IActionResult> GetLike(string id, bool isLikesFrom)
+        public async Task<IActionResult> GetLike([FromQuery] LikesParams likesParams)
         {
-            if (id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
+            if (likesParams.Id != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
             {
                 return Unauthorized();
             }
-            if (isLikesFrom)
+            if (likesParams.IsLikesFrom)
             {
-                var likesFromUsers = await _context.Like.Where(l => l.LikeToUserId == id)
+                var likesFromUsers = await _context.Like.Where(l => l.LikeToUserId == likesParams.Id)
                 .Select(u => u.LikeFromUser).Include(p=>p.Photos).ToListAsync();
                 var users = _mapper.Map<IEnumerable<UserLikeDTO>>(likesFromUsers);
                 return Ok(users);
             }
             else
             {
-                var likesToUsers = await _context.Like.Where(l => l.LikeFromUserId == id)
+                var likesToUsers = await _context.Like.Where(l => l.LikeFromUserId == likesParams.Id)
                 .Select(u => u.LikeToUser).Include(p=>p.Photos).ToListAsync();
                 var users = _mapper.Map<IEnumerable<UserLikeDTO>>(likesToUsers);
                 return Ok(users);

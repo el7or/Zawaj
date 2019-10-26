@@ -16,8 +16,7 @@ import {
   NbButtonModule,
   NbInputModule,
   NbSpinnerModule,
-  NbTooltipModule,
-  NbPopoverModule
+  NbTooltipModule
 } from "@nebular/theme";
 import { NgxGalleryModule } from "ngx-gallery";
 import { AutosizeModule } from "ngx-autosize";
@@ -34,7 +33,9 @@ import { MemberDetailsComponent } from "./member-details/member-details.componen
 import { MemberEditComponent } from "./member-edit/member-edit.component";
 import { PhotoEditorComponent } from "./photo-editor/photo-editor.component";
 import { FileUploadModule } from "ng2-file-upload";
-import { PaginationModule, TooltipModule } from "ngx-bootstrap";
+import { PaginationModule } from "ngx-bootstrap";
+import { LikesComponent } from './likes/likes.component';
+import {DataTableModule} from "angular-6-datatable";
 
 @NgModule({
   imports: [
@@ -60,8 +61,9 @@ import { PaginationModule, TooltipModule } from "ngx-bootstrap";
     FileUploadModule,
     NbSpinnerModule,
     PaginationModule.forRoot(),
-    NbTooltipModule
-  ],
+    NbTooltipModule,
+    DataTableModule
+    ],
   declarations: [
     PagesComponent,
     MemberListComponent,
@@ -70,7 +72,8 @@ import { PaginationModule, TooltipModule } from "ngx-bootstrap";
     ChatComponent,
     MemberDetailsComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    LikesComponent
   ],
   providers: [AuthGuard]
 })

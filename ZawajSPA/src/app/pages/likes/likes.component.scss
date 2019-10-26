@@ -1,0 +1,21 @@
+@import "../../shared/styles/themes";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~@nebular/theme/styles/global/breakpoints";
+
+@include nb-install-component() {
+  nb-select {
+    min-width: 8rem !important;
+  }
+  mfBootstrapPaginator /deep/ .page-item.active .page-link {
+    background-color: pink !important;
+    color: black !important;
+    border-color: #dee2e6 !important;
+  }
+  mfBootstrapPaginator /deep/ .page-item .page-link {
+    border-radius: 5px 5px 5px 5px/5px 5px 5px 5px !important;
+    color: deeppink !important;
+  }
+  mfBootstrapPaginator /deep/ .page-item.disabled .page-link {
+    color: #6c757d !important;
+  }
+}

@@ -1,4 +1,4 @@
 export interface LikeUser {
-    likeFromUserId:string,
-    likeToUserId:string
+  likeFromUserId: string;
+  likeToUserId: string;
 }
