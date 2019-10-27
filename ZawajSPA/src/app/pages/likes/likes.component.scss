@@ -18,4 +18,7 @@
   mfBootstrapPaginator /deep/ .page-item.disabled .page-link {
     color: #6c757d !important;
   }
+  mfBootstrapPaginator /deep/ ul {
+    margin-bottom: 0 !important;
+  }
 }

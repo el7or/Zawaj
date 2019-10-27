@@ -12,8 +12,6 @@ namespace ZawajAPI.Data
     {
         public ZawajDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Photo> Photos { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -68,6 +66,7 @@ namespace ZawajAPI.Data
             .OnDelete(DeleteBehavior.Restrict); */
         }
 
-        public DbSet<ZawajAPI.Models.Like> Like { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Like> Like { get; set; }
     }
 }

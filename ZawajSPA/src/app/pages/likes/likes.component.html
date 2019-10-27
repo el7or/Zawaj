@@ -1,54 +1,56 @@
-<div class="container">
-  <div class="form-group d-flex justify-content-center mt-1">
-    <nb-select [(ngModel)]="isLikesFrom" status="info" (selectedChange)="reloadLikes($event)">
-      <nb-option [value]="false" langg>My Favorites</nb-option>
-      <nb-option [value]="true" langg>My Fans</nb-option>
-    </nb-select>
+<nb-card>
+  <div class="container mt-3">
+    <div class="form-group d-flex justify-content-center mt-1">
+      <nb-select [(ngModel)]="isLikesFrom" status="info" (selectedChange)="reloadLikes($event)">
+        <nb-option [value]="false" langg>My Favorites</nb-option>
+        <nb-option [value]="true" langg>My Fans</nb-option>
+      </nb-select>
+    </div>
+    <table class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5">
+      <thead>
+        <tr>
+          <th>
+            <mfDefaultSorter by="nickName" langg>Name</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="gender" langg>Gender</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="age" langg>Age</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="country" langg>Residence</mfDefaultSorter>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mf.data; let i = index">
+          <td>{{item.nickName}}</td>
+          <td>{{item.gender}}</td>
+          <td>{{item.age}}</td>
+          <td>{{item.country}} - {{item.city}}</td>
+          <td class="text-center">
+            <button nbButton status="info" size="tiny" [routerLink]="['/pages/members', item.id]"
+              nbTooltip="Member Details">
+              <nb-icon icon="person-outline"></nb-icon>
+            </button>&nbsp;
+            <button *ngIf="!isLikesFrom" nbButton status="danger" size="tiny" nbTooltip="Dislike"
+              (click)="dislike(item.id,i)">
+              <nb-icon icon="person-remove-outline"></nb-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <div class="d-flex justify-content-center">
+              <mfBootstrapPaginator></mfBootstrapPaginator>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-  <table class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5">
-    <thead>
-      <tr>
-        <th>
-          <mfDefaultSorter by="nickName" langg>Name</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="gender" langg>Gender</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="age" langg>Age</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="country" langg>Residence</mfDefaultSorter>
-        </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of mf.data; let i = index">
-        <td>{{item.nickName}}</td>
-        <td>{{item.gender}}</td>
-        <td>{{item.age}}</td>
-        <td>{{item.country}} - {{item.city}}</td>
-        <td class="text-center">
-          <button nbButton status="info" size="tiny" [routerLink]="['/pages/members', item.id]"
-            nbTooltip="Member Details">
-            <nb-icon icon="person-outline"></nb-icon>
-          </button>&nbsp;
-          <button *ngIf="!isLikesFrom" nbButton status="danger" size="tiny" nbTooltip="Dislike"
-            (click)="dislike(item.id,i)">
-            <nb-icon icon="person-remove-outline"></nb-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5">
-          <div class="d-flex justify-content-center">
-            <mfBootstrapPaginator></mfBootstrapPaginator>
-          </div>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+</nb-card>
