@@ -16,7 +16,9 @@ import {
   NbButtonModule,
   NbInputModule,
   NbSpinnerModule,
-  NbTooltipModule
+  NbTooltipModule,
+  NbListModule,
+  NbChatModule
 } from "@nebular/theme";
 import { NgxGalleryModule } from "ngx-gallery";
 import { AutosizeModule } from "ngx-autosize";
@@ -62,7 +64,9 @@ import {DataTableModule} from "angular-6-datatable";
     NbSpinnerModule,
     PaginationModule.forRoot(),
     NbTooltipModule,
-    DataTableModule
+    DataTableModule,
+    NbListModule,
+    NbChatModule
     ],
   declarations: [
     PagesComponent,

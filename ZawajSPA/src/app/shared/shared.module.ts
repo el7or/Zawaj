@@ -1,6 +1,6 @@
-import { RouterModule } from '@angular/router';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from "@angular/router";
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -18,33 +18,31 @@ import {
   NbCardModule,
   NbListModule,
   NbSpinnerModule,
-  NbDialogModule,
-} from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbSecurityModule } from '@nebular/security';
+  NbDialogModule
+} from "@nebular/theme";
+import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { NbSecurityModule } from "@nebular/security";
 
-import {
-  FooterComponent,
-  HeaderComponent,
-} from './components';
+import { FooterComponent, HeaderComponent } from "./components";
 import {
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe,
-} from './pipes';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
-import { DARK_THEME } from './styles/theme.dark';
-import { LanggDirective } from './directives/langg.directive';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { LocalDatePipe } from './pipes/local-date.pipe';
-import { LocalNumberPipe } from './pipes/local-number.pipe';
-import { LocalDayPipe } from './pipes/local-day.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { DateWithoutTimePipe } from './pipes/date-without-time.pipe';
+  NumberWithCommasPipe
+} from "./pipes";
+import { DEFAULT_THEME } from "./styles/theme.default";
+import { COSMIC_THEME } from "./styles/theme.cosmic";
+import { CORPORATE_THEME } from "./styles/theme.corporate";
+import { DARK_THEME } from "./styles/theme.dark";
+import { LanggDirective } from "./directives/langg.directive";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { LocalDatePipe } from "./pipes/local-date.pipe";
+import { LocalNumberPipe } from "./pipes/local-number.pipe";
+import { LocalDayPipe } from "./pipes/local-day.pipe";
+import { TimeAgoPipe } from "./pipes/time-ago.pipe";
+import { DateWithoutTimePipe } from "./pipes/date-without-time.pipe";
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -64,10 +62,7 @@ const NB_MODULES = [
   NbSpinnerModule,
   NbDialogModule
 ];
-const COMPONENTS = [
-  HeaderComponent,
-  FooterComponent,
-];
+const COMPONENTS = [HeaderComponent, FooterComponent];
 const PIPES = [
   CapitalizePipe,
   PluralPipe,
@@ -81,9 +76,24 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES,RouterModule, SweetAlert2Module.forRoot()],
+  imports: [
+    CommonModule,
+    ...NB_MODULES,
+    RouterModule,
+    SweetAlert2Module.forRoot(),
+    BsDropdownModule.forRoot()
+  ],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, LanggDirective],
-  declarations: [...COMPONENTS, ...PIPES, LanggDirective, LocalDatePipe, LocalNumberPipe, LocalDayPipe, TimeAgoPipe, DateWithoutTimePipe],
+  declarations: [
+    ...COMPONENTS,
+    ...PIPES,
+    LanggDirective,
+    LocalDatePipe,
+    LocalNumberPipe,
+    LocalDayPipe,
+    TimeAgoPipe,
+    DateWithoutTimePipe
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -92,13 +102,13 @@ export class SharedModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: "default"
           },
-          [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME ],
+          [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
           DEFAULT_MEDIA_BREAKPOINTS,
           NbLayoutDirection.RTL
-        ).providers,
-      ],
+        ).providers
+      ]
     };
   }
 }

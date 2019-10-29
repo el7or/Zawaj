@@ -1,18 +1,16 @@
-import { Router, NavigationEnd } from "@angular/router";
+import { Router } from "@angular/router";
 import { AuthService } from "./../../services/auth.service";
 import {
   Component,
   OnDestroy,
   OnInit,
   ViewChild,
-  TemplateRef,
   AfterViewChecked,
   AfterViewInit
 } from "@angular/core";
 import {
   NbMenuService,
   NbSidebarService,
-  NbWindowService,
   NbSearchService,
   NbDialogService
 } from "@nebular/theme";
@@ -56,7 +54,6 @@ export class HeaderComponent
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private layoutService: LayoutService,
-    private windowService: NbWindowService,
     private langgService: LanggService,
     private authService: AuthService,
     private searchService: NbSearchService,
@@ -88,6 +85,16 @@ export class HeaderComponent
             this.langgService.langLoading.next(false);
           }, 1000);
           break;
+        default:
+          break;
+      }
+      switch (event.item.data) {
+        case 'like':
+          this.router.navigateByUrl("/pages/likes");
+          break;
+          case 'msg':
+            this.router.navigateByUrl("/pages/chat");
+            break;      
         default:
           break;
       }
@@ -152,13 +159,8 @@ export class HeaderComponent
     return false;
   }
 
-  @ViewChild("contentTemplate", { static: false }) contentTemplate: TemplateRef<
-    any
-  >;
-  openNotifications() {
-    this.windowService.open(this.contentTemplate, {
-      title: "Window content from template",
-      context: { text: "some text to pass into template" }
-    });
-  }
+  alertItems = [
+    {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like"},
+    {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg"}
+  ];
 }
