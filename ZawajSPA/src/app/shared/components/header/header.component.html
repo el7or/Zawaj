@@ -13,11 +13,8 @@
   <nb-actions size="small">
     <nb-action class="control-item">
         <span langg>Quick Search</span>
-      <nb-search type="rotate-layout" placeholder="Member Name..." hint="Hit enter to search" langg></nb-search>
+      <nb-search type="rotate-layout" [placeholder]="'Member Name...' | langg" hint="Hit enter to search"></nb-search>
     </nb-action>
-    <!-- <nb-action *ngIf="isLoggedIn()" class="control-item" [routerLink]="['chat']"
-    icon="email-outline" [badgeText]="9|localNumber" badgeSize="tiny" badgePosition="top left" badgeStatus="danger">
-    </nb-action> -->
     <nb-action *ngIf="isLoggedIn()" class="control-item" [nbContextMenu]="alertItems"
     icon="bell-outline" [badgeText]="9|localNumber" badgeSize="tiny" badgePosition="top left" badgeStatus="danger">
     </nb-action>
@@ -37,8 +34,8 @@
   </nb-actions>
 </div>
 
-<swal #logoutSwal title="Success" text="Logout successfully!"
-  type="success" timer="3000" [showConfirmButton]="false" langg>
+<swal #logoutSwal [title]="'Success' | langg" [text]="'Logout successfully!' | langg"
+  type="success" timer="3000" [showConfirmButton]="false">
 </swal>
 
 <ng-template #dialog let-data let-ref="dialogRef">

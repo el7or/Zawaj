@@ -86,10 +86,10 @@
                 <div class="card-text mt-2 p-2">
                   <div class="row">
                     <div class="col-6">
-                        <input nbInput fullWidth placeholder="Country" [(ngModel)]="userDetails.country" name="country" langg>
+                        <input nbInput fullWidth [placeholder]="'Country' | langg" [(ngModel)]="userDetails.country" name="country">
                     </div>
                     <div class="col-6">
-                        <input nbInput fullWidth placeholder="City" [(ngModel)]="userDetails.city" name="city" langg>                      
+                        <input nbInput fullWidth [placeholder]="'City' | langg" [(ngModel)]="userDetails.city" name="city">                      
                     </div>
                   </div>
                 </div>
@@ -107,11 +107,11 @@
   </nb-card-body>
 </nb-card>
 
-<swal #unsavedSwal title="Attention !" text="Your data has been updated. Would you like to continue without saving the data?"
- type="error" showCancelButton="true" confirmButtonText="Yes, Exit!" cancelButtonText="No, Cancel"
- focusCancel="true" cancelButtonColor="#d33" langg>
+<swal #unsavedSwal [title]="'Attention !'" [text]="'Your data has been updated. Would you like to continue without saving the data?' | langg"
+ type="error" showCancelButton="true" [confirmButtonText]="'Yes, Exit!' | langg" [cancelButtonText]="'No, Cancel' | langg"
+ focusCancel="true" cancelButtonColor="#d33">
 </swal>
 
-<swal #doneSwal title="Success" text="Done successfully!"
-  type="success" timer="2000" [showConfirmButton]="false" langg>
+<swal #doneSwal [title]="'Success' | langg" [text]="'Done successfully!' | langg"
+  type="success" timer="2000" [showConfirmButton]="false">
 </swal>

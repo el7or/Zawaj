@@ -105,9 +105,9 @@
   </div>
 </div>
 
-<swal #confirmSwal title="Attention !" text="Are you sure you want to delete it?" type="error" showCancelButton="true"
-  confirmButtonText="Delete" cancelButtonText="Cancel" focusCancel="true" cancelButtonColor="#d33" langg>
+<swal #confirmSwal [title]="'Attention !' | langg" [text]="'Are you sure you want to delete it?' | langg" type="error" showCancelButton="true"
+  [confirmButtonText]="'Delete' | langg" [cancelButtonText]="'Cancel' | langg" focusCancel="true" cancelButtonColor="#d33">
 </swal>
 
-<swal #doneSwal title="Success" text="Done successfully!" type="success" timer="2000" [showConfirmButton]="false" langg>
+<swal #doneSwal [title]="'Success' | langg" [text]="'Done successfully!' | langg" type="success" timer="2000" [showConfirmButton]="false">
 </swal>

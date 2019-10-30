@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { formatDate } from '@angular/common';
 
 @Pipe({
-  name: 'localDate'
+  name: 'localDate',
+  pure: false
 })
 export class LocalDatePipe implements PipeTransform {
 

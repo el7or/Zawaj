@@ -43,6 +43,7 @@ import { LocalDayPipe } from "./pipes/local-day.pipe";
 import { TimeAgoPipe } from "./pipes/time-ago.pipe";
 import { DateWithoutTimePipe } from "./pipes/date-without-time.pipe";
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { LanggPipe } from './pipes/langg.pipe';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -72,7 +73,8 @@ const PIPES = [
   LocalDatePipe,
   LocalNumberPipe,
   LocalDayPipe,
-  TimeAgoPipe
+  TimeAgoPipe,
+  LanggPipe
 ];
 
 @NgModule({
@@ -92,7 +94,8 @@ const PIPES = [
     LocalNumberPipe,
     LocalDayPipe,
     TimeAgoPipe,
-    DateWithoutTimePipe
+    DateWithoutTimePipe,
+    LanggPipe
   ]
 })
 export class SharedModule {

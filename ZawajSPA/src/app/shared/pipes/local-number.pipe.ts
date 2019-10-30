@@ -2,7 +2,8 @@ import { LanggService } from './../services/langg.service';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'localNumber'
+  name: 'localNumber',
+  pure: false
 })
 export class LocalNumberPipe implements PipeTransform {
 

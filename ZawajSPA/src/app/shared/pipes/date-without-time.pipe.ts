@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'dateWithoutTime'
+  name: 'dateWithoutTime',
+  pure: false
 })
 export class DateWithoutTimePipe implements PipeTransform {
 

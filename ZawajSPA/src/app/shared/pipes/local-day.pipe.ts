@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LanggService } from '../services/langg.service';
 
 @Pipe({
-  name: 'localDay'
+  name: 'localDay',
+  pure: false
 })
 export class LocalDayPipe implements PipeTransform {
 

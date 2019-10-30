@@ -7,9 +7,9 @@
   <div class="form-control-group">
     <label class="label" for="input-userName" langg>UserName:</label>
     <input nbInput fullWidth [(ngModel)]="user.userName" #userName="ngModel" name="userName" id="input-userName"
-      placeholder="UserName" autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
+      [placeholder]="'UserName' | langg" autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.userName.required')"
-      [attr.aria-invalid]="userName.invalid && userName.touched ? true : null" langg>
+      [attr.aria-invalid]="userName.invalid && userName.touched ? true : null">
     <ng-container *ngIf="userName.invalid && userName.touched">
       <p class="error-message text-danger" *ngIf="userName?.errors.required" langg>
         UserName is required!
@@ -20,12 +20,12 @@
   <div class="form-control-group">
     <label class="label" for="input-password" langg>Password:</label>
     <input nbInput fullWidth [(ngModel)]="user.password" #password="ngModel" name="password" type="password"
-      id="input-password" placeholder="Password"
+      id="input-password" [placeholder]="'Password' | langg"
       [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.password.required')"
       [minlength]="getConfigValue('forms.validation.password.minLength')"
       [maxlength]="getConfigValue('forms.validation.password.maxLength')"
-      [attr.aria-invalid]="password.invalid && password.touched ? true : null" langg>
+      [attr.aria-invalid]="password.invalid && password.touched ? true : null">
     <ng-container *ngIf="password.invalid && password.touched ">
       <p class="error-message text-danger" *ngIf="password?.errors.required" langg>
         Password is required!
@@ -52,10 +52,10 @@
   <span langg>Don't have an account:</span>&nbsp;<a class="text-link" routerLink="../register" langg>Register</a>
 </section>
 
-<swal #unAuthSwal title="Unauthorized" text="Wrong UserName or Password!"
-  type="error" timer="3000" [showConfirmButton]="false" langg>
+<swal #unAuthSwal [title]="'Unauthorized' | langg" [text]="'Wrong UserName or Password!' | langg"
+  type="error" timer="3000" [showConfirmButton]="false">
 </swal>
 
-<swal #authSwal title="Success" text="Login successfully!"
-  type="success" timer="2000" [showConfirmButton]="false" langg>
+<swal #authSwal [title]="'Success' | langg" [text]="'Login successfully!' | langg"
+  type="success" timer="2000" [showConfirmButton]="false">
 </swal>

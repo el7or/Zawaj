@@ -6,9 +6,9 @@
     <div class="form-control-group">
       <label class="label" for="input-userName" langg>UserName:</label>
       <input nbInput [(ngModel)]="user.userName" #userName="ngModel" id="input-userName" name="userName"
-        placeholder="UserName" fullWidth autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
+        [placeholder]="'UserName' | langg" fullWidth autofocus [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.userName.required')"
-        [attr.aria-invalid]="userName.invalid && userName.touched ? true : null" langg>
+        [attr.aria-invalid]="userName.invalid && userName.touched ? true : null">
       <ng-container *ngIf="userName.invalid && userName.touched">
         <p class="error-message text-danger" *ngIf="userName?.errors.required" langg>
           UserName is required!
@@ -19,11 +19,11 @@
     <div class="form-control-group">
       <label class="label" for="input-password" langg>Password:</label>
       <input nbInput [(ngModel)]="user.password" #password="ngModel" type="password" id="input-password" name="password"
-        placeholder="Password" fullWidth [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+        [placeholder]="'Password' | langg" fullWidth [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.password.required')"
         [minlength]="getConfigValue('forms.validation.password.minLength')"
         [maxlength]="getConfigValue('forms.validation.password.maxLength')"
-        [attr.aria-invalid]="password.invalid && password.touched ? true : null" langg>
+        [attr.aria-invalid]="password.invalid && password.touched ? true : null">
       <ng-container *ngIf="password.invalid && password.touched">
         <p class="error-message text-danger" *ngIf="password?.errors.required" langg>
           Password is required!
@@ -38,11 +38,11 @@
 
     <div class="form-control-group">
       <label class="label" for="input-re-password" langg>Repeat password:</label>
-      <input nbInput ngModel #rePass="ngModel" type="password" id="input-re-password" name="rePass" placeholder="Confirm Password"
+      <input nbInput ngModel #rePass="ngModel" type="password" id="input-re-password" name="rePass" [placeholder]="'Confirm Password' | langg"
         fullWidth
         [status]="rePass.dirty ? (rePass.invalid || password.value != rePass.value  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.password.required')"
-        [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null" langg>
+        [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
       <ng-container *ngIf="rePass.invalid && rePass.touched">
         <p class="error-message text-danger" *ngIf="rePass?.errors.required" langg>
           Password confirmation is required!
@@ -58,12 +58,12 @@
     <div class="form-control-group">
       <label class="label" for="input-nickName" langg>NickName:</label>
       <input nbInput [(ngModel)]="user.nickName" #nickName="ngModel" id="input-nickName" name="nickName"
-        placeholder="The name that will appears to other members" fullWidth
+        [placeholder]="'The name that will appears to other members' | langg" fullWidth
         [status]="nickName.dirty ? (nickName.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.nickName.required')"
         [minlength]="getConfigValue('forms.validation.nickName.minLength')"
         [maxlength]="getConfigValue('forms.validation.nickName.maxLength')"
-        [attr.aria-invalid]="nickName.invalid && nickName.touched ? true : null" langg>
+        [attr.aria-invalid]="nickName.invalid && nickName.touched ? true : null">
       <ng-container *ngIf="nickName.invalid && nickName.touched">
         <p class="error-message text-danger" *ngIf="nickName?.errors.required" langg>
           NickName is required!
@@ -82,7 +82,7 @@
       <input type="text" bsDatepicker nbInput fullWidth
       [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-red',showWeekNumbers: false }"
       [maxDate]="maxDate" id="input-birthDate" name="birthDate" #birthDate="ngModel"
-      [ngModel]="user.birthDate" (ngModelChange)="user.birthDate=$event" placeholder="Birth Date"
+      [ngModel]="user.birthDate" (ngModelChange)="user.birthDate=$event" [placeholder]="'Birth Date' | langg"
       [status]="birthDate.dirty ? (birthDate.invalid  ? 'danger' : 'success') : ''"
       [required]="getConfigValue('forms.validation.email.required')"
       [attr.aria-invalid]="birthDate.invalid && birthDate.touched ? true : null" langg>
@@ -96,7 +96,7 @@
     <div class="form-control-group">
       <label class="label" for="input-country" langg>Country:</label>
       <input nbInput [(ngModel)]="user.country" #country="ngModel" id="input-country" name="country"
-        placeholder="Country" fullWidth [status]="country.dirty ? (country.invalid  ? 'danger' : 'success') : ''"
+        [placeholder]="'Country' | langg" fullWidth [status]="country.dirty ? (country.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.country.required')"
         [attr.aria-invalid]="country.invalid && country.touched ? true : null" langg>
       <ng-container *ngIf="country.invalid && country.touched">
@@ -109,7 +109,7 @@
     <div class="form-control-group">
       <label class="label" for="input-city" langg>City:</label>
       <input nbInput [(ngModel)]="user.city" #city="ngModel" id="input-city" name="city"
-        placeholder="City" fullWidth [status]="city.dirty ? (city.invalid  ? 'danger' : 'success') : ''"
+        [placeholder]="'City' | langg" fullWidth [status]="city.dirty ? (city.invalid  ? 'danger' : 'success') : ''"
         [required]="getConfigValue('forms.validation.city.required')"
         [attr.aria-invalid]="city.invalid && city.touched ? true : null" langg>
       <ng-container *ngIf="city.invalid && city.touched">
@@ -155,9 +155,9 @@
   <span langg>Already have an account:</span>&nbsp; <a class="text-link" routerLink="../login" langg>Login</a>
 </section>
 
-<swal #registerSwal title="Success" text="register successfully!" type="success" timer="2000"
-  [showConfirmButton]="false" langg>
+<swal #registerSwal [title]="'Success' | langg" [text]="'Register successfully!' | langg" type="success" timer="2000"
+  [showConfirmButton]="false">
 </swal>
-<swal #duplicateSwal title="Wrong UserName!" text="This UserName is already taken! Try another one." type="warning"
-  confirmButtonText="OK" langg>
+<swal #duplicateSwal [title]="'Wrong UserName!' | langg" [text]="'This UserName is already taken! Try another one.' | langg" type="warning"
+  [confirmButtonText]="'OK' | langg">
 </swal>

@@ -35,6 +35,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.langgService.translateWithoutDerctive();
+    //this.langgService.translateWithoutDerctive();
   }
 }

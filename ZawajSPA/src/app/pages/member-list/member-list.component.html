@@ -12,21 +12,21 @@
       <ul dir="ltr" class="list-inline members-icons animate text-center">
         <li class="list-inline-item">
           <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
-          [queryParams]="{tab:3}" nbTooltip="Connect">
+          [queryParams]="{tab:3}" [nbTooltip]="'Connect' | langg">
             <nb-icon icon="email-outline"></nb-icon>
           </button>
         </li>
         <li class="list-inline-item">
-          <button *ngIf="user.isLiking" class="btn btn-outline-danger" nbTooltip="Dislike" (click)="dislike(user.id);user.isLiking=false;">
+          <button *ngIf="user.isLiking" class="btn btn-outline-danger" [nbTooltip]="'Dislike' | langg" (click)="dislike(user.id);user.isLiking=false;">
             <nb-icon icon="heart"></nb-icon>
           </button>
-          <button *ngIf="!user.isLiking" class="btn btn-outline-danger" nbTooltip="Like" (click)="like(user.id);user.isLiking=true;">
+          <button *ngIf="!user.isLiking" class="btn btn-outline-danger" [nbTooltip]="'Like' | langg" (click)="like(user.id);user.isLiking=true;">
             <nb-icon icon="heart-outline"></nb-icon>
           </button>
         </li>
         <li class="list-inline-item">
           <button class="btn btn-outline-danger" [routerLink]="['/pages/members', user.id]"
-          nbTooltip="Member Details">
+          [nbTooltip]="'Member Details' | langg">
             <nb-icon icon="person-outline"></nb-icon>
           </button>
         </li>
