@@ -77,7 +77,7 @@ export class LanggService {
     // translate runtime elements:
     this._words = words.default;
     let runTimeElements = document.querySelectorAll(
-      ".menu-title, div.message, span.title.subtitle, nb-select-label, nb-option.ng-star-inserted, span.info, span.tab-text, div.user-name"
+      "span.title.subtitle, nb-select-label, nb-option.ng-star-inserted, span.info, span.tab-text, div.user-name"
     );
     let runTimeElementsArray = Array.prototype.slice.call(runTimeElements);
     let lastElementsArray = this.elementsArray.value;

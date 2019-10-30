@@ -14,7 +14,8 @@
 
     <div class="form-group col-lg-3 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center mt-1">
       <label for="gender" langg>Gender:</label>&nbsp;
-      <nb-select [(ngModel)]="searchParams.gender" id="gender" name="gender" status="info">
+      <nb-select #genderList [(ngModel)]="searchParams.gender" id="gender" name="gender" status="info">
+        <nb-select-label>{{genderList.selectionModel[0]==undefined? '': genderList.selectionView}}</nb-select-label>
         <nb-option [value]="0" langg>All Genders</nb-option>
         <nb-option [value]="1" langg>Males</nb-option>
         <nb-option [value]="2" langg>Females</nb-option>
@@ -34,7 +35,8 @@
         </div>
   <div *ngIf="users && pagination.totalItemCount>0" class="form-group">
     <label for="orderBy" langg>Sort:</label>&nbsp;
-    <nb-select [(ngModel)]="searchParams.orderBy" id="orderBy" name="orderBy" status="info" (selectedChange)="loadUsers()">
+    <nb-select #orderList [(ngModel)]="searchParams.orderBy" id="orderBy" name="orderBy" status="info" (selectedChange)="loadUsers()">
+        <nb-select-label>{{orderList.selectionModel[0]==undefined? '' : orderList.selectionView}}</nb-select-label>
       <nb-option value="lastActive" langg>Latest Activity</nb-option>
       <nb-option value="createdOn" langg>Latest Registered</nb-option>
       <nb-option value="Age" langg>Age</nb-option>

@@ -1,3 +1,4 @@
+import { LanggService } from './../../shared/services/langg.service';
 import { UserDetails } from './../../shared/models/user-details';
 import { ActivatedRoute } from '@angular/router';
 import { PhotoService } from "./../../shared/services/photo.service";
@@ -14,6 +15,7 @@ import { environment } from "../../../environments/environment";
 import { AuthService } from "../../shared/services/auth.service";
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
 import { NbToastrService } from "@nebular/theme";
+import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
   selector: "photo-editor",
@@ -33,6 +35,7 @@ export class PhotoEditorComponent implements OnInit, AfterViewInit {
 
   constructor(
     private authService: AuthService,
+    private langgService:LanggService,
     private photoService: PhotoService,
     private toastrService: NbToastrService,
     private route:ActivatedRoute
@@ -93,8 +96,8 @@ export class PhotoEditorComponent implements OnInit, AfterViewInit {
       error => {
         console.error(error);
         this.toastrService.warning(
-          "Please refresh page and try again.",
-          "Something Wrong!",
+          new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+          new LanggPipe(this.langgService).transform("Something Wrong!"),
           { duration: 3000 }
         );
       }
@@ -127,8 +130,8 @@ export class PhotoEditorComponent implements OnInit, AfterViewInit {
           error => {
             console.error(error);
             this.toastrService.warning(
-              "Please refresh page and try again.",
-              "Something Wrong!",
+              new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+              new LanggPipe(this.langgService).transform("Something Wrong!"),
               { duration: 3000 }
             );
           }

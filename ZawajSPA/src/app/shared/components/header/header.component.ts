@@ -6,7 +6,8 @@ import {
   OnInit,
   ViewChild,
   AfterViewChecked,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import {
   NbMenuService,
@@ -17,9 +18,10 @@ import {
 
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
 import { LayoutService } from "../../../@core/utils";
-import { Subject } from "rxjs";
+import { Subject, from } from "rxjs";
 import { LanggService } from "../../services/langg.service";
 import { MENU_ITEMS } from "../../../pages/pages-menu";
+import {LanggPipe} from "../../pipes/langg.pipe"
 
 @Component({
   selector: "ngx-header",
@@ -46,8 +48,8 @@ export class HeaderComponent
     { title: "English", group: false, data: "en" }
   ];
   userMenu = [
-    { title: "Profile", icon: "person" },
-    { title: "Log out", icon: "menu-arrow-outline" }
+    { title: "Profile", icon: "person", data:"Profile" },
+    { title: "Log out", icon: "menu-arrow-outline", data:"Log out" }
   ];
 
   constructor(
@@ -58,7 +60,8 @@ export class HeaderComponent
     private authService: AuthService,
     private searchService: NbSearchService,
     private router: Router,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private cdr: ChangeDetectorRef
   ) {
     this.searchService.onSearchSubmit().subscribe((data: any) => {
       alert(data.term);
@@ -69,15 +72,9 @@ export class HeaderComponent
     this.checkLangg(localStorage.getItem("langg"));
 
     this.menuService.onItemClick().subscribe(event => {
-      switch (event.item.title) {
-        case "Log out":
-          this.logOut();
-          break;
-        case "Profile":
-          this.router.navigateByUrl("/pages/members/edit");
-          break;
-        case "English":
-        case "عربي":
+      switch (event.item.data) {
+        case "en":
+        case "ar":
           this.langgService.langLoading.next(true);
           setTimeout(() => {
             this.langgService.language.next(event.item.data);
@@ -85,10 +82,12 @@ export class HeaderComponent
             this.langgService.langLoading.next(false);
           }, 1000);
           break;
-        default:
+        case "Log out":
+          this.logOut();
           break;
-      }
-      switch (event.item.data) {
+        case "Profile":
+          this.router.navigateByUrl("/pages/members/edit");
+          break;
         case 'like':
           this.router.navigateByUrl("/pages/likes");
           break;
@@ -116,10 +115,14 @@ export class HeaderComponent
 
   ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
+    this.menu.concat(this.userMenu) .forEach(element => {
+      element.title = new LanggPipe(this.langgService).transform(element.title)
+    });
     this.user = {
       username: this.authService.currentUserName,
       picture: this.authService.currentUserPhoto
     };
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {

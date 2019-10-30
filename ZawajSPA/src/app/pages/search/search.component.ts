@@ -1,22 +1,26 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { LanggService } from './../../shared/services/langg.service';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewChecked, AfterViewInit } from "@angular/core";
 import { UserList } from "../../shared/models/user-list";
 import { Pagination } from "../../shared/models/pagination";
-import { NbToastrService } from "@nebular/theme";
+import { NbToastrService, NbSelectComponent } from "@nebular/theme";
 import { UserService } from "../../shared/services/user.service";
+import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
   selector: "search",
   templateUrl: "./search.component.html",
   styleUrls: ["./search.component.scss"]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewChecked {
   users: UserList[];
   pagination: Pagination;
   searchParams: any = {};
   isSearch = false;
+  @ViewChild('genderList', {static: false}) genderList;
 
   constructor(
     private userService: UserService,
+    private langgService: LanggService,
     private toastrService: NbToastrService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -71,8 +75,8 @@ export class SearchComponent implements OnInit {
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }

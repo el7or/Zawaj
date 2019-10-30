@@ -47,7 +47,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12">
           <nb-tabset #memberTabs class="member-tabset">
-            <nb-tab tabTitle="About me">
+            <nb-tab [tabTitle]="'About me' | langg">
               <nb-card accent="danger">
                 <nb-card-header>
                   <h4 langg>Introduce Myself</h4>
@@ -78,7 +78,7 @@
                   (click)="look.innerText = userDetails.lookingFor.slice(0,200);showLook=true;" langg>Collapse</button>
               </nb-card>
             </nb-tab>
-            <nb-tab tabTitle="My hobbies">
+            <nb-tab [tabTitle]="'My hobbies' | langg">
               <nb-card accent="danger">
                 <nb-card-header>
                   <h4 langg>My hobbies</h4>
@@ -89,11 +89,11 @@
                 </div>
               </nb-card>
             </nb-tab>
-            <nb-tab tabTitle="Photo Gallery">
+            <nb-tab [tabTitle]="'Photo Gallery' | langg">
                 <p *ngIf="userDetails.photos.length == 0" langg>There is no photos to display.</p>
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </nb-tab>
-            <nb-tab tabTitle="Messages" (deselect)="deselect()">
+            <nb-tab [tabTitle]="'Messages' | langg" (deselect)="deselect()">
               <!-- <app-member-messages *ngIf="paid" [recipientId]="userDetails.id"></app-member-messages>
        <app-payment *ngIf="!paid"></app-payment> -->
             </nb-tab>

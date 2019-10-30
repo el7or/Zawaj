@@ -1,3 +1,4 @@
+import { LanggService } from './../../shared/services/langg.service';
 import { AuthService } from "./../../shared/services/auth.service";
 import { UserService } from "./../../shared/services/user.service";
 import { Component, OnInit, ViewChild, HostListener } from "@angular/core";
@@ -5,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
 import { NbToastrService } from '@nebular/theme';
+import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
   selector: "member-edit",
@@ -32,6 +34,7 @@ export class MemberEditComponent implements OnInit {
     private router:Router,
     private userService: UserService,
     private authService: AuthService,
+    private langgService:LanggService,
     private toastrService:NbToastrService
   ) {}
 
@@ -52,8 +55,8 @@ export class MemberEditComponent implements OnInit {
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }

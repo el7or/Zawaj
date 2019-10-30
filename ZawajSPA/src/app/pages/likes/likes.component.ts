@@ -1,3 +1,5 @@
+import { LanggService } from './../../shared/services/langg.service';
+import { LanggPipe } from './../../shared/pipes/langg.pipe';
 import { NbToastrService } from '@nebular/theme';
 import { AuthService } from './../../shared/services/auth.service';
 import { LikeService } from './../../shared/services/like.service';
@@ -15,7 +17,7 @@ export class LikesComponent implements OnInit {
   likesData: LikeList[];
 
   constructor(private likeService:LikeService, private authService:AuthService,
-    private toastrService:NbToastrService) { }
+    private toastrService:NbToastrService, private langgService:LanggService) { }
 
   ngOnInit() {
     this.likeService.getLikes(this.authService.currentUserId,this.isLikesFrom).subscribe(
@@ -40,16 +42,16 @@ export class LikesComponent implements OnInit {
         () => {
           this.likesData.splice(index, 1);
           this.toastrService.danger(
-            "Removed from likes list successfully.",
-            "Success!",
+            new LanggPipe(this.langgService).transform("Removed from likes list successfully."),
+            new LanggPipe(this.langgService).transform("Success!"),
             { duration: 3000 }
           );
         },
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }

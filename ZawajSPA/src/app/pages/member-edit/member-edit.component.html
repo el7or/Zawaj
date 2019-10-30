@@ -44,7 +44,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12">
           <nb-tabset #memberTabs class="member-tabset">
-            <nb-tab tabTitle="My Details">
+            <nb-tab [tabTitle]="'My Details' | langg">
                 <form #editForm ="ngForm" id="editForm" (ngSubmit)="updateUser()" >
               <nb-card accent="danger">
                 <nb-card-header>
@@ -97,7 +97,7 @@
               </nb-card>
                 </form>
             </nb-tab>
-            <nb-tab tabTitle="My Photos">
+            <nb-tab [tabTitle]="'My Photos' | langg">
               <photo-editor [photos]="userDetails.photos"></photo-editor>
             </nb-tab>
           </nb-tabset>

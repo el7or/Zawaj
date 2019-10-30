@@ -3,7 +3,7 @@
     <nb-card>
       <nb-card-header>{{user.nickName || user.userName}}</nb-card-header>
       <nb-card-body>
-        <nb-user size="giant" [name]="user.gender" [title]="user.age|localNumber"
+        <nb-user size="giant" [name]="user.gender | langg" [title]="user.age|localNumber"
           [picture]="user.photoURL || 'assets/images/avatar.png'">
         </nb-user>
       </nb-card-body>

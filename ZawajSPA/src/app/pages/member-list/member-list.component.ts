@@ -1,3 +1,4 @@
+import { LanggService } from './../../shared/services/langg.service';
 import { AuthService } from "./../../shared/services/auth.service";
 import { LikeUser } from "./../../shared/models/like-user";
 import { UserList } from "../../shared/models/user-list";
@@ -6,13 +7,13 @@ import {
   Component,
   OnInit,
   AfterViewChecked,
-  AfterViewInit,
   ChangeDetectorRef
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NbToastrService } from "@nebular/theme";
 import { Pagination } from "../../shared/models/pagination";
 import { LikeService } from "../../shared/services/like.service";
+import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
   selector: "ngx-home",
@@ -27,6 +28,7 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
     private userService: UserService,
     private authService: AuthService,
     private likeService: LikeService,
+    private langgService:LanggService,
     private route: ActivatedRoute,
     private router: Router,
     private toastrService: NbToastrService,
@@ -46,10 +48,11 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
     );
     let paginationNumbersArray = Array.prototype.slice.call(paginationNumbers);
     paginationNumbersArray.forEach(element => {
-      if (!isNaN(element.innerHTML))
+      if (!isNaN(element.innerHTML) && localStorage.getItem("langg")=='ar') {        
         element.innerHTML = Number(element.innerHTML).toLocaleString(
           localStorage.getItem("langg")
         );
+      }
     });
     this.cdr.detectChanges();
   }
@@ -66,8 +69,8 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }
@@ -86,16 +89,16 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
       this.likeService.postLike(newLike).subscribe(
         () => {
           this.toastrService.danger(
-            "Added to likes list successfully.",
-            "Success!",
+            new LanggPipe(this.langgService).transform("Added to likes list successfully."),
+            new LanggPipe(this.langgService).transform("Success!"),
             { duration: 3000 }
           );
         },
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }
@@ -115,16 +118,16 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
       this.likeService.deleteLike(deletedLike).subscribe(
         () => {
           this.toastrService.danger(
-            "Removed from likes list successfully.",
-            "Success!",
+            new LanggPipe(this.langgService).transform("Removed from likes list successfully."),
+            new LanggPipe(this.langgService).transform("Success!"),
             { duration: 3000 }
           );
         },
         error => {
           console.error(error);
           this.toastrService.warning(
-            "Please refresh page and try again.",
-            "Something Wrong!",
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );
         }
