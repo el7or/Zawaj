@@ -48,10 +48,8 @@ export class MemberListComponent implements OnInit, AfterViewChecked {
     );
     let paginationNumbersArray = Array.prototype.slice.call(paginationNumbers);
     paginationNumbersArray.forEach(element => {
-      if (!isNaN(element.innerHTML) && localStorage.getItem("langg")=='ar') {        
-        element.innerHTML = Number(element.innerHTML).toLocaleString(
-          localStorage.getItem("langg")
-        );
+      if (!isNaN(element.innerHTML) && localStorage.getItem("langg")=='ar') {
+        element.innerHTML = Number(element.innerHTML).toLocaleString('ar');
       }
     });
     this.cdr.detectChanges();

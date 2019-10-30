@@ -4,7 +4,7 @@ import { AuthService } from "./shared/services/auth.service";
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Component, OnInit, AfterViewChecked } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LanggService } from "./shared/services/langg.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -13,7 +13,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   selector: "ngx-app",
   template: "<router-outlet></router-outlet>"
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent implements OnInit {
   _words = [];
   langgSubscription: Subscription;
   jwtHelper = new JwtHelperService();
@@ -32,9 +32,5 @@ export class AppComponent implements OnInit, AfterViewChecked {
     this.authService.currentUserPhoto = localStorage.getItem("userPhoto");
 
     this.langgService.language.next(localStorage.getItem("langg"));
-  }
-
-  ngAfterViewChecked() {
-    //this.langgService.translateWithoutDerctive();
   }
 }

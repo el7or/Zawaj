@@ -18,7 +18,7 @@ import {
 
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
 import { LayoutService } from "../../../@core/utils";
-import { Subject, from } from "rxjs";
+import { Subject, from, Subscription } from "rxjs";
 import { LanggService } from "../../services/langg.service";
 import { MENU_ITEMS } from "../../../pages/pages-menu";
 import {LanggPipe} from "../../pipes/langg.pipe"
@@ -34,10 +34,9 @@ export class HeaderComponent
   @ViewChild("dialog", { static: false }) private dialog;
   menuTitles: any;
   menu = MENU_ITEMS;
-
-  private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: any;
+  user: any;  
+  anySubscription: Subscription;
 
   settingMenu = [
     { title: "", icon: "sun-outline" },
@@ -63,7 +62,7 @@ export class HeaderComponent
     private dialogService: NbDialogService,
     private cdr: ChangeDetectorRef
   ) {
-    this.searchService.onSearchSubmit().subscribe((data: any) => {
+    this.anySubscription = this.searchService.onSearchSubmit().subscribe((data: any) => {
       alert(data.term);
     });
   }
@@ -71,7 +70,7 @@ export class HeaderComponent
   ngOnInit() {
     this.checkLangg(localStorage.getItem("langg"));
 
-    this.menuService.onItemClick().subscribe(event => {
+    this.anySubscription =this.menuService.onItemClick().subscribe(event => {
       switch (event.item.data) {
         case "en":
         case "ar":
@@ -122,12 +121,15 @@ export class HeaderComponent
       username: this.authService.currentUserName,
       picture: this.authService.currentUserPhoto
     };
+    this.alertItems = [
+      {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like", icon:'heart'},
+      {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg", icon:'email'}
+    ];
     this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.anySubscription.unsubscribe();
   }
 
   checkLangg(lang: string) {
@@ -143,7 +145,6 @@ export class HeaderComponent
   isLoggedIn() {
     return this.authService.isAuthenticated();
   }
-  mySubscription: any;
   logOut() {
     this.logoutSwal.fire();
     localStorage.removeItem("token");
@@ -163,7 +164,7 @@ export class HeaderComponent
   }
 
   alertItems = [
-    {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like"},
-    {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg"}
+    {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like", icon:'heart'},
+    {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg", icon:'email'}
   ];
 }
