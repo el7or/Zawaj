@@ -33,6 +33,8 @@ namespace ZawajAPI.Helpers
             CreateMap<Photo, PhotoDetailsDTO>();
             
             CreateMap<PhotoAddDTO, Photo>();
+
+            CreateMap<LikeAddDTO,Like>();
         }
     }
 }

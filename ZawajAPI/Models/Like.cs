@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +16,8 @@ namespace ZawajAPI.Models
         [ForeignKey("LikeToUser")]
         public string LikeToUserId { get; set; }
         public User LikeToUser { get; set; }
+
+        public DateTime LikeOn { get; set; }
+        public DateTime? ReadOn { get; set; }
     }
 }

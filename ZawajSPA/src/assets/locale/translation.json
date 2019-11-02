@@ -126,6 +126,7 @@
     {"ar":"نتيجة","en":"Suggestion"},
     {"ar":"نتائج","en":"Suggestions"},
     {"ar":"لاتوجد نتائج مناسبة!","en":"There are no suitable suggestions!"},
+    {"ar":"لاتوجد إعجابات حتى الآن !","en":"There are no likes yet !"},
     {"ar":"بيانات العضو","en":"Member Details"},
     {"ar":"إلغاء الإعجاب","en":"Dislike"},
     {"ar":"إعجاب","en":"Like"},

@@ -55,16 +55,17 @@ namespace ZawajAPI.Controllers
 
         // POST: api/Likes
         [HttpPost]
-        public async Task<ActionResult<Like>> PostLike(Like like)
+        public async Task<IActionResult> PostLike(LikeAddDTO likeDto)
         {
-            if (like.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
+            if (likeDto.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
             {
                 return Unauthorized();
             }
-            if (LikeExists(like.LikeFromUserId, like.LikeToUserId))
+            if (LikeExists(likeDto.LikeFromUserId, likeDto.LikeToUserId))
             {
                 return BadRequest("Liked this before !");
             }
+            var like = _mapper.Map<Like>(likeDto);
             _context.Like.Add(like);
 
             if (await _context.SaveChangesAsync() > 0)
@@ -74,17 +75,17 @@ namespace ZawajAPI.Controllers
 
         // DELETE: api/Likes/5
         [HttpDelete]
-        public async Task<ActionResult<Like>> DeleteLike(Like like)
+        public async Task<IActionResult> DeleteLike(LikeDeleteDTO likeDto)
         {
-            if (like.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
+            if (likeDto.LikeFromUserId != User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString())
             {
                 return Unauthorized();
             }
-            if (!LikeExists(like.LikeFromUserId, like.LikeToUserId))
+            if (!LikeExists(likeDto.LikeFromUserId, likeDto.LikeToUserId))
             {
                 return NotFound();
             }
-
+            var like = _context.Like.FirstOrDefault(e => e.LikeFromUserId == likeDto.LikeFromUserId && e.LikeToUserId == likeDto.LikeToUserId);
             _context.Like.Remove(like);
             if (await _context.SaveChangesAsync() > 0)
             { return Ok(); }
@@ -99,7 +100,7 @@ namespace ZawajAPI.Controllers
         /*
         // GET: api/Likes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Like>> GetLike(string id)
+        public async Task<IActionResult> GetLike(string id)
         {
             var like = await _context.Like.FindAsync(id);
 

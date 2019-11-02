@@ -6,7 +6,8 @@
         <nb-option [value]="true" langg>My Fans</nb-option>
       </nb-select>
     </div>
-    <table class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <h4 *ngIf="likesData?.length==0" class="alert-warning" langg>There are no likes yet !</h4>
+    <table *ngIf="likesData?.length>0" class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
         <tr>
           <th>
