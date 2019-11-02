@@ -36,8 +36,6 @@ namespace ZawajAPI.Data
             modelBuilder.Entity<Like>(
                 like =>
                 {
-                    like.HasKey(k => new { k.LikeFromUserId, k.LikeToUserId });
-
                     like.HasOne(l => l.LikeFromUser)
                     .WithMany(u => u.LikesTo)
                     .HasForeignKey(l => l.LikeFromUserId)

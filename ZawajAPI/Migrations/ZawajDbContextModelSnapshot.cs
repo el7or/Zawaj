@@ -89,11 +89,16 @@ namespace ZawajAPI.Migrations
 
             modelBuilder.Entity("ZawajAPI.Models.Like", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("LikeFromUserId");
 
                     b.Property<string>("LikeToUserId");
 
-                    b.HasKey("LikeFromUserId", "LikeToUserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("LikeFromUserId");
 
                     b.HasIndex("LikeToUserId");
 

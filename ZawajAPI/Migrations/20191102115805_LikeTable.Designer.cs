@@ -9,7 +9,7 @@ using ZawajAPI.Data;
 namespace ZawajAPI.Migrations
 {
     [DbContext(typeof(ZawajDbContext))]
-    [Migration("20191025081538_LikeTable")]
+    [Migration("20191102115805_LikeTable")]
     partial class LikeTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,11 +91,16 @@ namespace ZawajAPI.Migrations
 
             modelBuilder.Entity("ZawajAPI.Models.Like", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("LikeFromUserId");
 
                     b.Property<string>("LikeToUserId");
 
-                    b.HasKey("LikeFromUserId", "LikeToUserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("LikeFromUserId");
 
                     b.HasIndex("LikeToUserId");
 

@@ -10,12 +10,14 @@ namespace ZawajAPI.Migrations
                 name: "Like",
                 columns: table => new
                 {
-                    LikeFromUserId = table.Column<string>(nullable: false),
-                    LikeToUserId = table.Column<string>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LikeFromUserId = table.Column<string>(nullable: true),
+                    LikeToUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Like", x => new { x.LikeFromUserId, x.LikeToUserId });
+                    table.PrimaryKey("PK_Like", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Like_AspNetUsers_LikeFromUserId",
                         column: x => x.LikeFromUserId,
@@ -29,6 +31,11 @@ namespace ZawajAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Like_LikeFromUserId",
+                table: "Like",
+                column: "LikeFromUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Like_LikeToUserId",
