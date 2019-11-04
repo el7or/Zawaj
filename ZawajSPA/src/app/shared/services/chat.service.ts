@@ -4,6 +4,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { ChatUser } from "../models/chat-user";
+import { ChatAdd } from '../models/chat-add';
 
 @Injectable({
   providedIn: "root"
@@ -27,5 +28,13 @@ export class ChatService {
         })
       )
     );
+  }
+
+  getChatList(id){
+    return this.http.get(this.baseUrl + id);
+  }
+
+  postNewMessage(message:ChatAdd){
+    return this.http.post<ChatAdd>(this.baseUrl , message);
   }
 }

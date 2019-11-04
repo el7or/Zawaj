@@ -32,21 +32,42 @@ namespace ZawajAPI.Controllers
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
-            var currentUserId= User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
-            var usersForChat = await _context.Users.Include(p=>p.Photos).Where(u=>u.Id!=currentUserId).OrderByDescending(l=>l.LastActive).ToListAsync();
+            var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
+            var usersForChat = await _context.Users.Include(p => p.Photos).Where(u => u.Id != currentUserId).OrderByDescending(l => l.LastActive).ToListAsync();
             var users = _mapper.Map<IEnumerable<ChatUsersListDTO>>(usersForChat);
             return Ok(users);
         }
 
 
         // GET: api/Chat
-        [HttpGet]
-        public async Task<IActionResult> GetMessages()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMessages(string id)
         {
-            return Ok(await _context.Messages.ToListAsync());
+            var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
+            var messages = await _context.Messages
+            .Where(m => (m.SenderId == currentUserId && m.ReceiverId == id) || (m.SenderId == id && m.ReceiverId == currentUserId))
+            .OrderBy(m=>m.SentOn)
+            .Select(m=> new ChatListDTO{
+                Content = m.Content,
+                SentOn = m.SentOn,
+                 isReplay = m.SenderId == currentUserId
+            })
+            .ToListAsync();
+            return Ok(messages);
         }
 
-        // GET: api/Chat/5
+        // POST: api/Chat
+        [HttpPost]
+        public async Task<IActionResult> PostMessage(ChatAddDTO newMessage)
+        {
+            var message = _mapper.Map<Message>(newMessage);
+            _context.Messages.Add(message);
+            if (await _context.SaveChangesAsync() > 0)
+            { return Ok(); }
+            else { return BadRequest(); }
+        }
+
+        /* // GET: api/Chat/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessage(int id)
         {
@@ -90,16 +111,6 @@ namespace ZawajAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Chat
-        [HttpPost]
-        public async Task<IActionResult> PostMessage(Message message)
-        {
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
-        }
-
         // DELETE: api/Chat/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage(int id)
@@ -119,6 +130,6 @@ namespace ZawajAPI.Controllers
         private bool MessageExists(int id)
         {
             return _context.Messages.Any(e => e.Id == id);
-        }
+        } */
     }
 }
