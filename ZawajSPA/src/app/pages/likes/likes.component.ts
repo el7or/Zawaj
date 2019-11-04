@@ -32,7 +32,14 @@ export class LikesComponent implements OnInit {
     this.loading = true;
     this.likeService.getLikes(this.authService.currentUserId,isLikesFrom).subscribe(
       res => {this.likesData = res; this.loading=false;},
-      err=>console.error(err)
+      err=>{
+        console.error(err);
+        this.toastrService.warning(
+          new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+          new LanggPipe(this.langgService).transform("Something Wrong!"),
+          { duration: 3000 }
+        );
+      }
     );
   }
 

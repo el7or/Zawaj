@@ -34,6 +34,9 @@ namespace ZawajAPI.Helpers
             .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
 
             CreateMap<LikeAddDTO,Like>();
+
+            CreateMap<User, ChatUsersListDTO>()
+            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); });
         }
     }
 }

@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Data;
+using ZawajAPI.DTOs;
 using ZawajAPI.Models;
 
 namespace ZawajAPI.Controllers
@@ -17,22 +19,34 @@ namespace ZawajAPI.Controllers
     public class ChatController : ControllerBase
     {
         private readonly ZawajDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ChatController(ZawajDbContext context)
+        public ChatController(ZawajDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
+        // GET: api/Chat/users
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var usersForChat = await _context.Users.Include(p=>p.Photos).OrderByDescending(l=>l.LastActive).ToListAsync();
+            var users = _mapper.Map<IEnumerable<ChatUsersListDTO>>(usersForChat);
+            return Ok(users);
+        }
+
+
         // GET: api/Chat
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        public async Task<IActionResult> GetMessages()
         {
-            return await _context.Messages.ToListAsync();
+            return Ok(await _context.Messages.ToListAsync());
         }
 
         // GET: api/Chat/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage(int id)
+        public async Task<IActionResult> GetMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);
 
@@ -41,7 +55,7 @@ namespace ZawajAPI.Controllers
                 return NotFound();
             }
 
-            return message;
+            return Ok(message);
         }
 
         // PUT: api/Chat/5
@@ -76,7 +90,7 @@ namespace ZawajAPI.Controllers
 
         // POST: api/Chat
         [HttpPost]
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+        public async Task<IActionResult> PostMessage(Message message)
         {
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
@@ -86,7 +100,7 @@ namespace ZawajAPI.Controllers
 
         // DELETE: api/Chat/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Message>> DeleteMessage(int id)
+        public async Task<IActionResult> DeleteMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);
             if (message == null)
@@ -97,7 +111,7 @@ namespace ZawajAPI.Controllers
             _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
 
-            return message;
+            return Ok(message);
         }
 
         private bool MessageExists(int id)
