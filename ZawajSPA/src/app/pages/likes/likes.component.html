@@ -7,7 +7,7 @@
       </nb-select>
     </div>
     <h4 *ngIf="likesData?.length==0" class="alert-warning" langg>There are no likes yet !</h4>
-    <table *ngIf="likesData?.length>0" class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table *ngIf="likesData?.length>0" class="table table-striped" [mfData]="likesData" #mf="mfDataTable" [mfRowsOnPage]="5" [nbSpinner]="loading">
       <thead>
         <tr>
           <th>

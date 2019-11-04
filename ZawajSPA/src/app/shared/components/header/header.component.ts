@@ -51,6 +51,11 @@ export class HeaderComponent
     { title: "Log out", icon: "menu-arrow-outline", data:"Log out" }
   ];
 
+  /* alertItems = [
+    {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like", icon:'heart'},
+    {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg", icon:'email'}
+  ]; */
+
   constructor(
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -114,17 +119,13 @@ export class HeaderComponent
 
   ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
-    this.menu.concat(this.userMenu) .forEach(element => {
+    this.menu.concat(this.userMenu).forEach(element => {
       element.title = new LanggPipe(this.langgService).transform(element.title)
     });
     this.user = {
       username: this.authService.currentUserName,
       picture: this.authService.currentUserPhoto
     };
-    this.alertItems = [
-      {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like", icon:'heart'},
-      {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg", icon:'email'}
-    ];
     this.cdr.detectChanges();
   }
 
@@ -162,9 +163,4 @@ export class HeaderComponent
 
     return false;
   }
-
-  alertItems = [
-    {title: (localStorage.getItem('langg')=='en' ? 'New Like from: ' : 'إعجاب جديد من: ') +'Ahmed', data: "like", icon:'heart'},
-    {title:(localStorage.getItem('langg')=='en' ? 'New Message from: ' : 'رسالة جديدة من: ') +'Ali', data: "msg", icon:'email'}
-  ];
 }

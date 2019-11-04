@@ -1,6 +1,8 @@
+using System;
+
 namespace ZawajAPI.DTOs
 {
-    public class UserLikeDTO
+    public class LikeListDTO
     {
         public string Id { get; set; }
         public string NickName { get; set; }

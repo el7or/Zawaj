@@ -15,20 +15,23 @@ import { LikeUser } from '../../shared/models/like-user';
 export class LikesComponent implements OnInit {
   isLikesFrom = false;
   likesData: LikeList[];
+  loading = false;
 
   constructor(private likeService:LikeService, private authService:AuthService,
     private toastrService:NbToastrService, private langgService:LanggService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.likeService.getLikes(this.authService.currentUserId,this.isLikesFrom).subscribe(
-      res => this.likesData = res,
+      res => {this.likesData = res; this.loading=false;},
       err=>console.error(err)
     );
   }
 
   reloadLikes(isLikesFrom){
+    this.loading = true;
     this.likeService.getLikes(this.authService.currentUserId,isLikesFrom).subscribe(
-      res => this.likesData = res,
+      res => {this.likesData = res; this.loading=false;},
       err=>console.error(err)
     );
   }

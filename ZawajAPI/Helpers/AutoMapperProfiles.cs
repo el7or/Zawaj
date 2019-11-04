@@ -19,11 +19,6 @@ namespace ZawajAPI.Helpers
             .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); })
             .ForMember(dest => dest.isLiking, map => { map.MapFrom(src => src.LikesFrom.Where(l=>l.LikeToUserId==src.Id).Count()>0?true:false); });
 
-            
-            CreateMap<User, UserLikeDTO>()
-            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
-            .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
-
             CreateMap<User, UserDetailsDTO>()
             .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
             .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
@@ -33,6 +28,10 @@ namespace ZawajAPI.Helpers
             CreateMap<Photo, PhotoDetailsDTO>();
             
             CreateMap<PhotoAddDTO, Photo>();
+
+            CreateMap<User, LikeListDTO>()
+            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); })
+            .ForMember(dest => dest.Age, map => { map.MapFrom(src => src.BirthDate.CalculateAge()); });
 
             CreateMap<LikeAddDTO,Like>();
         }

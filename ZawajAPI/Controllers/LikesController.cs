@@ -41,14 +41,14 @@ namespace ZawajAPI.Controllers
             {
                 var likesFromUsers = await _context.Like.Where(l => l.LikeToUserId == likesParams.Id)
                 .Select(u => u.LikeFromUser).Include(p=>p.Photos).ToListAsync();
-                var users = _mapper.Map<IEnumerable<UserLikeDTO>>(likesFromUsers);
+                var users = _mapper.Map<IEnumerable<LikeListDTO>>(likesFromUsers);
                 return Ok(users);
             }
             else
             {
                 var likesToUsers = await _context.Like.Where(l => l.LikeFromUserId == likesParams.Id)
                 .Select(u => u.LikeToUser).Include(p=>p.Photos).ToListAsync();
-                var users = _mapper.Map<IEnumerable<UserLikeDTO>>(likesToUsers);
+                var users = _mapper.Map<IEnumerable<LikeListDTO>>(likesToUsers);
                 return Ok(users);
             }
         }

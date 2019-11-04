@@ -13,11 +13,11 @@
   <nb-actions size="small">
     <nb-action class="control-item">
         <span langg>Quick Search</span>
-      <nb-search type="rotate-layout" [placeholder]="'Member Name...' | langg" hint="Hit enter to search"></nb-search>
+      <nb-search type="rotate-layout" [placeholder]="'Member Name...' | langg" [hint]="'Hit enter to search' | langg"></nb-search>
     </nb-action>
-    <nb-action *ngIf="isLoggedIn()" class="control-item" [nbContextMenu]="alertItems"
+    <!-- <nb-action *ngIf="isLoggedIn()" class="control-item" [nbContextMenu]="alertItems"
     icon="bell-outline" [badgeText]="9|localNumber" badgeSize="tiny" badgePosition="top left" badgeStatus="danger">
-    </nb-action>
+    </nb-action> -->
     <nb-action class="control-item" icon="globe-outline" [nbContextMenu]="langMenu">      
     </nb-action>
     <nb-action *ngIf="!isLoggedIn()" class="control-item" >
