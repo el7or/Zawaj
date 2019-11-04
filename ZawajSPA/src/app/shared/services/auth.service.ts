@@ -18,6 +18,7 @@ export class AuthService {
   currentUserId:string;
   currentUserName:string;
   currentUserPhoto:string;
+  currentUserNickName:string;
   
  
   redirectUrl:string;
@@ -32,7 +33,9 @@ export class AuthService {
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
           this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
+          this.currentUserNickName = res.userNickName;
           localStorage.setItem('userPhoto',this.currentUserPhoto);
+          localStorage.setItem('userNickName',this.currentUserNickName);
         }
       })
     );
@@ -47,7 +50,9 @@ export class AuthService {
           this.currentUserName=decodedToken.sub;
           this.currentUserId=decodedToken.jti;
           this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
+          this.currentUserNickName = res.userNickName;
           localStorage.setItem('userPhoto',this.currentUserPhoto);
+          localStorage.setItem('userNickName',this.currentUserNickName);
           localStorage.setItem("isFirstLogin","firstLogin")
         }
       })

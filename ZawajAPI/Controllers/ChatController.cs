@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,7 +32,8 @@ namespace ZawajAPI.Controllers
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
-            var usersForChat = await _context.Users.Include(p=>p.Photos).OrderByDescending(l=>l.LastActive).ToListAsync();
+            var currentUserId= User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
+            var usersForChat = await _context.Users.Include(p=>p.Photos).Where(u=>u.Id!=currentUserId).OrderByDescending(l=>l.LastActive).ToListAsync();
             var users = _mapper.Map<IEnumerable<ChatUsersListDTO>>(usersForChat);
             return Ok(users);
         }

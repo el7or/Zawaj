@@ -22,26 +22,10 @@ export class ChatService {
             id : item.id,
             name: item.nickName,
             title: item.lastActive,
-            picture: item.photoURL
+            picture: item.photoURL || 'assets/images/avatar.png'
           };
         })
       )
     );
   }
-  /* getAllUsers(): Observable<User[]> {
-    return this.http
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .pipe(
-        map(data =>
-          data.map(item => {
-            return <User>{
-              id: item.id,
-              name: item.name,
-              email: item.email,
-              username: item.username,
-            };
-          })
-        )
-      );
-  } */
 }

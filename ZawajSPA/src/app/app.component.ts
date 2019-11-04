@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
       this.authService.currentUserName= this.jwtHelper.decodeToken(token).sub;        
     }
     this.authService.currentUserPhoto = localStorage.getItem("userPhoto");
-
+    this.authService.currentUserNickName = localStorage.getItem("userNickName");
+    
     this.langgService.language.next(localStorage.getItem("langg"));
   }
 }
