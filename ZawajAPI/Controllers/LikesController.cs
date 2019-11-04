@@ -39,14 +39,14 @@ namespace ZawajAPI.Controllers
             }
             if (likesParams.IsLikesFrom)
             {
-                var likesFromUsers = await _context.Like.Where(l => l.LikeToUserId == likesParams.Id)
+                var likesFromUsers = await _context.Likes.Where(l => l.LikeToUserId == likesParams.Id)
                 .Select(u => u.LikeFromUser).Include(p=>p.Photos).ToListAsync();
                 var users = _mapper.Map<IEnumerable<LikeListDTO>>(likesFromUsers);
                 return Ok(users);
             }
             else
             {
-                var likesToUsers = await _context.Like.Where(l => l.LikeFromUserId == likesParams.Id)
+                var likesToUsers = await _context.Likes.Where(l => l.LikeFromUserId == likesParams.Id)
                 .Select(u => u.LikeToUser).Include(p=>p.Photos).ToListAsync();
                 var users = _mapper.Map<IEnumerable<LikeListDTO>>(likesToUsers);
                 return Ok(users);
@@ -66,7 +66,7 @@ namespace ZawajAPI.Controllers
                 return BadRequest("Liked this before !");
             }
             var like = _mapper.Map<Like>(likeDto);
-            _context.Like.Add(like);
+            _context.Likes.Add(like);
 
             if (await _context.SaveChangesAsync() > 0)
             { return Ok(); }
@@ -85,8 +85,8 @@ namespace ZawajAPI.Controllers
             {
                 return NotFound();
             }
-            var like = _context.Like.FirstOrDefault(e => e.LikeFromUserId == likeDto.LikeFromUserId && e.LikeToUserId == likeDto.LikeToUserId);
-            _context.Like.Remove(like);
+            var like = _context.Likes.FirstOrDefault(e => e.LikeFromUserId == likeDto.LikeFromUserId && e.LikeToUserId == likeDto.LikeToUserId);
+            _context.Likes.Remove(like);
             if (await _context.SaveChangesAsync() > 0)
             { return Ok(); }
             else { return BadRequest(); }
@@ -94,7 +94,7 @@ namespace ZawajAPI.Controllers
 
         private bool LikeExists(string fromUserId, string toUserId)
         {
-            return _context.Like.Any(e => e.LikeFromUserId == fromUserId && e.LikeToUserId == toUserId);
+            return _context.Likes.Any(e => e.LikeFromUserId == fromUserId && e.LikeToUserId == toUserId);
         }
 
         /*

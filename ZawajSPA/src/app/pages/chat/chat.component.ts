@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +14,6 @@ export class ChatComponent  {
     { name: 'Perry Cox', title: 'Doctor ' },
     { name: 'Ben Sullivan', title: 'Carpenter ' },
   ];
-
   messages=[
     {
       text: 'Success!',

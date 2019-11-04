@@ -48,23 +48,24 @@ namespace ZawajAPI.Data
                 }
             );
 
-            /* modelBuilder.Entity<Like>()
-            .HasKey(k=>new {k.LikeFromUserId,k.LikeToUserId});
+            modelBuilder.Entity<Message>(
+                msg =>
+                {
+                    msg.HasOne(l => l.Sender)
+                    .WithMany(u => u.MessagesSent)
+                    .HasForeignKey(l => l.SenderId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Like>()
-            .HasOne(l=>l.LikeFromUser)
-            .WithMany(u=>u.LikesTo)
-            .HasForeignKey(l=>l.LikeFromUserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Like>()
-            .HasOne(l=>l.LikeToUser)
-            .WithMany(u=>u.LikesFrom)
-            .HasForeignKey(l=>l.LikeToUserId)
-            .OnDelete(DeleteBehavior.Restrict); */
+                    msg.HasOne(l => l.Receiver)
+                    .WithMany(u => u.MessagesReceived)
+                    .HasForeignKey(l => l.ReceiverId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                }
+            );
         }
 
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Like> Like { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

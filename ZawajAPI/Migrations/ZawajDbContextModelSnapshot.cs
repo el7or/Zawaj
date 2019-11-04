@@ -106,7 +106,31 @@ namespace ZawajAPI.Migrations
 
                     b.HasIndex("LikeToUserId");
 
-                    b.ToTable("Like");
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("ZawajAPI.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime?>("ReadOn");
+
+                    b.Property<string>("ReceiverId");
+
+                    b.Property<string>("SenderId");
+
+                    b.Property<DateTime>("SentOn");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ZawajAPI.Models.Photo", b =>
@@ -289,6 +313,19 @@ namespace ZawajAPI.Migrations
                     b.HasOne("ZawajAPI.Models.User", "LikeToUser")
                         .WithMany("LikesFrom")
                         .HasForeignKey("LikeToUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("ZawajAPI.Models.Message", b =>
+                {
+                    b.HasOne("ZawajAPI.Models.User", "Receiver")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ZawajAPI.Models.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

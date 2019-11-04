@@ -1,3 +1,4 @@
+import { ChatService } from './../../services/chat.service';
 import { Router } from "@angular/router";
 import { AuthService } from "./../../services/auth.service";
 import {
@@ -37,6 +38,7 @@ export class HeaderComponent
   userPictureOnly: boolean = false;
   user: any;  
   anySubscription: Subscription;
+  newMessages:number;
 
   settingMenu = [
     { title: "", icon: "sun-outline" },
@@ -63,6 +65,7 @@ export class HeaderComponent
     private langgService: LanggService,
     private authService: AuthService,
     private searchService: NbSearchService,
+    private chatService: ChatService,
     private router: Router,
     private dialogService: NbDialogService,
     private cdr: ChangeDetectorRef
@@ -74,6 +77,7 @@ export class HeaderComponent
 
   ngOnInit() {
     this.checkLangg(localStorage.getItem("langg"));
+    this.newMessages = this.chatService.unreadMessages.getValue();
 
     this.anySubscription =this.menuService.onItemClick().subscribe(event => {
       switch (event.item.data) {

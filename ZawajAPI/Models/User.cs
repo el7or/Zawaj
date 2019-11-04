@@ -21,6 +21,8 @@ namespace ZawajAPI.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Like> LikesFrom { get; set; }
         public ICollection<Like> LikesTo { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
     }
 }
