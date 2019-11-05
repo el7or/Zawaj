@@ -7,9 +7,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using ZawajAPI.Data;
 using ZawajAPI.DTOs;
+using ZawajAPI.Hubs;
 using ZawajAPI.Models;
 
 namespace ZawajAPI.Controllers
@@ -21,9 +23,11 @@ namespace ZawajAPI.Controllers
     {
         private readonly ZawajDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IHubContext<chatHub> _hub;
 
-        public ChatController(ZawajDbContext context, IMapper mapper)
+        public ChatController(ZawajDbContext context, IMapper mapper, IHubContext<chatHub> hub)
         {
+            _hub = hub;
             _mapper = mapper;
             _context = context;
         }
@@ -46,13 +50,14 @@ namespace ZawajAPI.Controllers
             var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
             var messages = _context.Messages
             .Where(m => (m.SenderId == currentUserId && m.ReceiverId == id) || (m.SenderId == id && m.ReceiverId == currentUserId))
-            .OrderBy(m=>m.SentOn);
-            var x= await messages.Select(m=> new ChatListDTO{
+            .OrderBy(m => m.SentOn);
+            var x = await messages.Select(m => new ChatListDTO
+            {
                 Content = m.Content,
                 SentOn = m.SentOn,
-                 isReplay = m.SenderId == currentUserId
+                isReplay = m.SenderId == currentUserId
             }).ToListAsync();
-            messages.Where(m=>m.ReceiverId==currentUserId && m.ReadOn==null).ToList().ForEach(m=>m.ReadOn=DateTime.Now);
+            messages.Where(m => m.ReceiverId == currentUserId && m.ReadOn == null).ToList().ForEach(m => m.ReadOn = DateTime.Now);
             return Ok(x);
         }
 
@@ -63,7 +68,10 @@ namespace ZawajAPI.Controllers
             var message = _mapper.Map<Message>(newMessage);
             _context.Messages.Add(message);
             if (await _context.SaveChangesAsync() > 0)
-            { return Ok(); }
+            {
+               await _hub.Clients.All.SendAsync("MessageReceived", newMessage);  
+                return Ok();
+            }
             else { return BadRequest(); }
         }
 
@@ -72,7 +80,7 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> GetCount()
         {
             var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
-            var count = await _context.Messages.Where(m=>m.ReceiverId==currentUserId && m.ReadOn==null).CountAsync();
+            var count = await _context.Messages.Where(m => m.ReceiverId == currentUserId && m.ReadOn == null).CountAsync();
             return Ok(count);
         }
 

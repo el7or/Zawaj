@@ -15,7 +15,7 @@
         <span langg>Quick Search</span>
       <nb-search type="rotate-layout" [placeholder]="'Member Name...' | langg" [hint]="'Hit enter to search' | langg"></nb-search>
     </nb-action>
-    <nb-action *ngIf="isLoggedIn()&&newMessages>0" class="control-item" icon="email-outline" [routerLink]="['/pages/chat']"
+    <nb-action *ngIf="isLoggedIn()" class="control-item" icon="email-outline" [routerLink]="['/pages/chat']"
     [badgeText]="newMessages==0?'':newMessages |localNumber" badgeSize="tiny" badgePosition="top left" badgeStatus="danger">
     </nb-action>
     <!-- <nb-action *ngIf="isLoggedIn()" class="control-item" [nbContextMenu]="alertItems"

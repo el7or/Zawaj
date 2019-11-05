@@ -1,42 +1,46 @@
 import { AuthService } from "./../../shared/services/auth.service";
 import { ChatService } from "./../../shared/services/chat.service";
-import { BehaviorSubject } from "rxjs";
-import { Component, OnInit, AfterViewChecked } from "@angular/core";
+import { Component, OnInit, AfterViewChecked, OnDestroy, ChangeDetectorRef } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { LanggService } from "../../shared/services/langg.service";
 import { LanggPipe } from "../../shared/pipes/langg.pipe";
+import { ChatAdd } from "../../shared/models/chat-add";
 
 @Component({
   selector: "chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"]
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   users: { id: string; name: string; title: string; picture: string }[];
   userChatName: string;
   userChatId: string;
   messages: any[];
   loading = false;
 
-  /* messages = [
-    {
-      text: "Success!",
-      date: new Date(),
-      reply: false,
-      user: {
-        name: "صفوى",
-        avatar:
-          "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png"
-      }
-    }
-  ]; */
-
   constructor(
     private chatService: ChatService,
     private toastrService: NbToastrService,
     private langgService: LanggService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+
+  ) {
+    this.chatService.messageReceived.subscribe((message: ChatAdd) => {
+      if (message.receiverId == authService.currentUserId && message.senderId==this.userChatId) {
+        const sender = this.users.filter(u=>u.id==message.senderId);
+        this.messages.push({
+          text: message.content,
+          date: new Date(),
+          reply: false,
+          user: {
+            name: sender[0].name,
+            avatar: sender[0].picture
+          }
+        });
+      }
+    });
+  }
 
   ngOnInit() {
     this.chatService.getChatUsers().subscribe(
@@ -61,10 +65,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     const noMessageText = document.querySelector("p.no-messages");
-    if (noMessageText!=null)
+    if (noMessageText != null)
       noMessageText.innerHTML = new LanggPipe(this.langgService).transform(
         "No messages yet."
       );
+      this.cdr.detectChanges();
+  }
+
+  ngOnDestroy(){
+    this.chatService.stopConnection();
   }
 
   openChat(user) {

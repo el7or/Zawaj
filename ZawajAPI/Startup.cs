@@ -18,6 +18,8 @@ using ZawajAPI.Data.TrialsData;
 using ZawajAPI.Domain.IRepository;
 using ZawajAPI.Domain.Repository;
 using AutoMapper;
+using ZawajAPI.Hubs;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace ZawajAPI
 {
@@ -87,6 +89,7 @@ namespace ZawajAPI
             .AddJsonOptions(option =>
             { option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
             services.AddCors();
+            services.AddSignalR();
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<TrialData>();
             services.AddScoped<UserActiveActionFilter>();
@@ -118,10 +121,27 @@ namespace ZawajAPI
                 });
                 // app.UseHsts();
             }
+            /* app.UseSpa(spa =>  
+            {  
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,  
+                // see https://go.microsoft.com/fwlink/?linkid=864501  
+  
+                spa.Options.SourcePath = "ZawajSPA";  
+  
+                if (env.IsDevelopment())  
+                {  
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");  
+                    spa.UseAngularCliServer(npmScript: "start");  
+                }  
+            });  */
 
             trialData.TrialUsers();
             app.UseHttpsRedirection();
             app.UseCors(x => x.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
+            app.UseSignalR(options =>
+            {
+                options.MapHub<chatHub>("/ChatHub");
+            });
             app.UseAuthentication();
             app.UseMvc();
         }
