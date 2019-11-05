@@ -35,10 +35,14 @@
             </nb-card-body>
 
             <nb-card-footer>
-              <a href="#">
+              <a *ngIf="!userDetails.isLiking" [nbTooltip]="'Like' | langg" (click)="like(userDetails.id);userDetails.isLiking=true;">
                 <nb-icon status="danger" icon="heart-outline"></nb-icon>
               </a>
-              <a href="#">
+              <a *ngIf="userDetails.isLiking" [nbTooltip]="'Dislike' | langg" (click)="dislike(userDetails.id);userDetails.isLiking=false;">
+                <nb-icon status="danger" icon="heart"></nb-icon>
+              </a>
+              <a [routerLink]="['/pages/chat']" [queryParams]="{id:userDetails.id}"
+              [nbTooltip]="'Connect' | langg">
                 <nb-icon status="success" icon="email-outline"></nb-icon>
               </a>
               <!-- <button class="btn btn-primary ml-2 w-100" (click)="selectTab(3);">مراسلة</button> -->

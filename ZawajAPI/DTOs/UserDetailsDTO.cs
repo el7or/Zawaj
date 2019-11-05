@@ -22,5 +22,6 @@ namespace ZawajAPI.DTOs
         public string City { get; set; }
         public string PhotoURL { get; set; }
         public ICollection<PhotoDetailsDTO> Photos { get; set; }
+        public bool? isLiking { get; set; }
     }
 }

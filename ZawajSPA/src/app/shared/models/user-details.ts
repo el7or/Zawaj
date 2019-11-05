@@ -17,4 +17,5 @@ export interface UserDetails {
   city: string;
   photoURL: string;
   photos: PhotoDetails[];
+  isLiking?:boolean;
 }

@@ -1,12 +1,18 @@
 import { Location } from '@angular/common';
 import { UserDetails } from "./../../shared/models/user-details";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import {
   NgxGalleryOptions,
   NgxGalleryImage,
   NgxGalleryAnimation
 } from "ngx-gallery";
+import { AuthService } from '../../shared/services/auth.service';
+import { LikeService } from '../../shared/services/like.service';
+import { LanggService } from '../../shared/services/langg.service';
+import { NbToastrService } from '@nebular/theme';
+import { LikeUser } from '../../shared/models/like-user';
+import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
   selector: "member-details",
@@ -20,7 +26,13 @@ export class MemberDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private route: ActivatedRoute, private location: Location) {}
+  constructor(
+    private authService: AuthService,
+    private likeService: LikeService,
+    private langgService:LanggService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastrService: NbToastrService, private location: Location) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -60,6 +72,63 @@ export class MemberDetailsComponent implements OnInit {
       };
     });
     this.location.replaceState('pages/'+'members');
+  }
+
+  like(likeToUserId: string) {
+    if (!this.authService.isAuthenticated()) {
+      this.authService.redirectUrl = this.router.url;
+      this.router.navigate(["/auth/login"]);
+    } else {
+      let newLike: LikeUser = {
+        likeFromUserId: this.authService.currentUserId,
+        likeToUserId: likeToUserId
+      };
+      this.likeService.postLike(newLike).subscribe(
+        () => {
+          this.toastrService.danger(
+            new LanggPipe(this.langgService).transform("Added to likes list successfully."),
+            new LanggPipe(this.langgService).transform("Success!"),
+            { duration: 3000 }
+          );
+        },
+        error => {
+          console.error(error);
+          this.toastrService.warning(
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
+            { duration: 3000 }
+          );
+        }
+      );
+    }
+  }
+  dislike(likeToUserId: string) {
+    if (!this.authService.isAuthenticated()) {
+      this.authService.redirectUrl = this.router.url;
+      this.router.navigate(["/auth/login"]);
+    } else {
+      let deletedLike: LikeUser = {
+        likeFromUserId: this.authService.currentUserId,
+        likeToUserId: likeToUserId
+      };
+      this.likeService.deleteLike(deletedLike).subscribe(
+        () => {
+          this.toastrService.danger(
+            new LanggPipe(this.langgService).transform("Removed from likes list successfully."),
+            new LanggPipe(this.langgService).transform("Success!"),
+            { duration: 3000 }
+          );
+        },
+        error => {
+          console.error(error);
+          this.toastrService.warning(
+            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform("Something Wrong!"),
+            { duration: 3000 }
+          );
+        }
+      );
+    }
   }
 
   goBack(){
