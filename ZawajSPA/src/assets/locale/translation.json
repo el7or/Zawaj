@@ -46,7 +46,7 @@
     {"ar":"خطأ في اسم المستخدم!","en":"Wrong UserName!"},
     {"ar":"اسم المستخدم هذا موجود من قبل! الرجاء اختيار اسم آخر","en":"This UserName is already taken! Try another one."},
     {"ar":"حسناً","en":"OK"},
-    {"ar":"اسم العضو...","en":"Member Name..."},
+    {"ar":"اسم العضو/ة...","en":"Member Name..."},
     {"ar":"اضغط Enter للبحث","en":"Hit enter to search"},
     {"ar":"بحث","en":"Search"},
     {"ar":"بحث سريع","en":"Quick Search"},

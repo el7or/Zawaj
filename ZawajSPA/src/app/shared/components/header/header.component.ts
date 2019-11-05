@@ -71,9 +71,7 @@ export class HeaderComponent
     private dialogService: NbDialogService,
     private cdr: ChangeDetectorRef
   ) {
-    this.anySubscription = this.searchService
-      .onSearchSubmit()
-      .subscribe((data: any) => {
+    this.anySubscription = this.searchService.onSearchSubmit().subscribe((data: any) => {
         alert(data.term);
       });
   }
