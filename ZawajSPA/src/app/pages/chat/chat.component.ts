@@ -94,6 +94,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       noMessageText.innerHTML = new LanggPipe(this.langgService).transform(
         "No messages yet."
       );
+      const typeMessagePlacholder = <HTMLInputElement> document.querySelector("div.message-row input.with-button");
+      if (typeMessagePlacholder != null)
+      typeMessagePlacholder.placeholder =  new LanggPipe(this.langgService).transform(
+          "Type a message"
+        );
     this.cdr.detectChanges();
   }
 

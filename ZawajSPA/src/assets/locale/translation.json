@@ -137,5 +137,6 @@
     {"ar":"تسجيل خروج !","en":"Log Out !"},
     {"ar":"من أعجبت بهم","en":"My Favorites"},
     {"ar":"المعجبين بي","en":"My Fans"},
-    {"ar":"لا توجد أي رسائل بعد.","en":"No messages yet."}
+    {"ar":"لا توجد أي رسائل بعد.","en":"No messages yet."},
+    {"ar":"اكتب رسالتك","en":"Type a message"}
 ]
