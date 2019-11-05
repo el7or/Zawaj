@@ -1,5 +1,6 @@
 import { AuthService } from "./../../shared/services/auth.service";
 import { ChatService } from "./../../shared/services/chat.service";
+import { Location } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -10,6 +11,7 @@ import { NbToastrService } from "@nebular/theme";
 import { LanggService } from "../../shared/services/langg.service";
 import { LanggPipe } from "../../shared/pipes/langg.pipe";
 import { ChatAdd } from "../../shared/models/chat-add";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "chat",
@@ -34,6 +36,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private toastrService: NbToastrService,
     private langgService: LanggService,
     private authService: AuthService,
+    private route: ActivatedRoute,
+    private location: Location,
     private cdr: ChangeDetectorRef
   ) {
     this.chatService.messageReceived.subscribe((message: ChatAdd) => {
@@ -59,7 +63,16 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.chatService.getChatUsers().subscribe(
       res => {
         this.users = res;
-        this.openChat(res[0]);
+        this.route.queryParams.subscribe(params => {
+          const userId = params["id"];
+          if (userId != null) {
+            this.location.replaceState('pages/'+'chat');
+            const chatUser = this.users.filter(u => u.id == userId);            
+            this.openChat(chatUser[0]);
+          } else {
+            this.openChat(res[0]);
+          }
+        });
       },
       error => {
         console.error(error);
@@ -84,6 +97,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   openChat(user) {
+    this.users.unshift(this.users.splice(this.users.findIndex(item => item.id === user.id), 1)[0]);
     this.loading = true;
     this.messages = [];
     this.userChatName = user.name;

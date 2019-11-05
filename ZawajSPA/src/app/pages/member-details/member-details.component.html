@@ -93,10 +93,6 @@
                 <p *ngIf="userDetails.photos.length == 0" langg>There is no photos to display.</p>
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </nb-tab>
-            <nb-tab [tabTitle]="'Messages' | langg" (deselect)="deselect()">
-              <!-- <app-member-messages *ngIf="paid" [recipientId]="userDetails.id"></app-member-messages>
-       <app-payment *ngIf="!paid"></app-payment> -->
-            </nb-tab>
 
           </nb-tabset>
         </div>

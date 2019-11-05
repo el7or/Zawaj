@@ -65,5 +65,4 @@ export class MemberDetailsComponent implements OnInit {
   goBack(){
 this.location.back();
   }
-  deselect() {}
 }
