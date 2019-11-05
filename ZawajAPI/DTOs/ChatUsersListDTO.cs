@@ -8,5 +8,6 @@ namespace ZawajAPI.DTOs
         public string NickName { get; set; }
         public string PhotoURL { get; set; }
         public DateTime LastActive { get; set; }
+        public int UnreadCount { get; set; }
     }
 }

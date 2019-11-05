@@ -3,4 +3,5 @@ export interface ChatUser {
     name:string;
     title:string;
     picture:string;
+    unread:number;
 }

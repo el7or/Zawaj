@@ -23,9 +23,9 @@ namespace ZawajAPI.Controllers
     {
         private readonly ZawajDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IHubContext<chatHub> _hub;
+        private readonly IHubContext<ChatHub> _hub;
 
-        public ChatController(ZawajDbContext context, IMapper mapper, IHubContext<chatHub> hub)
+        public ChatController(ZawajDbContext context, IMapper mapper, IHubContext<ChatHub> hub)
         {
             _hub = hub;
             _mapper = mapper;
@@ -37,8 +37,19 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
-            var usersForChat = await _context.Users.Include(p => p.Photos).Where(u => u.Id != currentUserId).OrderByDescending(l => l.LastActive).ToListAsync();
-            var users = _mapper.Map<IEnumerable<ChatUsersListDTO>>(usersForChat);
+            var users = await _context.Users
+            .Include(p => p.Photos)
+            .Include(u => u.MessagesSent)
+            .Where(u => u.Id != currentUserId)
+            .OrderByDescending(l => l.LastActive)
+            .Select(u=> new ChatUsersListDTO{
+                Id = u.Id,
+                NickName = u.NickName,
+                LastActive = u.LastActive,
+                PhotoURL = u.Photos.FirstOrDefault(p => p.IsMain).Url,
+                UnreadCount = u.MessagesSent.Where(m=> m.ReadOn==null && m.ReceiverId==currentUserId).Count()
+            }).OrderByDescending(u=>u.UnreadCount)
+            .ToListAsync();
             return Ok(users);
         }
 
@@ -70,11 +81,6 @@ namespace ZawajAPI.Controllers
             if (await _context.SaveChangesAsync() > 0)
             {
                 await _hub.Clients.All.SendAsync("MessageReceived", newMessage);
-                await _hub.Clients.All.SendAsync("UpdateUnreadCount", new
-                {
-                    id = newMessage.ReceiverId,
-                    count = _context.Messages.Where(m => m.ReceiverId == newMessage.ReceiverId && m.ReadOn == null).Count()
-                });
                 return Ok();
             }
             else { return BadRequest(); }

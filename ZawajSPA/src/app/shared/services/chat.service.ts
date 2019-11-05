@@ -16,11 +16,6 @@ import {
 })
 export class ChatService {
   baseUrl = environment.API_URL + "chat/";
-  private _hubConnection: HubConnection;
-  messageReceived = new EventEmitter<ChatAdd>();
-  unReadCount = new EventEmitter<ChatCount>();
-  connectionEstablished = new EventEmitter<Boolean>();
-  connectionIsEstablished = false;
 
   constructor(private http: HttpClient) {
     this.createConnection();
@@ -36,7 +31,8 @@ export class ChatService {
             id: item.id,
             name: item.nickName,
             title: item.lastActive,
-            picture: item.photoURL || "assets/images/avatar.png"
+            picture: item.photoURL || "assets/images/avatar.png",
+            unread : item.unreadCount
           };
         })
       )
@@ -58,9 +54,17 @@ export class ChatService {
 
   /********   SignalR   *********/
 
+  
+  private _hubConnection: HubConnection;
+  messageReceived = new EventEmitter<ChatAdd>();
+  unReadCount = new EventEmitter<ChatCount>();
+  /* chatUsersList = new EventEmitter<ChatUser[]>(); */
+  connectionEstablished = new EventEmitter<Boolean>();
+  connectionIsEstablished = false;
+
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/ChatHub", {
+      .withUrl("http://localhost:5000/chatHub", {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets
       })
@@ -85,6 +89,12 @@ export class ChatService {
   /* sendMessage(message: ChatAdd) {
     this._hubConnection.invoke("NewMessage", message);
   } */
+  updateUnreadCount(id:string){
+    this._hubConnection.invoke("UpdateUnreadCount", id);    
+  }
+  /* updateChatUsers(id:string){
+    this._hubConnection.invoke("UpdateChatUsers", id);    
+  } */
   private registerOnServerEvents(): void {
     this._hubConnection.on("MessageReceived", (data: any) => {
       this.messageReceived.emit(data);
@@ -92,6 +102,9 @@ export class ChatService {
     this._hubConnection.on("UpdateUnreadCount", (data: any) => {
       this.unReadCount.emit(data);
     });
+    /* this._hubConnection.on("UpdateChatUsers", (data: any) => {
+      this.chatUsersList.emit(data);
+    }); */
   }
   stopConnection(): void {
     this._hubConnection

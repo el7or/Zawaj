@@ -35,9 +35,6 @@ namespace ZawajAPI.Helpers
 
             CreateMap<LikeAddDTO, Like>();
 
-            CreateMap<User, ChatUsersListDTO>()
-            .ForMember(dest => dest.PhotoURL, map => { map.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); });
-
             CreateMap<ChatAddDTO,Message>();
         }
     }

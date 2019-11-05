@@ -140,7 +140,7 @@ namespace ZawajAPI
             app.UseCors(x => x.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
             app.UseSignalR(options =>
             {
-                options.MapHub<chatHub>("/ChatHub");
+                options.MapHub<ChatHub>("/chatHub");
             });
             app.UseAuthentication();
             app.UseMvc();

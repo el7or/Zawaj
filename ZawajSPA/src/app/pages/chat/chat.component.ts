@@ -1,6 +1,11 @@
 import { AuthService } from "./../../shared/services/auth.service";
 import { ChatService } from "./../../shared/services/chat.service";
-import { Component, OnInit, AfterViewChecked, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  ChangeDetectorRef
+} from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { LanggService } from "../../shared/services/langg.service";
 import { LanggPipe } from "../../shared/pipes/langg.pipe";
@@ -11,8 +16,14 @@ import { ChatAdd } from "../../shared/models/chat-add";
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"]
 })
-export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
-  users: { id: string; name: string; title: string; picture: string }[];
+export class ChatComponent implements OnInit, AfterViewChecked {
+  users: {
+    id: string;
+    name: string;
+    title: string;
+    picture: string;
+    unread: number;
+  }[];
   userChatName: string;
   userChatId: string;
   messages: any[];
@@ -24,11 +35,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     private langgService: LanggService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef
-
   ) {
     this.chatService.messageReceived.subscribe((message: ChatAdd) => {
-      if (message.receiverId == authService.currentUserId && message.senderId==this.userChatId) {
-        const sender = this.users.filter(u=>u.id==message.senderId);
+      if (
+        message.receiverId == authService.currentUserId &&
+        message.senderId == this.userChatId
+      ) {
+        const sender = this.users.filter(u => u.id == message.senderId);
         this.messages.push({
           text: message.content,
           date: new Date(),
@@ -46,8 +59,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.chatService.getChatUsers().subscribe(
       res => {
         this.users = res;
-        this.userChatName = res[0].name;
-        this.userChatId = res[0].id;
         this.openChat(res[0]);
       },
       error => {
@@ -69,11 +80,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       noMessageText.innerHTML = new LanggPipe(this.langgService).transform(
         "No messages yet."
       );
-      this.cdr.detectChanges();
-  }
-
-  ngOnDestroy(){
-    this.chatService.stopConnection();
+    this.cdr.detectChanges();
   }
 
   openChat(user) {
@@ -83,6 +90,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.userChatId = user.id;
     this.chatService.getChatList(user.id).subscribe(
       (response: any) => {
+        const chatUser = this.users.filter(u => u.id == user.id);
+        chatUser[0].unread = null;
         response.forEach(res => {
           this.messages.push({
             text: res.content,
@@ -109,7 +118,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
           new LanggPipe(this.langgService).transform("Something Wrong!"),
           { duration: 3000 }
         );
-      }
+      },
+      () => this.chatService.updateUnreadCount(this.authService.currentUserId)
     );
   }
 
@@ -122,6 +132,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       })
       .subscribe(
         () => {
+          this.chatService.updateUnreadCount(this.userChatId);
           this.messages.push({
             text: event.message,
             date: new Date(),
