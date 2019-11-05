@@ -10,7 +10,6 @@ import { ChatAdd } from '../models/chat-add';
   providedIn: "root"
 })
 export class ChatService {
-  unreadMessages = new BehaviorSubject<number>(3);
   baseUrl = environment.API_URL + "chat/";
 
   constructor(private http: HttpClient) {}
@@ -36,5 +35,9 @@ export class ChatService {
 
   postNewMessage(message:ChatAdd){
     return this.http.post<ChatAdd>(this.baseUrl , message);
+  }
+
+  getUnreadCount(){
+    return this.http.get(this.baseUrl + 'count');
   }
 }

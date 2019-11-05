@@ -77,7 +77,6 @@ export class HeaderComponent
 
   ngOnInit() {
     this.checkLangg(localStorage.getItem("langg"));
-    this.newMessages = this.chatService.unreadMessages.getValue();
 
     this.anySubscription =this.menuService.onItemClick().subscribe(event => {
       switch (event.item.data) {
@@ -119,6 +118,10 @@ export class HeaderComponent
         localStorage.removeItem("isFirstLogin")
       }, 4000);
     }
+    this.chatService.getUnreadCount().subscribe(
+      (res:number) =>{this.newMessages = res;},
+      err => console.error(err)
+    );
   }
 
   ngAfterViewChecked() {

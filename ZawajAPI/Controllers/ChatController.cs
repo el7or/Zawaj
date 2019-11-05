@@ -52,7 +52,7 @@ namespace ZawajAPI.Controllers
                 SentOn = m.SentOn,
                  isReplay = m.SenderId == currentUserId
             }).ToListAsync();
-            messages.Where(m=>m.ReceiverId==currentUserId).ToList().ForEach(m=>m.ReadOn=DateTime.Now);
+            messages.Where(m=>m.ReceiverId==currentUserId && m.ReadOn==null).ToList().ForEach(m=>m.ReadOn=DateTime.Now);
             return Ok(x);
         }
 
@@ -65,6 +65,15 @@ namespace ZawajAPI.Controllers
             if (await _context.SaveChangesAsync() > 0)
             { return Ok(); }
             else { return BadRequest(); }
+        }
+
+        // GET: api/Chat/count
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
+            var count = await _context.Messages.Where(m=>m.ReceiverId==currentUserId && m.ReadOn==null).CountAsync();
+            return Ok(count);
         }
 
         /* // GET: api/Chat/5
