@@ -4,10 +4,10 @@ nb-user {
 nb-card {
   max-height: 36rem;
 }
-nb-list-item:first-of-type {
-  background-color: #0095ff;
+.selectedUser {
+  background-color: #0095ff !important;
 }
-nb-list-item:first-of-type /deep/ div.user-name, nb-list-item:first-of-type /deep/ div.user-title{
+.selectedUser /deep/ div.user-name, .selectedUser /deep/ div.user-title{
     color: #ffffff !important;
-    font-weight: bolder;
+    font-weight: bolder !important;
 }

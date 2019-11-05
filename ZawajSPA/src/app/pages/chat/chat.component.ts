@@ -65,7 +65,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.users = res;
         this.route.queryParams.subscribe(params => {
           const userId = params["id"];
-          if (userId != null) {
+          if (userId != null) {            
+    this.users.unshift(this.users.splice(this.users.findIndex(item => item.id === userId), 1)[0]);
             this.location.replaceState('pages/'+'chat');
             const chatUser = this.users.filter(u => u.id == userId);            
             this.openChat(chatUser[0]);
@@ -97,7 +98,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   openChat(user) {
-    this.users.unshift(this.users.splice(this.users.findIndex(item => item.id === user.id), 1)[0]);
     this.loading = true;
     this.messages = [];
     this.userChatName = user.name;
