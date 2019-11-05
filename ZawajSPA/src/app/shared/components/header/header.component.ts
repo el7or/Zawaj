@@ -1,4 +1,5 @@
-import { ChatService } from './../../services/chat.service';
+import { ChatCount } from './../../models/chat-count';
+import { ChatService } from "./../../services/chat.service";
 import { Router } from "@angular/router";
 import { AuthService } from "./../../services/auth.service";
 import {
@@ -22,7 +23,7 @@ import { LayoutService } from "../../../@core/utils";
 import { Subject, from, Subscription } from "rxjs";
 import { LanggService } from "../../services/langg.service";
 import { MENU_ITEMS } from "../../../pages/pages-menu";
-import {LanggPipe} from "../../pipes/langg.pipe"
+import { LanggPipe } from "../../pipes/langg.pipe";
 
 @Component({
   selector: "ngx-header",
@@ -36,9 +37,9 @@ export class HeaderComponent
   menuTitles: any;
   menu = MENU_ITEMS;
   userPictureOnly: boolean = false;
-  user: any;  
+  user: any;
   anySubscription: Subscription;
-  newMessages:number;
+  newMessages: number;
 
   settingMenu = [
     { title: "", icon: "sun-outline" },
@@ -49,8 +50,8 @@ export class HeaderComponent
     { title: "English", group: false, data: "en" }
   ];
   userMenu = [
-    { title: "Profile", icon: "person", data:"Profile" },
-    { title: "Log out", icon: "menu-arrow-outline", data:"Log out" }
+    { title: "Profile", icon: "person", data: "Profile" },
+    { title: "Log out", icon: "menu-arrow-outline", data: "Log out" }
   ];
 
   /* alertItems = [
@@ -70,15 +71,17 @@ export class HeaderComponent
     private dialogService: NbDialogService,
     private cdr: ChangeDetectorRef
   ) {
-    this.anySubscription = this.searchService.onSearchSubmit().subscribe((data: any) => {
-      alert(data.term);
-    });
+    this.anySubscription = this.searchService
+      .onSearchSubmit()
+      .subscribe((data: any) => {
+        alert(data.term);
+      });
   }
 
   ngOnInit() {
     this.checkLangg(localStorage.getItem("langg"));
 
-    this.anySubscription =this.menuService.onItemClick().subscribe(event => {
+    this.anySubscription = this.menuService.onItemClick().subscribe(event => {
       switch (event.item.data) {
         case "en":
         case "ar":
@@ -95,31 +98,38 @@ export class HeaderComponent
         case "Profile":
           this.router.navigateByUrl("/pages/members/edit");
           break;
-        case 'like':
+        case "like":
           this.router.navigateByUrl("/pages/likes");
           break;
-          case 'msg':
-            this.router.navigateByUrl("/pages/chat");
-            break;      
+        case "msg":
+          this.router.navigateByUrl("/pages/chat");
+          break;
         default:
           break;
+      }
+    });
+    this.chatService.unReadCount.subscribe((countData:ChatCount) => {
+      if (countData.id == this.authService.currentUserId) {
+        this.newMessages = countData.count
       }
     });
   }
 
   ngAfterViewInit() {
-    if (localStorage.getItem("isFirstLogin")=="firstLogin") {
+    if (localStorage.getItem("isFirstLogin") == "firstLogin") {
       let el: HTMLElement = document.getElementById("userMenu") as HTMLElement;
       setTimeout(() => {
         this.dialogService.open(this.dialog);
       }, 2000);
       setTimeout(() => {
         el.click();
-        localStorage.removeItem("isFirstLogin")
+        localStorage.removeItem("isFirstLogin");
       }, 4000);
     }
     this.chatService.getUnreadCount().subscribe(
-      (res:number) =>{this.newMessages = res;},
+      (res: number) => {
+        this.newMessages = res;
+      },
       err => console.error(err)
     );
   }
@@ -127,7 +137,7 @@ export class HeaderComponent
   ngAfterViewChecked() {
     this.menu = this.authService.reloadMenuItems(MENU_ITEMS);
     this.menu.concat(this.userMenu).forEach(element => {
-      element.title = new LanggPipe(this.langgService).transform(element.title)
+      element.title = new LanggPipe(this.langgService).transform(element.title);
     });
     this.user = {
       username: this.authService.currentUserName,
@@ -159,9 +169,11 @@ export class HeaderComponent
     localStorage.removeItem("userPhoto");
     localStorage.removeItem("userNickName");
 
-    this.router.navigateByUrl('/auth/logout', { skipLocationChange: true }).then(() => {
-      this.router.navigate(["/pages/members/"]);
-  }); 
+    this.router
+      .navigateByUrl("/auth/logout", { skipLocationChange: true })
+      .then(() => {
+        this.router.navigate(["/pages/members/"]);
+      });
   }
 
   toggleSidebar(): boolean {

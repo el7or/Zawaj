@@ -1,3 +1,4 @@
+import { ChatCount } from './../models/chat-count';
 import { Injectable, EventEmitter } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
@@ -17,6 +18,7 @@ export class ChatService {
   baseUrl = environment.API_URL + "chat/";
   private _hubConnection: HubConnection;
   messageReceived = new EventEmitter<ChatAdd>();
+  unReadCount = new EventEmitter<ChatCount>();
   connectionEstablished = new EventEmitter<Boolean>();
   connectionIsEstablished = false;
 
@@ -86,6 +88,9 @@ export class ChatService {
   private registerOnServerEvents(): void {
     this._hubConnection.on("MessageReceived", (data: any) => {
       this.messageReceived.emit(data);
+    });
+    this._hubConnection.on("UpdateUnreadCount", (data: any) => {
+      this.unReadCount.emit(data);
     });
   }
   stopConnection(): void {

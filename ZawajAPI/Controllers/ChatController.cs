@@ -51,14 +51,14 @@ namespace ZawajAPI.Controllers
             var messages = _context.Messages
             .Where(m => (m.SenderId == currentUserId && m.ReceiverId == id) || (m.SenderId == id && m.ReceiverId == currentUserId))
             .OrderBy(m => m.SentOn);
-            var x = await messages.Select(m => new ChatListDTO
+            var chatMessages = await messages.Select(m => new ChatListDTO
             {
                 Content = m.Content,
                 SentOn = m.SentOn,
                 isReplay = m.SenderId == currentUserId
             }).ToListAsync();
             messages.Where(m => m.ReceiverId == currentUserId && m.ReadOn == null).ToList().ForEach(m => m.ReadOn = DateTime.Now);
-            return Ok(x);
+            return Ok(chatMessages);
         }
 
         // POST: api/Chat
@@ -69,7 +69,12 @@ namespace ZawajAPI.Controllers
             _context.Messages.Add(message);
             if (await _context.SaveChangesAsync() > 0)
             {
-               await _hub.Clients.All.SendAsync("MessageReceived", newMessage);  
+                await _hub.Clients.All.SendAsync("MessageReceived", newMessage);
+                await _hub.Clients.All.SendAsync("UpdateUnreadCount", new
+                {
+                    id = newMessage.ReceiverId,
+                    count = _context.Messages.Where(m => m.ReceiverId == newMessage.ReceiverId && m.ReadOn == null).Count()
+                });
                 return Ok();
             }
             else { return BadRequest(); }
