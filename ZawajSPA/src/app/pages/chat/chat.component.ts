@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   userChatName: string;
   userChatId: string;
   messages: any[];
-  loading=false;
+  loading = false;
 
   /* messages = [
     {
@@ -60,13 +60,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    document.querySelector("p.no-messages").innerHTML = new LanggPipe(
-      this.langgService
-    ).transform("No messages yet.");
+    const noMessageText = document.querySelector("p.no-messages");
+    if (noMessageText!=null)
+      noMessageText.innerHTML = new LanggPipe(this.langgService).transform(
+        "No messages yet."
+      );
   }
 
   openChat(user) {
-    this.loading=true;
+    this.loading = true;
     this.messages = [];
     this.userChatName = user.name;
     this.userChatId = user.id;

@@ -44,16 +44,16 @@ namespace ZawajAPI.Controllers
         public async Task<IActionResult> GetMessages(string id)
         {
             var currentUserId = User.FindFirst(JwtRegisteredClaimNames.Jti).Value.ToString();
-            var messages = await _context.Messages
+            var messages = _context.Messages
             .Where(m => (m.SenderId == currentUserId && m.ReceiverId == id) || (m.SenderId == id && m.ReceiverId == currentUserId))
-            .OrderBy(m=>m.SentOn)
-            .Select(m=> new ChatListDTO{
+            .OrderBy(m=>m.SentOn);
+            var x= await messages.Select(m=> new ChatListDTO{
                 Content = m.Content,
                 SentOn = m.SentOn,
                  isReplay = m.SenderId == currentUserId
-            })
-            .ToListAsync();
-            return Ok(messages);
+            }).ToListAsync();
+            messages.Where(m=>m.ReceiverId==currentUserId).ToList().ForEach(m=>m.ReadOn=DateTime.Now);
+            return Ok(x);
         }
 
         // POST: api/Chat
