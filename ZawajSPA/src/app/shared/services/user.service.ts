@@ -24,21 +24,28 @@ export class UserService {
     return this.http.get<UserPagedList>(this.baseUrl, { params });
   }
 
-  searchUsers(searchParams?,pageNumber?, pageSize?): Observable<UserPagedList>{
+  searchUsers(
+    searchParams?,
+    pageNumber?,
+    pageSize?
+  ): Observable<UserPagedList> {
     let params = new HttpParams();
     if (pageNumber != null && pageSize != null) {
       params = params.append("pageNumber", pageNumber);
       params = params.append("pageSize", pageSize);
     }
     if (searchParams != null) {
-      params = params.append('minAge', searchParams.minAge);
-      params = params.append('maxAge', searchParams.maxAge);
-      params = params.append('gender', searchParams.gender);
-      params = params.append('orderBy', searchParams.orderBy);
+      params = params.append("minAge", searchParams.minAge);
+      params = params.append("maxAge", searchParams.maxAge);
+      params = params.append("gender", searchParams.gender);
+      params = params.append("orderBy", searchParams.orderBy);
+      if (searchParams.name != null) {
+        params = params.append("name", searchParams.name);
+      }
     }
-    return this.http.get<UserPagedList>(this.baseUrl+'search', { params });
+    return this.http.get<UserPagedList>(this.baseUrl + "search", { params });
   }
-  
+
   /* getAllUsers(): Observable<User[]> {
     return this.http
       .get<User[]>("https://jsonplaceholder.typicode.com/users")

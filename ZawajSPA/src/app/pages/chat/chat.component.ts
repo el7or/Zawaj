@@ -1,6 +1,6 @@
 import { AuthService } from "./../../shared/services/auth.service";
 import { ChatService } from "./../../shared/services/chat.service";
-import { Location } from '@angular/common';
+import { Location } from "@angular/common";
 import {
   Component,
   OnInit,
@@ -65,10 +65,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.users = res;
         this.route.queryParams.subscribe(params => {
           const userId = params["id"];
-          if (userId != null) {            
-    this.users.unshift(this.users.splice(this.users.findIndex(item => item.id === userId), 1)[0]);
-            this.location.replaceState('pages/'+'chat');
-            const chatUser = this.users.filter(u => u.id == userId);            
+          if (userId != null) {
+            this.users.unshift(
+              this.users.splice(
+                this.users.findIndex(item => item.id === userId), 1)[0]
+            );
+            this.location.replaceState("pages/" + "chat");
+            const chatUser = this.users.filter(u => u.id == userId);
             this.openChat(chatUser[0]);
           } else {
             this.openChat(res[0]);
@@ -94,11 +97,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       noMessageText.innerHTML = new LanggPipe(this.langgService).transform(
         "No messages yet."
       );
-      const typeMessagePlacholder = <HTMLInputElement> document.querySelector("div.message-row input.with-button");
-      if (typeMessagePlacholder != null)
-      typeMessagePlacholder.placeholder =  new LanggPipe(this.langgService).transform(
-          "Type a message"
-        );
+    const typeMessagePlacholder = <HTMLInputElement>(
+      document.querySelector("div.message-row input.with-button")
+    );
+    if (typeMessagePlacholder != null)
+      typeMessagePlacholder.placeholder = new LanggPipe(
+        this.langgService
+      ).transform("Type a message");
     this.cdr.detectChanges();
   }
 

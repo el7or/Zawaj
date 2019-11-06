@@ -72,7 +72,7 @@ export class HeaderComponent
     private cdr: ChangeDetectorRef
   ) {
     this.anySubscription = this.searchService.onSearchSubmit().subscribe((data: any) => {
-        alert(data.term);
+      router.navigateByUrl('/pages/search?name='+data.term);
       });
   }
 

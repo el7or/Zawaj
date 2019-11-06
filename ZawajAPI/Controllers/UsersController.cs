@@ -39,9 +39,9 @@ namespace ZawajAPI.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
-                usersPaged = await _context.Users.Include(p => p.Photos).Include(u=>u.LikesFrom)
+                usersPaged = await _context.Users.Include(p => p.Photos).Include(u => u.LikesFrom)
                 .OrderByDescending(u => u.LastActive)
-                .Where(u=>u.Id!=currentUser.Id&&u.Gender!=currentUser.Gender)
+                .Where(u => u.Id != currentUser.Id && u.Gender != currentUser.Gender)
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
@@ -63,26 +63,28 @@ namespace ZawajAPI.Controllers
         // GET: api/Users/Search
         [HttpGet("search")]
         [AllowAnonymous]
-        public async Task<IActionResult> SearchUsers([FromQuery]SearchParams searchParams,[FromQuery]PagingParams pagingParams)
+        public async Task<IActionResult> SearchUsers([FromQuery]SearchParams searchParams, [FromQuery]PagingParams pagingParams)
         {
             IPagedList<User> usersPaged;
-            var minBirthDate = DateTime.Today.AddYears(-searchParams.MaxAge-1);
-               var maxBirthDate = DateTime.Today.AddYears(-searchParams.MinAge);
+            var minBirthDate = DateTime.Today.AddYears(-searchParams.MaxAge - 1);
+            var maxBirthDate = DateTime.Today.AddYears(-searchParams.MinAge);
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
-                usersPaged = await _context.Users.Include(p => p.Photos).Include(u=>u.LikesFrom)
-                .OrderByDescending(u=>searchParams.OrderBy=="createdOn"?u.CreatedOn:(searchParams.OrderBy=="Age"?u.BirthDate:u.LastActive))
-                .Where(u=>u.Id!=currentUser.Id && u.BirthDate>=minBirthDate && u.BirthDate<=maxBirthDate)
-                .Where(g=>searchParams.Gender==0?true:(searchParams.Gender==1?g.Gender=="رجل":g.Gender=="إمرأة"))
+                usersPaged = await _context.Users.Include(p => p.Photos).Include(u => u.LikesFrom)
+                .OrderByDescending(u => searchParams.OrderBy == "createdOn" ? u.CreatedOn : (searchParams.OrderBy == "Age" ? u.BirthDate : u.LastActive))
+                .Where(u => u.Id != currentUser.Id && u.BirthDate >= minBirthDate && u.BirthDate <= maxBirthDate)
+                .Where(g => searchParams.Gender == 0 ? true : (searchParams.Gender == 1 ? g.Gender == "رجل" : g.Gender == "إمرأة"))
+                .Where(n => searchParams.Name == null ? true : n.NickName.Contains(searchParams.Name))
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
             {
                 usersPaged = await _context.Users.Include(p => p.Photos)
-                .OrderByDescending(u=>searchParams.OrderBy=="createdOn"?u.CreatedOn:(searchParams.OrderBy=="Age"?u.BirthDate:u.LastActive))
-                .Where(u=>u.BirthDate>=minBirthDate && u.BirthDate<=maxBirthDate)
-                .Where(g=>searchParams.Gender==0?true:(searchParams.Gender==1?g.Gender=="رجل":g.Gender=="إمرأة"))
+                .OrderByDescending(u => searchParams.OrderBy == "createdOn" ? u.CreatedOn : (searchParams.OrderBy == "Age" ? u.BirthDate : u.LastActive))
+                .Where(u => u.BirthDate >= minBirthDate && u.BirthDate <= maxBirthDate)
+                .Where(g => searchParams.Gender == 0 ? true : (searchParams.Gender == 1 ? g.Gender == "رجل" : g.Gender == "إمرأة"))
+                .Where(n => searchParams.Name == null ? true : n.NickName.Contains(searchParams.Name))
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             var users = _mapper.Map<IEnumerable<UserListDTO>>(usersPaged);
@@ -99,7 +101,7 @@ namespace ZawajAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _context.Users.Where(u => u.Id == id).Include(p => p.Photos).Include(u=>u.LikesFrom).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.Id == id).Include(p => p.Photos).Include(u => u.LikesFrom).FirstOrDefaultAsync();
             user.Photos = user.Photos.OrderByDescending(p => p.IsMain).ToList();
             var model = _mapper.Map<UserDetailsDTO>(user);
 

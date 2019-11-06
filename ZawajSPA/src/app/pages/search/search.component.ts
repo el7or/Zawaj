@@ -1,10 +1,18 @@
-import { LanggService } from './../../shared/services/langg.service';
-import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewChecked, AfterViewInit } from "@angular/core";
+import { LanggService } from "./../../shared/services/langg.service";
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewChild,
+  AfterViewChecked,
+  AfterViewInit
+} from "@angular/core";
 import { UserList } from "../../shared/models/user-list";
 import { Pagination } from "../../shared/models/pagination";
 import { NbToastrService, NbSelectComponent } from "@nebular/theme";
 import { UserService } from "../../shared/services/user.service";
-import { LanggPipe } from '../../shared/pipes/langg.pipe';
+import { LanggPipe } from "../../shared/pipes/langg.pipe";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "search",
@@ -16,12 +24,13 @@ export class SearchComponent implements OnInit, AfterViewChecked {
   pagination: Pagination;
   searchParams: any = {};
   isSearch = false;
-  @ViewChild('genderList', {static: false}) genderList;
+  @ViewChild("genderList", { static: false }) genderList;
 
   constructor(
     private userService: UserService,
     private langgService: LanggService,
     private toastrService: NbToastrService,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -30,6 +39,12 @@ export class SearchComponent implements OnInit, AfterViewChecked {
     this.searchParams.maxAge = 99;
     this.searchParams.gender = 0;
     this.searchParams.orderBy = "lastActive";
+    this.route.queryParams.subscribe(params => {
+      const userName = params["name"];
+      if (userName != null) {
+        this.loadUsers();
+      }
+    });
   }
 
   ngAfterViewChecked() {
@@ -59,10 +74,16 @@ export class SearchComponent implements OnInit, AfterViewChecked {
   }
 
   loadUsers() {
-    let pageNumber:Number = 1;
-    let pageSize:Number = 6;
-    if (this.pagination!=null) {
-      pageNumber = this.isSearch==true?1: this.pagination.pageNumber;
+    this.route.queryParams.subscribe(params => {
+      const userName = params["name"];
+      if (userName != null) {
+        this.searchParams.name = userName;
+      }
+    });
+    let pageNumber: Number = 1;
+    let pageSize: Number = 6;
+    if (this.pagination != null) {
+      pageNumber = this.isSearch == true ? 1 : this.pagination.pageNumber;
       pageSize = this.pagination.pageSize;
     }
     this.userService
@@ -75,7 +96,9 @@ export class SearchComponent implements OnInit, AfterViewChecked {
         error => {
           console.error(error);
           this.toastrService.warning(
-            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
+            new LanggPipe(this.langgService).transform(
+              "Please refresh page and try again."
+            ),
             new LanggPipe(this.langgService).transform("Something Wrong!"),
             { duration: 3000 }
           );

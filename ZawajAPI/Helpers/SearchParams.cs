@@ -6,5 +6,6 @@ namespace ZawajAPI.Helpers
         public int MinAge { get; set; } = 14;
         public int MaxAge { get; set; } = 99;
         public string OrderBy { get; set; } = "lastActive";
+        public string Name { get; set; }
     }
 }
