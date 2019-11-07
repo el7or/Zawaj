@@ -15,6 +15,7 @@ import { SearchComponent } from "./search/search.component";
 import { MemberDetailsResolverService } from './member-details/member-details-resolver.service';
 import { MemberListResolverService } from './member-list/member-list-resolver.service';
 import { LikesComponent } from './likes/likes.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
       {
         path: "setting",
         component: SettingComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "payment",
+        component: PaymentComponent,
         canActivate: [AuthGuard]
       },
       {

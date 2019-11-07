@@ -20,6 +20,7 @@ using ZawajAPI.Domain.Repository;
 using AutoMapper;
 using ZawajAPI.Hubs;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Stripe;
 
 namespace ZawajAPI
 {
@@ -79,7 +80,8 @@ namespace ZawajAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
                 };
             });
-            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // <--- added
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
@@ -100,6 +102,8 @@ namespace ZawajAPI
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, TrialData trialData)
         {
             string corsOrigin = "http://localhost:4200";
+            //StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe:SecretKey").Value);
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe:SecretKey").Value;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

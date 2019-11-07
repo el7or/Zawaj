@@ -38,6 +38,7 @@ import { FileUploadModule } from "ng2-file-upload";
 import { PaginationModule } from "ngx-bootstrap";
 import { LikesComponent } from './likes/likes.component';
 import {DataTableModule} from "angular-6-datatable";
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   imports: [
@@ -77,7 +78,8 @@ import {DataTableModule} from "angular-6-datatable";
     MemberDetailsComponent,
     MemberEditComponent,
     PhotoEditorComponent,
-    LikesComponent
+    LikesComponent,
+    PaymentComponent
   ],
   providers: [AuthGuard]
 })
