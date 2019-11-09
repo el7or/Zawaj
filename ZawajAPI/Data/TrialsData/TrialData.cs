@@ -23,7 +23,7 @@ namespace ZawajAPI.Data.TrialsData
             {
                 var userData = System.IO.File.ReadAllText("Data/TrialsData/UserTrialData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
-                /* var roles = new List<Role>{
+                var roles = new List<Role>{
                     new Role{Name="Admin"},
                     new Role{Name="Moderator"},
                     new Role{Name="Member"},
@@ -32,12 +32,12 @@ namespace ZawajAPI.Data.TrialsData
                 foreach (var role in roles)
                 {
                     _roleManager.CreateAsync(role).Wait();
-                } */
+                }
                 foreach (var user in users)
                 {
-                    // user.Photos.ToList().ForEach(p=>p.IsApproved=true);
+                     user.Photos.ToList().ForEach(p=>p.IsApproved=true);
                     _userManager.CreateAsync(user, "password").Wait();
-                    //_userManager.AddToRoleAsync(user,"Member").Wait();
+                    _userManager.AddToRoleAsync(user,"Member").Wait();
                 }
                 var adminUser = new User{
                     UserName = "Admin"
@@ -45,7 +45,7 @@ namespace ZawajAPI.Data.TrialsData
 
                 IdentityResult result = _userManager.CreateAsync(adminUser,"password").Result;
                 var admin = _userManager.FindByNameAsync("Admin").Result;
-                //_userManager.AddToRolesAsync(admin,new[]{"Admin","Moderator"}).Wait();
+                _userManager.AddToRolesAsync(admin,new[]{"Admin","Moderator"}).Wait();
             }
         }
     }

@@ -21,6 +21,8 @@ using AutoMapper;
 using ZawajAPI.Hubs;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Stripe;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace ZawajAPI
 {
@@ -36,7 +38,8 @@ namespace ZawajAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ZawajDbContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ZawajDbContext>(x =>
+            x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             /* IdentityBuilder builder = services.AddIdentityCore<User>(opt =>
             {
@@ -63,9 +66,10 @@ namespace ZawajAPI
             .AddRoles<Role>()
             .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<User, Role>>()
             .AddEntityFrameworkStores<ZawajDbContext>()
-            .AddDefaultTokenProviders()
+            .AddRoleValidator<RoleValidator<Role>>()
             .AddSignInManager<SignInManager<User>>()
             .AddRoleManager<RoleManager<Role>>()
+            .AddDefaultTokenProviders()
             .AddDefaultUI();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -87,7 +91,15 @@ namespace ZawajAPI
             /* services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options)); */
             services.AddMvc(options =>
-            { options.Filters.Add<UserActiveActionFilter>(); })
+            {
+                // --> to apply authorization on all controller without [Authorize] attribute:
+                var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));                
+                // -->  to add LastActive DateTime to every authorized user 
+                options.Filters.Add<UserActiveActionFilter>();
+            })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(option =>
             { option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
