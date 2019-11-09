@@ -1,14 +1,15 @@
-<nb-card>
+<!-- <nb-card>
   <nb-card-header>
     <nav class="navigation"> <a (click)="goBack()" class="link back-link" aria-label="Back">
         <nb-icon icon="arrow-back"></nb-icon>
       </a>
     </nav>
   </nb-card-header>
-  <nb-card-body>
+  <nb-card-body> -->
 
     <div [hidden]="successPaid" class="text-center">
       <h1>عذرا.. هذه الخدمة مدفوعة الأجر يمكنك الإشتراك الآن</h1>
+      <h6>للاشتراك في خدمة الاطلاع على طلبات الزواج العاجلة في جميع الدول بجميع أنواعها: تعدد ومسيار، وإمكانية عمل طلب عاجل للزواج...</h6>
       <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
         <div class="text-center">
           <h4> إشتراك مدى الحياة ... فقط خمسون دولار</h4>
@@ -39,5 +40,5 @@
       <br>
       <h4> إنتظر قليلاً ليتم تحويلك إلى الخدمة </h4>
     </div>
-  </nb-card-body>
-</nb-card>
+<!--   </nb-card-body>
+</nb-card> -->

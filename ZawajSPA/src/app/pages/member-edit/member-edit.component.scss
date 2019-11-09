@@ -36,8 +36,8 @@
     margin-top: 20px;
     margin-bottom: 10px;
   }
-  h3{
-    font-family: 'ah-naskh-hadith';
+  h3 {
+    font-family: "ah-naskh-hadith";
   }
   h4,
   textarea,
@@ -59,5 +59,31 @@
   nb-icon:hover {
     background: lightgray !important;
     border-radius: 80%;
+  }
+  nb-tabset /deep/ ul.tabset li:nth-child(3) span.tab-text {
+    animation: blur .75s ease-out infinite;
+  text-shadow: 0px 0px 5px pink, 0px 0px 7px pink;
+  }
+  @keyframes blur {
+    from {
+      text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px pink,
+      0px 0px 150px pink,
+      0px 10px 100px pink,
+      0px 10px 100px pink,
+      0px 10px 100px pink,
+      0px 10px 100px pink,
+      0px -10px 100px pink,
+      0px -10px 100px pink;
+    }
   }
 }
