@@ -38,67 +38,81 @@
             </nb-card-body>
 
             <nb-card-footer>
-              <button ngButton status="success" form="editForm" [disabled]="!editForm.dirty" class="btn btn-success btn-block" langg>Save Updates</button>
+              <button ngButton status="success" form="editForm" [disabled]="!editForm.dirty"
+                class="btn btn-success btn-block" langg>Save Updates</button>
             </nb-card-footer>
           </nb-card>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12">
           <nb-tabset #memberTabs class="member-tabset">
             <nb-tab [tabTitle]="'My Details' | langg">
-                <form #editForm ="ngForm" id="editForm" (ngSubmit)="updateUser()" >
-              <nb-card accent="danger">
-                <nb-card-header>
-                  <h4 langg>Introduce Myself</h4>
-                </nb-card-header>
-                <nb-card-body>
+              <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+                <nb-card accent="danger">
+                  <nb-card-header>
+                    <h4 langg>Introduce Myself</h4>
+                  </nb-card-header>
+                  <nb-card-body>
                     <div class="card-text mt-2 p-2">
-                  <textarea nbInput fullWidth [(ngModel)]="userDetails.about" name="about" autosize [minRows]="3" [maxRows]="7"></textarea>
+                      <textarea nbInput fullWidth [(ngModel)]="userDetails.about" name="about" autosize [minRows]="3"
+                        [maxRows]="7"></textarea>
                     </div>
-                </nb-card-body>
-              </nb-card>
+                  </nb-card-body>
+                </nb-card>
 
-              <nb-card accent="danger">
-                <nb-card-header>
-                  <h4 langg>Look for</h4>
-                </nb-card-header>
-                <nb-card-body>
-                <div class="card-text mt-2 p-2">
-                    <textarea nbInput fullWidth [(ngModel)]="userDetails.lookingFor" name="lookingFor" autosize [minRows]="3" [maxRows]="7"></textarea>
-                </div>
-              </nb-card-body>
-              </nb-card>
-              <nb-card accent="danger">
-                <nb-card-header>
-                  <h4 langg>My hobbies</h4>
-                </nb-card-header>
-                <nb-card-body>
-                <div class="card-text mt-2 p-2">
-                    <textarea nbInput fullWidth [(ngModel)]="userDetails.interests" name="interests" autosize [minRows]="3" [maxRows]="7"></textarea>
-                </div>
-              </nb-card-body>
-              </nb-card>
+                <nb-card accent="danger">
+                  <nb-card-header>
+                    <h4 langg>Look for</h4>
+                  </nb-card-header>
+                  <nb-card-body>
+                    <div class="card-text mt-2 p-2">
+                      <textarea nbInput fullWidth [(ngModel)]="userDetails.lookingFor" name="lookingFor" autosize
+                        [minRows]="3" [maxRows]="7"></textarea>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
+                <nb-card accent="danger">
+                  <nb-card-header>
+                    <h4 langg>My hobbies</h4>
+                  </nb-card-header>
+                  <nb-card-body>
+                    <div class="card-text mt-2 p-2">
+                      <textarea nbInput fullWidth [(ngModel)]="userDetails.interests" name="interests" autosize
+                        [minRows]="3" [maxRows]="7"></textarea>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
 
-              <nb-card>
-                <nb-card-header accent="danger">
-                  <h4 langg>Residence</h4>
-                </nb-card-header>
-                <nb-card-body>
-                <div class="card-text mt-2 p-2">
-                  <div class="row">
-                    <div class="col-6">
-                        <input nbInput fullWidth [placeholder]="'Country' | langg" [(ngModel)]="userDetails.country" name="country">
+                <nb-card>
+                  <nb-card-header accent="danger">
+                    <h4 langg>Residence</h4>
+                  </nb-card-header>
+                  <nb-card-body>
+                    <div class="card-text mt-2 p-2">
+                      <div class="row">
+                        <div class="col-6">
+                          <input nbInput fullWidth [placeholder]="'Country' | langg" [(ngModel)]="userDetails.country"
+                            name="country">
+                        </div>
+                        <div class="col-6">
+                          <input nbInput fullWidth [placeholder]="'City' | langg" [(ngModel)]="userDetails.city"
+                            name="city">
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-6">
-                        <input nbInput fullWidth [placeholder]="'City' | langg" [(ngModel)]="userDetails.city" name="city">                      
-                    </div>
-                  </div>
-                </div>
-              </nb-card-body>
-              </nb-card>
-                </form>
+                  </nb-card-body>
+                </nb-card>
+              </form>
             </nb-tab>
             <nb-tab [tabTitle]="'My Photos' | langg">
               <photo-editor [photos]="userDetails.photos"></photo-editor>
+            </nb-tab>
+            <nb-tab [tabTitle]="'Theme' | langg">
+              <h4 langg class="mt-3">Background Color:</h4>
+              <nb-select id="theme" [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+                <nb-select-label [innerHtml]="selectedTheme |langg"></nb-select-label>
+                <nb-option langg *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name | langg }}
+                </nb-option>
+              </nb-select>
             </nb-tab>
             <nb-tab [tabTitle]="'⚠ Urgent Marriage Requests ⚠' | langg">
               <payment></payment>
@@ -110,11 +124,12 @@
   </nb-card-body>
 </nb-card>
 
-<swal #unsavedSwal [title]="'Attention !'" [text]="'Your data has been updated. Would you like to continue without saving the data?' | langg"
- type="error" showCancelButton="true" [confirmButtonText]="'Yes, Exit!' | langg" [cancelButtonText]="'No, Cancel' | langg"
- focusCancel="true" cancelButtonColor="#d33">
+<swal #unsavedSwal [title]="'Attention !'"
+  [text]="'Your data has been updated. Would you like to continue without saving the data?' | langg" type="error"
+  showCancelButton="true" [confirmButtonText]="'Yes, Exit!' | langg" [cancelButtonText]="'No, Cancel' | langg"
+  focusCancel="true" cancelButtonColor="#d33">
 </swal>
 
-<swal #doneSwal [title]="'Success' | langg" [text]="'Done successfully!' | langg"
-  type="success" timer="2000" [showConfirmButton]="false">
+<swal #doneSwal [title]="'Success' | langg" [text]="'Done successfully!' | langg" type="success" timer="2000"
+  [showConfirmButton]="false">
 </swal>

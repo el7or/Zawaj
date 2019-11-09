@@ -22,10 +22,6 @@ export class SettingComponent implements OnInit {
       value: "cosmic",
       name: "Cosmic"
     }
-   /*  {
-      value: 'corporate',
-      name: 'Corporate',
-    },  */
   ];
   currentTheme;
   selectedTheme;

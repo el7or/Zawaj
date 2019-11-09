@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild, HostListener } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
-import { NbToastrService } from '@nebular/theme';
+import { NbToastrService, NbThemeService } from '@nebular/theme';
 import { LanggPipe } from '../../shared/pipes/langg.pipe';
 
 @Component({
@@ -22,6 +22,22 @@ export class MemberEditComponent implements OnInit {
   age: string;
   options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
   photoUrl: string;
+  themes = [
+    {
+      value: "default",
+      name: "Light"
+    },
+    {
+      value: "dark",
+      name: "Dark"
+    },
+    {
+      value: "cosmic",
+      name: "Cosmic"
+    }
+  ];
+  currentTheme;
+  selectedTheme;
   @HostListener("window:beforeunload", ["$event"])
   unLoadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -35,13 +51,16 @@ export class MemberEditComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private langgService:LanggService,
-    private toastrService:NbToastrService
+    private toastrService:NbToastrService,
+     private themeService: NbThemeService
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userDetails = data.userDetails;
     });
+    this.currentTheme = localStorage.getItem('theme')=== null?"default":localStorage.getItem('theme');
+      this.changeTheme(this.currentTheme);
   }
 
   updateUser() {
@@ -61,5 +80,11 @@ export class MemberEditComponent implements OnInit {
           );
         }
       );
+  }
+
+  changeTheme(themeName: string) {
+    localStorage.setItem('theme',themeName);
+    this.selectedTheme = this.themes.find(theme=>theme.value==themeName).name;
+    this.themeService.changeTheme(themeName);
   }
 }

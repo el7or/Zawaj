@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { ChatCount } from './../models/chat-count';
 import { Injectable, EventEmitter } from "@angular/core";
 import { environment } from "../../../environments/environment";
@@ -17,7 +18,7 @@ import {
 export class ChatService {
   baseUrl = environment.API_URL + "chat/";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService:AuthService) {
     this.createConnection();
     this.registerOnServerEvents();
     this.startConnection();
@@ -49,7 +50,7 @@ export class ChatService {
   }
 
   getUnreadCount() {
-    return this.http.get(this.baseUrl + "count");
+    return this.http.get(this.baseUrl + "count");    
   }
 
   /********   SignalR   *********/

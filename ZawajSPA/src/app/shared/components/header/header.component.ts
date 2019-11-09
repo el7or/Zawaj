@@ -124,12 +124,14 @@ export class HeaderComponent
         localStorage.removeItem("isFirstLogin");
       }, 4000);
     }
+    if (this.authService.isAuthenticated()) {    
     this.chatService.getUnreadCount().subscribe(
       (res: number) => {
         this.newMessages = res;
       },
       err => console.error(err)
     );
+    }
   }
 
   ngAfterViewChecked() {
@@ -166,6 +168,7 @@ export class HeaderComponent
     localStorage.removeItem("token");
     localStorage.removeItem("userPhoto");
     localStorage.removeItem("userNickName");
+    this.authService.redirectUrl = null;
 
     this.router
       .navigateByUrl("/auth/logout", { skipLocationChange: true })

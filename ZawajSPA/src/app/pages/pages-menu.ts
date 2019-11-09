@@ -22,13 +22,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'search',
     link: '/pages/search'
   },
-  {
+  /*{
     title: 'Settings',
     icon: 'settings-2-outline',
     link: '/pages/setting',
     data: 'user'
   },
-  /* {
+   {
     title: 'Auth',
     icon: 'lock-outline',
     children: [
