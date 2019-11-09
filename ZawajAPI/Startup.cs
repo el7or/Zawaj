@@ -65,6 +65,7 @@ namespace ZawajAPI
             .AddEntityFrameworkStores<ZawajDbContext>()
             .AddDefaultTokenProviders()
             .AddSignInManager<SignInManager<User>>()
+            .AddRoleManager<RoleManager<Role>>()
             .AddDefaultUI();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
