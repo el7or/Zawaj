@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -23,9 +24,11 @@ namespace ZawajAPI.Controllers
     {
         private readonly ZawajDbContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public UsersController(ZawajDbContext context, IMapper mapper)
+        public UsersController(UserManager<User> userManager, ZawajDbContext context, IMapper mapper)
         {
+            _userManager = userManager;
             _context = context;
             _mapper = mapper;
         }
@@ -39,9 +42,10 @@ namespace ZawajAPI.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _context.Users.FindAsync(User.FindFirst(JwtRegisteredClaimNames.Jti).Value);
+                var isAdmin = await _userManager.IsInRoleAsync(currentUser,"Admin");
                 usersPaged = await _context.Users.Include(p => p.Photos).Include(u => u.LikesFrom)
                 .OrderByDescending(u => u.LastActive)
-                .Where(u => u.Id != currentUser.Id && u.Gender != currentUser.Gender)
+                .Where(u => isAdmin? u.Id != currentUser.Id :  u.Id != currentUser.Id && u.Gender != currentUser.Gender)
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
