@@ -45,7 +45,7 @@ namespace ZawajAPI.Controllers
                 var isAdmin = await _userManager.IsInRoleAsync(currentUser,"Admin");
                 usersPaged = await _context.Users.Include(p => p.Photos).Include(u => u.LikesFrom)
                 .OrderByDescending(u => u.LastActive)
-                .Where(u => isAdmin? u.Id != currentUser.Id :  u.Id != currentUser.Id && u.Gender != currentUser.Gender)
+                .Where(u => u.Id != currentUser.Id )
                 .ToPagedListAsync(pagingParams.PageNumber, pagingParams.PageSize);
             }
             else
