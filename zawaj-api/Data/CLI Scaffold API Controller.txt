@@ -1,0 +1,5 @@
+dotnet aspnet-codegenerator controller -name UsersController -api -async -m ZawajAPI.Models.User -dc ZawajDbContext -namespace ZawajAPI.Controllers -outDir Controllers
+
+dotnet aspnet-codegenerator controller -name LikesController -api -async -m ZawajAPI.Models.Like -dc ZawajDbContext -namespace ZawajAPI.Controllers -outDir Controllers
+
+dotnet aspnet-codegenerator controller -name PaymentController -api -async -m ZawajAPI.Models.Payment -dc ZawajDbContext -namespace ZawajAPI.Controllers -outDir Controllers
