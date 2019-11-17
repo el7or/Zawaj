@@ -57,10 +57,16 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
-      true,
+      false,
       "single"
     ],
-    "trailing-comma": false,
+    "trailing-comma": [
+      false,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
     "no-output-on-prefix": true,
     "no-inputs-metadata-property": true,
     "no-host-metadata-property": true,

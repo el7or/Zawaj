@@ -9,4 +9,7 @@ export class HomePage {
 
   constructor() {}
 
+  hello() {
+    console.log(11111111);
+  }
 }
