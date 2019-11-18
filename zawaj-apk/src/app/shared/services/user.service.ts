@@ -1,10 +1,12 @@
-import { UserUpdate } from "./../models/user-update";
-import { UserDetails } from "./../models/user-details";
-import { UserPagedList } from "./../models/user-list";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
+
+import { environment } from "../../../environments/environment";
+import { UserPagedList } from "./../models/user-list";
+import { UserDetails } from '../models/user-details';
+/* import { UserUpdate } from "./../models/user-update";
+import { UserDetails } from "./../models/user-details"; */
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +16,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getAllUsers(pageNumber?, pageSize?): Observable<UserPagedList> {
+  getAllUsers(pageNumber?, pageSize?): Observable<UserPagedList> {    
     let params = new HttpParams();
     if (pageNumber != null && pageSize != null) {
       params = params.append("pageNumber", pageNumber);
@@ -62,11 +64,11 @@ export class UserService {
       );
   } */
 
-  getUserById(id: string): Observable<UserDetails> {
+   getUserById(id: string): Observable<UserDetails> {
     return this.http.get<UserDetails>(this.baseUrl + id);
   }
 
-  putUser(id: string, user: UserUpdate) {
+  /* putUser(id: string, user: UserUpdate) {
     return this.http.put<UserUpdate>(this.baseUrl + id, user);
-  }
+  } */
 }

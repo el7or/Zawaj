@@ -154,7 +154,7 @@ namespace ZawajAPI
 
             trialData.TrialUsers();
             app.UseHttpsRedirection();
-            app.UseCors(x => x.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseSignalR(options =>
             {
                 options.MapHub<ChatHub>("/chatHub");

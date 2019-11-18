@@ -19,17 +19,17 @@ export class AppComponent {
     {
       title: 'الإعجابات',
       url: '/list',
-      icon: 'list'
+      icon: 'heart'
     },
     {
       title: 'الرسائل',
       url: '/list',
-      icon: 'list'
+      icon: 'mail'
     },
     {
       title: 'بحث',
       url: '/list',
-      icon: 'list'
+      icon: 'search'
     }
   ];
 

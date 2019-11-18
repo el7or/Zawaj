@@ -178,10 +178,36 @@
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
-      "styleext": "scss"
+      "styleext": "scss",
+      "spec": false
     },
     "@ionic/angular-toolkit:page": {
-      "styleext": "scss"
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:class": {
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:directive": {
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:guard": {
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:module": {
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:pipe": {
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/angular-toolkit:service": {
+      "styleext": "scss",
+      "spec": false
     }
   }
 }
