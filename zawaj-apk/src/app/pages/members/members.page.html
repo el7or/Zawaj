@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let user of users" [routerLink]="['/members',user.id]" >
+  <ion-item *ngFor="let user of users" [routerLink]="['/members/',user.id]">
     <ion-avatar slot="start">
       <ion-img [src]="user.photoURL"></ion-img>
     </ion-avatar>

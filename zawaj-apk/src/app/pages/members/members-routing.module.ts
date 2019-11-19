@@ -9,16 +9,17 @@ const routes: Routes = [
     component: MembersPage
   },
   {
-    path: ':memberId',
-    loadChildren: () => import('./member-details/member-details.module').then( m => m.MemberDetailsPageModule)
+    path: 'search',
+    loadChildren: () => import('./member-search/member-search.module').then( m => m.MemberSearchPageModule)
+    /* loadChildren: './member-search//member-search.module#MemberSearchPageModule' */
   },
   {
-    path: 'member-edit',
+    path: 'edit/:memberId',
     loadChildren: () => import('./member-edit/member-edit.module').then( m => m.MemberEditPageModule)
   },
   {
-    path: 'member-search',
-    loadChildren: () => import('./member-search/member-search.module').then( m => m.MemberSearchPageModule)
+    path: ':memberId',
+    loadChildren: () => import('./member-details/member-details.module').then( m => m.MemberDetailsPageModule)
   }
 ];
 

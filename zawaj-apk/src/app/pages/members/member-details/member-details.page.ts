@@ -20,7 +20,7 @@ export class MemberDetailsPage {
   ionViewWillEnter(){
     this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has("memberId")) {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/'])
         return;
       } else {
         const memberId = paramMap.get("memberId");

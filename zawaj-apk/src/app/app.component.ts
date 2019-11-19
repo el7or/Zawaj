@@ -28,7 +28,7 @@ export class AppComponent {
     },
     {
       title: 'بحث',
-      url: '/members/member-search',
+      url: '/members/search',
       icon: 'search'
     },
     {
