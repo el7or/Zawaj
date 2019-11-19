@@ -4,46 +4,24 @@ import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "members",
     pathMatch: "full"
   },
   {
-    path: "home",
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("./home/home.module").then(m => m.HomePageModule)
-      },
-      {
-        path: ":memberId",
-        loadChildren: () =>
-          import("./member-details/member-details.module").then(
-            m => m.MemberDetailsPageModule
-          )
-      }
-    ]
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
   {
-    path: "auth",
-    children: [
-      {
-        path: "login",
-        loadChildren: () =>
-          import("./auth/login/login.module").then(m => m.LoginPageModule)
-      },
-      {
-        path: "register",
-        loadChildren: () =>
-          import("./auth/register/register.module").then(
-            m => m.RegisterPageModule
-          )
-      }
-    ]
+    path: 'members',
+    loadChildren: () => import('./pages/members/members.module').then( m => m.MembersPageModule)
   },
   {
-    path: "list",
-    loadChildren: () => import("./list/list.module").then(m => m.ListPageModule)
+    path: 'messages',
+    loadChildren: () => import('./pages/messages/messages.module').then( m => m.MessagesPageModule)
+  },
+  {
+    path: 'likes',
+    loadChildren: () => import('./pages/likes/likes.module').then( m => m.LikesPageModule)
   }
 ];
 

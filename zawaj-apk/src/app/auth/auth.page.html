@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>زواج</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <img src="/assets/persons.png" alt="" />
+    <ion-card-header>
+      <ion-card-subtitle>البداية..</ion-card-subtitle>
+      <ion-card-title>مرحبا بك في تطبيق زواج</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>تطبيق زواج يضمن لك الوصول لشريك حياتك بكل المواصفات المطلوبة في أسرع وقت ممكن وفي جميع الدول العربية، وكذلك
+        يضمن لك خصوصية بياناتك وإمكانية تسجل طلبات عاجلة للزواج، وكذلك زواج التعدد والمسيار.</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-list lines="none" class="ion-margin-horizontal">
+    <!-- <ion-list-header>
+        <ion-label>Resources</ion-label>
+      </ion-list-header> -->
+    <ion-item [routerLink]="['/auth/register']" routerLinkActive="router-link-active">
+      <ion-icon slot="start" color="primary" name="person-add"></ion-icon>
+      <ion-label>تسجيل حساب جديد</ion-label>
+    </ion-item>
+    <ion-item [routerLink]="['/auth/login']" routerLinkActive="router-link-active">
+      <ion-icon slot="start" color="success" name="log-in"></ion-icon>
+      <ion-label>الدخول بحساب موجود</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

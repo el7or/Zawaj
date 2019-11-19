@@ -13,23 +13,28 @@ export class AppComponent {
   public appPages = [
     {
       title: 'الرئيسية',
-      url: '/home',
+      url: '',
       icon: 'home'
     },
     {
       title: 'الإعجابات',
-      url: '/list',
+      url: '/likes',
       icon: 'heart'
     },
     {
       title: 'الرسائل',
-      url: '/list',
+      url: '/messages',
       icon: 'mail'
     },
     {
       title: 'بحث',
-      url: '/list',
+      url: '/members/member-search',
       icon: 'search'
+    },
+    {
+      title: 'تسجيل خروج',
+      url: '/auth/logout',
+      icon: 'log-out'
     }
   ];
 

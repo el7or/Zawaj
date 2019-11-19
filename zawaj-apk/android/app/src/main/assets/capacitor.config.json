@@ -1,0 +1,12 @@
+{
+  "appId": "com.el7or.zawaj",
+  "appName": "ZawajMobile",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "server": {
+    "url": "http://localhost:8100",
+    "originalUrl": "http://localhost:8100"
+  }
+}

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>مشتركي زواج</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let user of users" [routerLink]="['/members',user.id]" >
+    <ion-avatar slot="start">
+      <ion-img [src]="user.photoURL"></ion-img>
+    </ion-avatar>
+    <ion-label>
+    <h1>{{user.nickName}}</h1>
+    <h3>{{user.gender}} - {{user.age}} سنة</h3>
+    </ion-label>
+  </ion-item>
+</ion-content>

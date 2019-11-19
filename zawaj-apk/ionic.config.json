@@ -1,5 +1,7 @@
 {
   "name": "ZawajMobile",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
