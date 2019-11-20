@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { environment } from "../../../environments/environment";
-import { UserPagedList } from "./../models/user-list";
-import { UserDetails } from '../models/user-details';
+import { UserPagedList } from "./members.model";
+import { UserDetails } from './member-details/member-details.model';
 /* import { UserUpdate } from "./../models/user-update";
 import { UserDetails } from "./../models/user-details"; */
 

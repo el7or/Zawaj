@@ -1,31 +1,29 @@
-import { Component } from '@angular/core';
-import { UserList, Pagination } from 'src/app/shared/models/user-list';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { UserService } from 'src/app/shared/services/user.service';
+import { Component } from "@angular/core";
+import { Subscription } from "rxjs";
+
+import { UserService } from "./user.service";
+import { UserList, Pagination } from "./members.model";
+import { IonItemSliding } from '@ionic/angular';
 
 @Component({
-  selector: 'app-members',
-  templateUrl: './members.page.html',
-  styleUrls: ['./members.page.scss'],
+  selector: "app-members",
+  templateUrl: "./members.page.html",
+  styleUrls: ["./members.page.scss"]
 })
 export class MembersPage {
   users: UserList[];
   pagination: Pagination = {
-    pageNumber:1,
-    pageSize:12,
-    pageCount:null,
-    totalItemCount:null
+    pageNumber: 1,
+    pageSize: 12,
+    pageCount: null,
+    totalItemCount: null
   };
-  subs:Subscription
+  subs: Subscription;
 
-  constructor(
-    public authService: AuthService,
-    private userService: UserService ) {}
+  constructor(private userService: UserService) {}
 
-  ionViewWillEnter(){
-    if(this.authService.isAuthenticated){
-    this.subs= this.userService
+  ionViewWillEnter() {
+    this.subs = this.userService
       .getAllUsers(this.pagination.pageNumber++, this.pagination.pageSize)
       .subscribe(
         userPagedList => {
@@ -42,8 +40,17 @@ export class MembersPage {
         }
       );
   }
-  }
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.subs.unsubscribe();
+  }
+
+  onLike(itemSlide:IonItemSliding){
+    itemSlide.close();
+    console.log('like');
+  }
+
+  onMail(itemSlide:IonItemSliding){
+    itemSlide.close();
+    console.log('mail');
   }
 }

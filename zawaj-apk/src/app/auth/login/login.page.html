@@ -1,14 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-back-button defaultHref="/"></ion-back-button>
-        </ion-buttons>
-        <ion-title>login</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-
-    </ion-content>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>تسجيل الدخول</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content text-center>
+  <ion-button color="primary" (click)="onLogin()" padding>دخول</ion-button>
+</ion-content>

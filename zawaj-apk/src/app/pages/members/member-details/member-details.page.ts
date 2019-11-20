@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { UserDetails } from 'src/app/shared/models/user-details';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/shared/services/user.service';
+
+import { UserService } from '../user.service';
+import { UserDetails } from './member-details.model';
 
 @Component({
   selector: 'app-member-details',
@@ -28,6 +29,7 @@ export class MemberDetailsPage {
           member => { this.userDetails = member; },
           error => {
             console.error(error);
+            this.router.navigate(['/'])
             /* this.toastrService.warning(
               new LanggPipe(this.langgService).transform(
                 "Please refresh page and try again."

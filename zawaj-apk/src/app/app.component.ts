@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
     {
       title: 'الإعجابات',
       url: '/likes',
-      icon: 'heart'
+      icon: 'heart-empty'
     },
     {
       title: 'الرسائل',
@@ -30,18 +31,19 @@ export class AppComponent {
       title: 'بحث',
       url: '/members/search',
       icon: 'search'
-    },
+    }/* ,
     {
       title: 'تسجيل خروج',
       url: '/auth/logout',
-      icon: 'log-out'
-    }
+      icon: 'exit'
+    } */
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authService:AuthService
   ) {
     this.initializeApp();
   }
@@ -51,5 +53,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  onLogout(){
+this.authService.logout();
   }
 }
