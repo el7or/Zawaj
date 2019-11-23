@@ -21,14 +21,82 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-  <ion-grid>
+  <ion-segment (ionChange)="onChangeTab($event)" class="ion-padding-end ion-padding-top">
+    <ion-segment-button value="basic" checked>بياناتي</ion-segment-button>
+    <ion-segment-button value="about">لمحة عني</ion-segment-button>
+    <ion-segment-button value="photos">صوري</ion-segment-button>
+  </ion-segment>
+
+  <ion-card *ngIf="tabValue=='basic'">
+    <ion-card-content>
+      <ion-list>
+      <ion-item lines="none">
+        <ion-thumbnail slot="end">
+          <img [src]="userDetails?.photoURL" />
+        </ion-thumbnail>
+        <ion-label>
+          <h1>مكان الإقامة</h1>
+          <h2>{{userDetails?.country}} - {{userDetails?.city}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <h1>العمر</h1>
+          <h2>{{userDetails?.age | localNumber}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <h1>آخر ظهور</h1>
+          <h2>{{userDetails?.lastActive | timeAgo}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <h1>مشترك منذ</h1>
+          <h2>{{userDetails?.createdOn | localDay}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="tabValue=='about'">
+    <ion-card-content>
+      <ion-label>
+        <h1>أعرفك بنفسي</h1>
+        <h2>{{userDetails?.about}}</h2>
+      </ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label>
+        <h1>أبحث عن</h1>
+        <h2>{{userDetails?.lookingFor}}</h2>
+      </ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label>
+        <h1>هواياتي</h1>
+        <h2>{{userDetails?.interests}}</h2>
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="tabValue=='photos'">
+    <ion-card-content>
+      <ion-label>
+        <h1>صورة</h1>
+        <h2></h2>
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- <ion-grid>
     <ion-row align-items-center>
       <ion-col size="12" size-md="6">
         <ion-card>
           <img [src]="userDetails?.photoURL" />
-          <!-- <ion-card-header>
-            <ion-card-title></ion-card-title>
-          </ion-card-header> -->
           <ion-card-content>
             <ion-label>
               <h1>مكان الإقامة</h1>
@@ -75,5 +143,5 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>

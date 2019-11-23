@@ -1,9 +1,13 @@
 import { Component } from "@angular/core";
+import {
+  LoadingController,
+  IonItemSliding,
+  AlertController
+} from "@ionic/angular";
 import { Subscription } from "rxjs";
 
 import { UserService } from "./user.service";
 import { UserList, Pagination } from "./members.model";
-import { IonItemSliding } from '@ionic/angular';
 
 @Component({
   selector: "app-members",
@@ -20,37 +24,51 @@ export class MembersPage {
   };
   subs: Subscription;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
+  ) {}
 
   ionViewWillEnter() {
-    this.subs = this.userService
-      .getAllUsers(this.pagination.pageNumber++, this.pagination.pageSize)
-      .subscribe(
-        userPagedList => {
-          this.users = userPagedList.users;
-          this.pagination = userPagedList.pagination;
-        },
-        error => {
-          console.error(error);
-          /* this.toastrService.warning(
-            new LanggPipe(this.langgService).transform("Please refresh page and try again."),
-            new LanggPipe(this.langgService).transform("Something Wrong!"),
-            { duration: 3000 }
-          ); */
-        }
-      );
+    this.loadingCtrl
+      .create({ keyboardClose: true, message: "جاري التحميل ..." })
+      .then(loadingEl => {
+        loadingEl.present();
+        this.subs = this.userService
+          .getAllUsers(this.pagination.pageNumber++, this.pagination.pageSize)
+          .subscribe(
+            userPagedList => {
+              this.users = userPagedList.users;
+              this.pagination = userPagedList.pagination;
+              loadingEl.dismiss();
+            },
+            error => {
+              console.error(error);
+              this.alertCtrl
+                .create({
+                  header: "حدث خطأ ما !",
+                  message: "الرجاء غلق البرنامج وفتحه مرة أخرى",
+                  cssClass: "danger",
+                  buttons: ["حسنا"]
+                })
+                .then(alertEl => alertEl.present());
+              loadingEl.dismiss();
+            }
+          );
+      });
   }
   ionViewDidLeave() {
     this.subs.unsubscribe();
   }
 
-  onLike(itemSlide:IonItemSliding){
+  onLike(itemSlide: IonItemSliding) {
     itemSlide.close();
-    console.log('like');
+    console.log("like");
   }
 
-  onMail(itemSlide:IonItemSliding){
+  onMail(itemSlide: IonItemSliding) {
     itemSlide.close();
-    console.log('mail');
+    console.log("mail");
   }
 }
