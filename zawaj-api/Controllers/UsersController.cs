@@ -101,7 +101,6 @@ namespace ZawajAPI.Controllers
             return Ok(model);
         }
 
-[AllowAnonymous]
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)

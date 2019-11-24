@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
+import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [
+  providers: [TokenInterceptorProvidor,ErrorInterceptorProvidor,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -64,7 +64,7 @@ export class UserService {
       );
   } */
 
-   getUserById(id: string): Observable<UserDetails> {
+  getUserById(id: string): Observable<UserDetails> {
     return this.http.get<UserDetails>(this.baseUrl + id);
   }
 

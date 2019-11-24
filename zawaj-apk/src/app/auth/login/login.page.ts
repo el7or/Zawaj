@@ -30,8 +30,8 @@ export class LoginPage implements OnInit {
       .then(loadingEl => {
         loadingEl.present();
         const userLogin: UserLogin = {
-          userName: form.value.email,
-          password: form.value.password
+          userName: form.value.email.trim(),
+          password: form.value.password.trim()
         };
         this.authService.login(userLogin).subscribe(
           resData => {
