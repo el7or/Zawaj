@@ -16,12 +16,18 @@
                 {{p.title}}
               </ion-label>
             </ion-item>
+            <ion-item [routerDirection]="'root'" routerLink="/profile">
+              <ion-icon slot="start" name="person"></ion-icon>
+              <ion-label>
+                الملف الشخصي
+              </ion-label>
+            </ion-item>
             <ion-item button (click)="onLogout()">
-                <ion-icon slot="start" name="exit"></ion-icon>
-                <ion-label>
-                  تسجيل الخروج
-                </ion-label>
-              </ion-item>
+              <ion-icon slot="start" name="exit"></ion-icon>
+              <ion-label>
+                تسجيل الخروج
+              </ion-label>
+            </ion-item>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>

@@ -41,6 +41,7 @@ export class LoginPage implements OnInit {
             this.router.navigateByUrl("/");
           },
           errRes => {
+            console.error(errRes)
             loadingEl.dismiss();
             /* const code = errRes.error.error.message;
             let message = "Could not sign you up, please try again.";

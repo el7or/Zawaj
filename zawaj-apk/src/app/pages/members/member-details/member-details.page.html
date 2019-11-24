@@ -32,7 +32,7 @@
       <ion-list>
       <ion-item lines="none">
         <ion-thumbnail slot="end">
-          <img [src]="userDetails?.photoURL" />
+          <img [src]="userDetails?.photoURL || 'assets/images/avatar.png'" />
         </ion-thumbnail>
         <ion-label>
           <h1>مكان الإقامة</h1>
@@ -64,20 +64,23 @@
   <ion-card *ngIf="tabValue=='about'">
     <ion-card-content>
       <ion-label>
-        <h1>أعرفك بنفسي</h1>
+        <h1>أعرفك بنفسي</h1>        
         <h2>{{userDetails?.about}}</h2>
+        <h3 *ngIf="!userDetails.about">لا توجد بيانات لعرضها حاليا</h3>
       </ion-label>
     </ion-card-content>
     <ion-card-content>
       <ion-label>
         <h1>أبحث عن</h1>
         <h2>{{userDetails?.lookingFor}}</h2>
+        <h3 *ngIf="!userDetails.lookingFor">لا توجد بيانات لعرضها حاليا</h3>
       </ion-label>
     </ion-card-content>
     <ion-card-content>
       <ion-label>
         <h1>هواياتي</h1>
         <h2>{{userDetails?.interests}}</h2>
+        <h3 *ngIf="!userDetails.interests">لا توجد بيانات لعرضها حاليا</h3>
       </ion-label>
     </ion-card-content>
   </ion-card>

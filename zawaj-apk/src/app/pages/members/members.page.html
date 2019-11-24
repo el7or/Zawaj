@@ -19,7 +19,7 @@
           <ion-item-sliding *virtualItem="let user" #itemSlide>
               <ion-item lines="full" [routerLink]="['/members/',user.id]" detail routerDirection="root">
                 <ion-avatar slot="start">
-                  <ion-img [src]="user.photoURL"></ion-img>
+                  <ion-img [src]="user.photoURL || 'assets/images/avatar.png'"></ion-img>
                 </ion-avatar>
                 <ion-label>
                   <h1>{{user.nickName}}</h1>

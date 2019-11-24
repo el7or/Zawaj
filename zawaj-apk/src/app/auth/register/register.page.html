@@ -1,14 +1,110 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/"></ion-back-button>
-          </ion-buttons>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>إنشاء حساب</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form #f="ngForm" (ngSubmit)="onSignUp(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">اسم المستخدم</ion-label>
+              <ion-input type="text" ngModel name="email" required #emailCtrl="ngModel" autocomplete autocorrect>
+              </ion-input>
+            </ion-item>
+            <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+              <ion-label color="danger">
+                لابد من إدخال اسم المستخدم !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">كلمة المرور</ion-label>
+              <ion-input type="password" ngModel name="password" required minlength="6" #passwordCtrl="ngModel">
+              </ion-input>
+            </ion-item>
+            <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
+              <ion-label color="danger">
+                أدخل كلمة مرور تحتوي على 6 أحرف على الأقل !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">الكنية</ion-label>
+              <ion-input type="text" ngModel name="nickName" required maxlength="15" #nickNameCtrl="ngModel"
+                placeholder="الاسم الذي سيظهر للأعضاء الآخرين" autocomplete autocorrect>
+              </ion-input>
+            </ion-item>
+            <ion-item *ngIf="!nickNameCtrl.valid && nickNameCtrl.touched" lines="none">
+              <ion-label color="danger">
+                لابد من إدخال كنية لا تزيد عن 15 حرف !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">تاريخ الميلاد</ion-label>
+              <ion-datetime displayFormat="YYYY/MM/DD" pickerFormat="YYYY/MMM/DD" max="2010" ngModel name="birthDate" required #birthDateCtrl="ngModel" doneText="تم" cancelText="إلغاء"
+              [monthShortNames]="['يناير', 'فبراير', 'مارس', 'ابريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أوكتوبر', 'نوفمبر', 'ديسمبر' ]"></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="!birthDateCtrl.valid && birthDateCtrl.touched" lines="none">
+              <ion-label color="danger">
+                لابد من إدخال تاريخ الميلاد !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">الدولة</ion-label>
+              <ion-input type="text" ngModel name="country" required #countryCtrl="ngModel" autocomplete autocorrect>
+              </ion-input>
+            </ion-item>
+            <ion-item *ngIf="!countryCtrl.valid && countryCtrl.touched" lines="none">
+              <ion-label color="danger">
+                لابد من إدخال الدولة !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">المدينة</ion-label>
+              <ion-input type="text" ngModel name="city" required #cityCtrl="ngModel" autocomplete autocorrect>
+              </ion-input>
+            </ion-item>
+            <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched" lines="none">
+              <ion-label color="danger">
+                لابد من إدخال المدينة !
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-radio-group [ngModel]="1" name="gender">
+                <ion-row>
+                  <ion-col>
+                    <ion-item lines="none">
+                      <ion-label>رجل</ion-label>
+                      <ion-radio slot="start" [value]="1" checked></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item lines="none">
+                      <ion-label>إمرأة</ion-label>
+                      <ion-radio slot="start" [value]="2"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
+            إنشاء الحساب
+          </ion-button>
+          <ion-button type="button" color="primary" fill="clear" expand="block" routerLink="/auth/login">
+            الذهاب إلى تسجيل الدخول
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
