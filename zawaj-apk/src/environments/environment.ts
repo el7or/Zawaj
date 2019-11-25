@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://zawag.azurewebsites.net/api/',
+  API_URL: 'https://zawag.azurewebsites.net/api/',
   /* API_URL: 'http://localhost:5000/api/' */
 };
 

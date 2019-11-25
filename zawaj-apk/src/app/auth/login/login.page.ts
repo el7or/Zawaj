@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController } from "@ionic/angular";
+import { LoadingController, AlertController, ToastController } from "@ionic/angular";
 
 import { UserLogin } from "./user-login";
 import { AuthService } from "../auth.service";
@@ -18,7 +18,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+     private toastCtrl:ToastController
   ) {}
 
   ngOnInit() {}
@@ -38,11 +39,23 @@ export class LoginPage implements OnInit {
             this.isLoading = false;
             loadingEl.dismiss();
             form.reset();
+            this.toastCtrl.create({
+              message: '<ion-icon name="checkmark" size="large"></ion-icon> تم تسجيل الدخول بنجاح <ion-icon name="checkmark" size="large"></ion-icon>',
+              duration: 3000,
+              color: 'success'
+            }).then(toastEl=>toastEl.present());
             this.router.navigateByUrl("/");
           },
           errRes => {
-            console.error(errRes)
+            console.error(errRes.message)
             loadingEl.dismiss();
+            let header = "حدث خطأ ما";
+            let message = 'لم يتم تسجيل الدخول لخطأ ما، الرجاء إعادة المحاولة!';
+            const code = errRes.statusText;
+            if(code==="Unauthorized"){
+              header = "تسجيل دخول خاطئ";
+            message = 'اسم المستخدم أو كلمة السر غير صحيحة !';
+            }
             /* const code = errRes.error.error.message;
             let message = "Could not sign you up, please try again.";
             if (code === "EMAIL_EXISTS") {
@@ -54,8 +67,8 @@ export class LoginPage implements OnInit {
             } */
             this.alertCtrl
               .create({
-                header: "تسجيل دخول خاطئ",
-                message: 'اسم المستخدم أو كلمة السر غير صحيحة !',
+                header: header,
+                message: message,
                 buttons: ["حسنا"]
               })
               .then(alertEl => alertEl.present());

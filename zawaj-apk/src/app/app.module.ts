@@ -21,7 +21,7 @@ import { ErrorInterceptorProvidor } from './shared/interceptors/error-intercepto
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [TokenInterceptorProvidor,ErrorInterceptorProvidor,
+  providers: [TokenInterceptorProvidor,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
