@@ -50,7 +50,7 @@ export class MemberDetailsPage {
                 this.alertCtrl
                   .create({
                     header: "حدث خطأ ما !",
-                    message: "الرجاء غلق البرنامج وفتحه مرة أخرى",
+                    message : 'الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة!',
                     cssClass: "danger",
                     buttons: ["حسنا"]
                   })

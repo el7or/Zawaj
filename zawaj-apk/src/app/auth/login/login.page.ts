@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
             console.error(errRes.message)
             loadingEl.dismiss();
             let header = "حدث خطأ ما";
-            let message = 'لم يتم تسجيل الدخول لخطأ ما، الرجاء إعادة المحاولة!';
+            let message = 'لم يتم تسجيل الدخول لخطأ ما، الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة!';
             const code = errRes.statusText;
             if(code==="Unauthorized"){
               header = "تسجيل دخول خاطئ";

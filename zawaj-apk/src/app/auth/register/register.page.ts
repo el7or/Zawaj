@@ -68,7 +68,7 @@ export class RegisterPage implements OnInit {
             loadingEl.dismiss();
             const code = errRes;
             let header = "حدث خطأ ما";
-            let message = 'لم يتم تسجيل الحساب لخطأ ما، الرجاء إعادة المحاولة!';
+            let message = 'لم يتم تسجيل الدخول لخطأ ما، الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة!';
             if (errRes.error.length > 0) {
               if (errRes.error.filter(err => err.code == "DuplicateUserName").length > 0) {
                 header = "تسجيل حساب مكرر";
