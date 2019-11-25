@@ -47,8 +47,8 @@ export class MembersPage {
               console.error(error);
               this.alertCtrl
                 .create({
-                  header: "حدث خطأ ما !",
-                  message : 'الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة!',
+                  header: 'حدث خطأ ما !',
+                  message : '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
                   cssClass: "danger",
                   buttons: ["حسنا"]
                 })

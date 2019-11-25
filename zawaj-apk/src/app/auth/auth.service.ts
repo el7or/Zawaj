@@ -12,11 +12,11 @@ import { UserLogin } from "./login/user-login";
   providedIn: "root"
 })
 export class AuthService {
-  private _isAuthenticated: boolean = false;
   baseUrl = environment.API_URL + "auth/";
   jwtHelper = new JwtHelperService();
-  /* currentUserId:string;
-  currentUserName:string;
+  private _isAuthenticated: boolean = false;
+  private _currentUserId: string;
+  /* currentUserName:string;
   currentUserPhoto:string;
   currentUserNickName:string; */
 
@@ -31,6 +31,15 @@ export class AuthService {
       return false;
     }
   }
+  public get currentUserId(): string {
+    try {
+      const userId = localStorage.getItem("jti");
+      this._currentUserId = userId
+      return this._currentUserId;
+    } catch {
+      return "";
+    }
+  }
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -40,9 +49,9 @@ export class AuthService {
         if (res) {
           this._isAuthenticated = true;
           localStorage.setItem("token", res.token);
-          /* let decodedToken = this.jwtHelper.decodeToken(res.token);
-          this.currentUserName=decodedToken.sub;
-          this.currentUserId=decodedToken.jti;
+          let decodedToken = this.jwtHelper.decodeToken(res.token);
+          localStorage.setItem("jti", decodedToken.jti);
+          /* this.currentUserName=decodedToken.sub;
           this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
           this.currentUserNickName = res.userNickName;
           localStorage.setItem('userPhoto',this.currentUserPhoto);
@@ -58,9 +67,9 @@ export class AuthService {
         if (res) {
           this._isAuthenticated = true;
           localStorage.setItem("token", res.token);
-          /* let decodedToken = this.jwtHelper.decodeToken(res.token);
-          this.currentUserName=decodedToken.sub;
-          this.currentUserId=decodedToken.jti;
+          let decodedToken = this.jwtHelper.decodeToken(res.token);
+          localStorage.setItem("jti", decodedToken.jti);
+          /* this.currentUserName=decodedToken.sub;
           this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
           this.currentUserNickName = res.userNickName;
           localStorage.setItem('userPhoto',this.currentUserPhoto);

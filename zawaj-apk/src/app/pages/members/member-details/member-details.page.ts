@@ -50,9 +50,11 @@ export class MemberDetailsPage {
                 this.alertCtrl
                   .create({
                     header: "حدث خطأ ما !",
-                    message : 'الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة!',
+                    message : '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
                     cssClass: "danger",
-                    buttons: ["حسنا"]
+                    buttons: [{text:"حسنا", handler:() =>{
+                      this.router.navigateByUrl('/');
+                    }}]
                   })
                   .then(alertEl => alertEl.present());
               }
