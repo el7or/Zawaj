@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from "@angular/core";
 import { Plugins } from "@capacitor/core";
 const { LocalNotifications } = Plugins;
@@ -8,22 +9,26 @@ const { LocalNotifications } = Plugins;
   styleUrls: ["./messages.page.scss"]
 })
 export class MessagesPage implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {
+    LocalNotifications.addListener('localNotificationActionPerformed' ,()=>{
+      this.router.navigateByUrl('/likes');
+    })
+  }
 
   ngOnInit() {
     LocalNotifications.schedule({
       notifications: [
         {
-          title: "Test",
-          body: "Testttttttttt Testttttttttt Testttttttttt Testttttttttt Testttttttttt ",
+          title: "لديك رسالة جديدة من أحد الأعضاء!",
+          body: "السلام عليكم.. هل تقبلين زواج التعدد؟",
           id: 1,
-          schedule: { at: new Date(Date.now() + 1000 * 2) },
-          sound: null,
+          schedule: { at: new Date(Date.now() + 1000) },
+          sound: 'beep.aiff',
           attachments: null,
           actionTypeId: "",
           extra: null,
-          //icon: 'ic_notifications',
-          smallIcon: 'ic_notification_small'
+          smallIcon: 'ic_notifications'
+          //icon: 'ic_notifications'
         }
       ]
     });
