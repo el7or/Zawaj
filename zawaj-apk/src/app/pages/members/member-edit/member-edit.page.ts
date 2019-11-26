@@ -1,13 +1,12 @@
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component,  ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { SegmentChangeEventDetail } from '@ionic/core';
 
-import { UserDetails } from '../member-details/member-details.model';
 import { UserService } from '../user.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from './../../../auth/auth.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -45,7 +44,7 @@ export class MemberEditPage implements OnDestroy {
             return;
           } else {
             const memberId = paramMap.get("memberId");
-            this.userService.getUserById(memberId).subscribe(
+            this.subs = this.userService.getUserById(memberId).subscribe(
               member => {
                 this.userDetails = member;
                 this.isLoading = false;
@@ -110,6 +109,8 @@ export class MemberEditPage implements OnDestroy {
   }
 
   ngOnDestroy(){
+    if(this.subs){
     this.subs.unsubscribe();
+    }
   }
 }
