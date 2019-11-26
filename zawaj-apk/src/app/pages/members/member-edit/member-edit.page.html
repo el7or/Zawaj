@@ -5,13 +5,13 @@
     </ion-buttons>
     <ion-title>الملف الشخصي</ion-title>
     <ion-buttons slot="primary">
-        <ion-button (click)="onUpdateProfile()" [disabled]="!form?.valid">
-          <ion-icon name="save" slot="icon-only"></ion-icon>
-        </ion-button>
-        <ion-button (click)="onUpdateProfile()" [disabled]="!form?.valid">
-          <ion-icon name="undo" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-button (click)="editForm.ngSubmit.emit()" [disabled]="!editForm?.valid || !editForm?.dirty">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/" [disabled]="!editForm?.dirty">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -21,84 +21,62 @@
     <ion-segment-button value="photos">تعديل الصور</ion-segment-button>
   </ion-segment>
 
+  <form #editForm="ngForm" (ngSubmit)="onUpdateProfile(editForm)">
   <ion-card *ngIf="tabValue=='basic'">
     <ion-card-content>
       <ion-list>
-        <ion-item-divider>
+        <!-- <ion-item-divider>
           <ion-label>
             <h1>بياناتي</h1>
           </ion-label>
         </ion-item-divider>
-          <!-- <ion-thumbnail slot="end">
+        <ion-thumbnail slot="end">
             <img [src]="userDetails?.photoURL || 'assets/images/avatar.png'" />
           </ion-thumbnail> -->
-          <ion-item>
-              <ion-label position="stacked">الدولة</ion-label>
-              <ion-input type="text" [(ngModel)]="userDetails.country" name="country" required #countryCtrl="ngModel" autocomplete autocorrect>
-              </ion-input>
-            </ion-item>
-            <ion-item *ngIf="!countryCtrl.valid && countryCtrl.touched" lines="none">
-              <ion-label color="danger">
-                لابد من إدخال الدولة !
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">المدينة</ion-label>
-              <ion-input type="text" [(ngModel)]="userDetails.city" name="city" required #cityCtrl="ngModel" autocomplete autocorrect>
-              </ion-input>
-            </ion-item>
-            <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched" lines="none">
-              <ion-label color="danger">
-                لابد من إدخال المدينة !
-              </ion-label>
-            </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>العمر</h1>
-            <h2>{{userDetails?.age | localNumber}}</h2>
+        <ion-item>
+          <ion-label position="stacked">الدولة:</ion-label>
+          <ion-input type="text" [(ngModel)]="userDetails.country" name="country" required #countryCtrl="ngModel"
+            autocomplete autocorrect>
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="!countryCtrl.valid && countryCtrl.touched" lines="none">
+          <ion-label color="danger">
+            لابد من إدخال الدولة !
           </ion-label>
         </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>آخر ظهور</h1>
-            <h2>{{userDetails?.lastActive | timeAgo}}</h2>
+        <ion-item>
+          <ion-label position="stacked">المدينة:</ion-label>
+          <ion-input type="text" [(ngModel)]="userDetails.city" name="city" required #cityCtrl="ngModel" autocomplete
+            autocorrect>
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched" lines="none">
+          <ion-label color="danger">
+            لابد من إدخال المدينة !
           </ion-label>
         </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>مشترك منذ</h1>
-            <h2>{{userDetails?.createdOn | localDay}}</h2>
-          </ion-label>
-        </ion-item>
-        <ion-item-divider>
-          <ion-label>
-            <h1>لمحة عني</h1>
-          </ion-label>
-        </ion-item-divider>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>أعرفك بنفسي</h1>
-            <h2>{{userDetails?.about}}</h2>
-            <h3 *ngIf="!userDetails.about">لا توجد بيانات لعرضها حاليا</h3>
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>أبحث عن</h1>
-            <h2>{{userDetails?.lookingFor}}</h2>
-            <h3 *ngIf="!userDetails.lookingFor">لا توجد بيانات لعرضها حاليا</h3>
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label>
-            <h1>هواياتي</h1>
-            <h2>{{userDetails?.interests}}</h2>
-            <h3 *ngIf="!userDetails.interests">لا توجد بيانات لعرضها حاليا</h3>
-          </ion-label>
-        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">أعرفك بنفسي:</ion-label>
+          <ion-textarea autoGrow [(ngModel)]="userDetails.about" name="about" #aboutCtrl="ngModel"
+          placeholder="مواصفاتك الشخصية بالكامل ...">
+          </ion-textarea>
+        </ion-item> 
+        <ion-item>
+          <ion-label position="stacked">أبحث عن:</ion-label>
+          <ion-textarea autoGrow [(ngModel)]="userDetails.lookingFor" name="lookingFor" #lookingForCtrl="ngModel"
+          placeholder="مواصفات شريك الحياة المطلوب ...">
+          </ion-textarea>
+        </ion-item> 
+        <ion-item>
+          <ion-label position="stacked">هواياتي:</ion-label>
+          <ion-textarea autoGrow [(ngModel)]="userDetails.interests" name="interests" #interestsCtrl="ngModel"
+          placeholder="الهوايات والاهتمامات ...">
+          </ion-textarea>
+        </ion-item>        
       </ion-list>
     </ion-card-content>
   </ion-card>
+</form>
 
   <ion-card *ngIf="tabValue=='photos'">
     <ion-card-content>

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { environment } from "../../../environments/environment";
-import { UserPagedList } from "./members.model";
+import { UserPagedList, UserUpdate } from "./members.model";
 import { UserDetails } from './member-details/member-details.model';
 /* import { UserUpdate } from "./../models/user-update";
 import { UserDetails } from "./../models/user-details"; */
@@ -68,7 +68,7 @@ export class UserService {
     return this.http.get<UserDetails>(this.baseUrl + id);
   }
 
-  /* putUser(id: string, user: UserUpdate) {
+  putUser(id: string, user: UserUpdate) {
     return this.http.put<UserUpdate>(this.baseUrl + id, user);
-  } */
+  }
 }
