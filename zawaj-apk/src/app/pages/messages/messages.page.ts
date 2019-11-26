@@ -22,7 +22,8 @@ export class MessagesPage implements OnInit {
           attachments: null,
           actionTypeId: "",
           extra: null,
-          //smallIcon: 'assets://icon/favicon.png'
+          //icon: 'ic_notifications',
+          smallIcon: 'ic_notification_small'
         }
       ]
     });

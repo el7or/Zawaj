@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ZawajMobile</string>
-    <string name="title_activity_main">ZawajMobile</string>
+    <string name="app_name">تطبيق زواج</string>
+    <string name="title_activity_main">تطبيق زواج</string>
     <string name="package_name">com.el7or.zawaj</string>
     <string name="custom_url_scheme">com.el7or.zawaj</string>
 </resources>
