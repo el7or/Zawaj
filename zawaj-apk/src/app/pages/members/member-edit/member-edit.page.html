@@ -22,68 +22,76 @@
   </ion-segment>
 
   <form #editForm="ngForm" (ngSubmit)="onUpdateProfile(editForm)">
-  <ion-card *ngIf="tabValue=='basic'">
-    <ion-card-content>
-      <ion-list>
-        <!-- <ion-item-divider>
-          <ion-label>
-            <h1>بياناتي</h1>
-          </ion-label>
-        </ion-item-divider>
-        <ion-thumbnail slot="end">
-            <img [src]="userDetails?.photoURL || 'assets/images/avatar.png'" />
-          </ion-thumbnail> -->
-        <ion-item>
-          <ion-label position="stacked">الدولة:</ion-label>
-          <ion-input type="text" [(ngModel)]="userDetails.country" name="country" required #countryCtrl="ngModel"
-            autocomplete autocorrect>
-          </ion-input>
-        </ion-item>
-        <ion-item *ngIf="!countryCtrl.valid && countryCtrl.touched" lines="none">
-          <ion-label color="danger">
-            لابد من إدخال الدولة !
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">المدينة:</ion-label>
-          <ion-input type="text" [(ngModel)]="userDetails.city" name="city" required #cityCtrl="ngModel" autocomplete
-            autocorrect>
-          </ion-input>
-        </ion-item>
-        <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched" lines="none">
-          <ion-label color="danger">
-            لابد من إدخال المدينة !
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">أعرفك بنفسي:</ion-label>
-          <ion-textarea autoGrow [(ngModel)]="userDetails.about" name="about" #aboutCtrl="ngModel"
-          placeholder="مواصفاتك الشخصية بالكامل ...">
-          </ion-textarea>
-        </ion-item> 
-        <ion-item>
-          <ion-label position="stacked">أبحث عن:</ion-label>
-          <ion-textarea autoGrow [(ngModel)]="userDetails.lookingFor" name="lookingFor" #lookingForCtrl="ngModel"
-          placeholder="مواصفات شريك الحياة المطلوب ...">
-          </ion-textarea>
-        </ion-item> 
-        <ion-item>
-          <ion-label position="stacked">هواياتي:</ion-label>
-          <ion-textarea autoGrow [(ngModel)]="userDetails.interests" name="interests" #interestsCtrl="ngModel"
-          placeholder="الهوايات والاهتمامات ...">
-          </ion-textarea>
-        </ion-item>        
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</form>
+    <ion-card *ngIf="tabValue=='basic'">
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">الدولة:</ion-label>
+            <ion-input type="text" [(ngModel)]="userDetails.country" name="country" required #countryCtrl="ngModel"
+              autocomplete autocorrect>
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="!countryCtrl.valid && countryCtrl.touched" lines="none">
+            <ion-label color="danger">
+              لابد من إدخال الدولة !
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">المدينة:</ion-label>
+            <ion-input type="text" [(ngModel)]="userDetails.city" name="city" required #cityCtrl="ngModel" autocomplete
+              autocorrect>
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched" lines="none">
+            <ion-label color="danger">
+              لابد من إدخال المدينة !
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">أعرفك بنفسي:</ion-label>
+            <ion-textarea autoGrow [(ngModel)]="userDetails.about" name="about" #aboutCtrl="ngModel"
+              placeholder="مواصفاتك الشخصية بالكامل ...">
+            </ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">أبحث عن:</ion-label>
+            <ion-textarea autoGrow [(ngModel)]="userDetails.lookingFor" name="lookingFor" #lookingForCtrl="ngModel"
+              placeholder="مواصفات شريك الحياة المطلوب ...">
+            </ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">هواياتي:</ion-label>
+            <ion-textarea autoGrow [(ngModel)]="userDetails.interests" name="interests" #interestsCtrl="ngModel"
+              placeholder="الهوايات والاهتمامات ...">
+            </ion-textarea>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </form>
 
   <ion-card *ngIf="tabValue=='photos'">
-    <ion-card-content>
-      <ion-label>
-        <h1>صورة</h1>
-        <h2></h2>
-      </ion-label>
+    <ion-card-content class="ion-no-padding">
+      <ion-grid>
+        <div *ngIf="isLoading" class="ion-text-center">
+          <ion-spinner name="lines"></ion-spinner>
+        </div>
+        <ion-row *ngIf="!isLoading">
+          <ion-col size="6" *ngFor="let photo of userDetails.photos" class="ion-no-padding">
+            <div class="image-container" [style.background-image]="'url('+photo.url+')'"></div>
+            <div class="btns-images">
+              <ion-button color="medium" *ngIf="photo.isMain" disabled>الأساسية</ion-button>
+              <ion-button color="success" *ngIf="!photo.isMain" (click)="onSetMainPhoto(photo)">
+                أساسية
+              </ion-button>
+              <ion-button color="danger" (click)="onDeletePhoto(photo.id)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
+  <ion-item lines="none">uploader</ion-item>
 </ion-content>

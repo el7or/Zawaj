@@ -11,7 +11,11 @@ const { LocalNotifications } = Plugins;
 export class MessagesPage implements OnInit {
   constructor(private router: Router) {
     LocalNotifications.addListener('localNotificationActionPerformed' ,()=>{
+      console.log('notification Performed');
       this.router.navigateByUrl('/likes');
+    })
+    LocalNotifications.addListener('localNotificationReceived' ,()=>{
+      console.log('notification Received');
     })
   }
 

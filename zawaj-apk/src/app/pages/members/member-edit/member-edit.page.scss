@@ -1,0 +1,26 @@
+.image-container {
+    min-height: 25vh;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid white;
+}
+
+.btns-images{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-button{
+    font-family: "JF-Flat";
+    font-weight: bolder;
+}
+
+ion-spinner{
+    height: 5rem;
+    width: 5rem;
+}
+
+.alertDanger{
+    color: red !important;
+}

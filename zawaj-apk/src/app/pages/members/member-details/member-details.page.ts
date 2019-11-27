@@ -15,6 +15,7 @@ export class MemberDetailsPage {
   userDetails: UserDetails;
   tabValue: string = "basic";
   isLoading = false;
+  userDetailsPhotoURL:string;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class MemberDetailsPage {
             this.userService.getUserById(memberId).subscribe(
               member => {
                 this.userDetails = member;
+                this.userDetailsPhotoURL= this.userDetails.photoURL;
                 this.isLoading = false;
                 loadingEl.dismiss();
               },
