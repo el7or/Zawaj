@@ -71,6 +71,11 @@
   </form>
 
   <ion-card *ngIf="tabValue=='photos'">
+      <ion-card-content *ngIf="userDetails.photos.length==0">
+        <ion-label>
+          <h2>لم يتم رفع أي صور بعد!</h2>
+        </ion-label>
+      </ion-card-content>
     <ion-card-content class="ion-no-padding">
       <ion-grid>
         <div *ngIf="isLoading" class="ion-text-center">

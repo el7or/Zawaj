@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SegmentChangeEventDetail } from "@ionic/core";
-import { AlertController, LoadingController } from "@ionic/angular";
+import { AlertController, LoadingController, IonSlides } from "@ionic/angular";
 
 import { UserService } from "../user.service";
 import { UserDetails } from "./member-details.model";
@@ -15,7 +15,13 @@ export class MemberDetailsPage {
   userDetails: UserDetails;
   tabValue: string = "basic";
   isLoading = false;
+  @ViewChild('slides', {static: false}) slides: IonSlides;
   userDetailsPhotoURL:string;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+    pager: false
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -68,5 +74,10 @@ export class MemberDetailsPage {
 
   onChangeTab(event: CustomEvent<SegmentChangeEventDetail>) {
     this.tabValue = event.detail.value;
+  }
+
+  onSlideClick(slideIndex:number,photoUrl:string){
+    this.userDetailsPhotoURL = photoUrl;
+    this.slides.slideTo(slideIndex);
   }
 }

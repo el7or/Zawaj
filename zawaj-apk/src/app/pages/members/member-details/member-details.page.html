@@ -30,41 +30,41 @@
   <ion-card *ngIf="tabValue=='basic'">
     <ion-card-content>
       <ion-list>
-      <ion-item lines="none">
-        <ion-thumbnail slot="end">
-          <img [src]="userDetails?.photoURL || 'assets/images/avatar.png'" />
-        </ion-thumbnail>
-        <ion-label>
-          <h1>مكان الإقامة</h1>
-          <h2>{{userDetails?.country}} - {{userDetails?.city}}</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label>
-          <h1>العمر</h1>
-          <h2>{{userDetails?.age | localNumber}}</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label>
-          <h1>آخر ظهور</h1>
-          <h2>{{userDetails?.lastActive | timeAgo}}</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label>
-          <h1>مشترك منذ</h1>
-          <h2>{{userDetails?.createdOn | localDay}}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+        <ion-item lines="none">
+          <ion-thumbnail slot="end">
+            <img [src]="userDetails?.photoURL || 'assets/images/avatar.png'" />
+          </ion-thumbnail>
+          <ion-label>
+            <h1>مكان الإقامة</h1>
+            <h2>{{userDetails?.country}} - {{userDetails?.city}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>
+            <h1>العمر</h1>
+            <h2>{{userDetails?.age | localNumber}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>
+            <h1>آخر ظهور</h1>
+            <h2>{{userDetails?.lastActive | timeAgo}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label>
+            <h1>مشترك منذ</h1>
+            <h2>{{userDetails?.createdOn | localDay}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="tabValue=='about'">
     <ion-card-content>
       <ion-label>
-        <h1>أعرفك بنفسي</h1>        
+        <h1>أعرفك بنفسي</h1>
         <h2>{{userDetails?.about}}</h2>
         <h3 *ngIf="!userDetails.about">لا توجد بيانات لعرضها حاليا</h3>
       </ion-label>
@@ -88,15 +88,22 @@
   <ion-card *ngIf="tabValue=='photos'">
     <ion-card-content class="ion-no-padding">
       <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="userDetails.photos.length==0">
+          <h3>لا توجد صور لعرضها حاليا</h3>
+        </ion-row>
+        <ion-row *ngIf="userDetails.photos.length>0">
           <ion-col size="12">
-            <ion-img [src]="userDetailsPhotoURL"></ion-img>
+            <ion-slides #slides pager="true" [options]="slideOpts">
+              <ion-slide *ngFor="let photo of userDetails.photos">
+                <img [src]="photo.url">
+              </ion-slide>
+            </ion-slides>
           </ion-col>
-          <ion-col size="4" *ngFor="let photo of userDetails.photos" class="ion-no-padding">
+          <ion-col size="4" *ngFor="let photo of userDetails.photos; let i = index" class="ion-no-padding">
             <!-- <ion-img [src]="photo.url"></ion-img> -->
             <div class="image-container" [style.background-image]="'url('+photo.url+')'"
-            [ngStyle]="{ 'opacity' : (photo.url==userDetailsPhotoURL)? '1' : '0.5' }"
-            (click)="userDetailsPhotoURL=photo.url"></div>
+              [ngStyle]="{ 'opacity' : (photo.url==userDetailsPhotoURL)? '1' : '0.5' }"
+              (click)="onSlideClick(i,photo.url)"></div>
           </ion-col>
         </ion-row>
       </ion-grid>

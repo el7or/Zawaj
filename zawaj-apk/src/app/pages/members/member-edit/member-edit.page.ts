@@ -54,6 +54,7 @@ export class MemberEditPage implements OnDestroy {
             this.subs = this.userService.getUserById(memberId).subscribe(
               member => {
                 this.userDetails = member;
+                console.log(member);
                 this.isLoading = false;
                 loadingEl.dismiss();
               },
