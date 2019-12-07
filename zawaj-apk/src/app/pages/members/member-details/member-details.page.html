@@ -93,7 +93,7 @@
         </ion-row>
         <ion-row *ngIf="userDetails.photos.length>0">
           <ion-col size="12">
-            <ion-slides #slides pager="true" [options]="slideOpts">
+            <ion-slides #slides pager="true" [options]="slideOpts"(ionSlideDidChange)="onSlideDrag()">
               <ion-slide *ngFor="let photo of userDetails.photos">
                 <img [src]="photo.url">
               </ion-slide>

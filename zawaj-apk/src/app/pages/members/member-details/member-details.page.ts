@@ -15,8 +15,8 @@ export class MemberDetailsPage {
   userDetails: UserDetails;
   tabValue: string = "basic";
   isLoading = false;
-  @ViewChild('slides', {static: false}) slides: IonSlides;
-  userDetailsPhotoURL:string;
+  @ViewChild("slides", { static: false }) slides: IonSlides;
+  userDetailsPhotoURL: string;
   slideOpts = {
     initialSlide: 0,
     speed: 400,
@@ -41,14 +41,14 @@ export class MemberDetailsPage {
           if (!paramMap.has("memberId")) {
             this.router.navigate(["/"]);
             this.isLoading = false;
-                loadingEl.dismiss();
+            loadingEl.dismiss();
             return;
           } else {
             const memberId = paramMap.get("memberId");
             this.userService.getUserById(memberId).subscribe(
               member => {
                 this.userDetails = member;
-                this.userDetailsPhotoURL= this.userDetails.photoURL;
+                this.userDetailsPhotoURL = this.userDetails.photoURL;
                 this.isLoading = false;
                 loadingEl.dismiss();
               },
@@ -58,11 +58,17 @@ export class MemberDetailsPage {
                 this.alertCtrl
                   .create({
                     header: "حدث خطأ ما !",
-                    message : '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+                    message:
+                      '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
                     cssClass: "danger",
-                    buttons: [{text:"حسنا", handler:() =>{
-                      this.router.navigateByUrl('/');
-                    }}]
+                    buttons: [
+                      {
+                        text: "حسنا",
+                        handler: () => {
+                          this.router.navigateByUrl("/");
+                        }
+                      }
+                    ]
                   })
                   .then(alertEl => alertEl.present());
               }
@@ -76,8 +82,14 @@ export class MemberDetailsPage {
     this.tabValue = event.detail.value;
   }
 
-  onSlideClick(slideIndex:number,photoUrl:string){
+  onSlideClick(slideIndex: number, photoUrl: string) {
     this.userDetailsPhotoURL = photoUrl;
     this.slides.slideTo(slideIndex);
+  }
+
+  onSlideDrag() {
+    this.slides.getActiveIndex().then(index => {
+      this.userDetailsPhotoURL = this.userDetails.photos[index].url;
+    });
   }
 }
