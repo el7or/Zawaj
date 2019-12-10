@@ -26,7 +26,7 @@ export class MessagesPage implements OnInit {
           title: "لديك رسالة جديدة من أحد الأعضاء!",
           body: "السلام عليكم.. هل تقبلين زواج التعدد؟",
           id: 1,
-          schedule: { at: new Date(Date.now() + 1000) },
+          schedule: { at: new Date(Date.now() + 1000 * 10) },
           sound: 'beep.aiff',
           attachments: null,
           actionTypeId: "",

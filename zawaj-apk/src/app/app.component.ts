@@ -1,65 +1,96 @@
-import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
-/* import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx'; */
-import { Plugins, Capacitor } from '@capacitor/core';
+import { Location } from '@angular/common';
+import { Router } from "@angular/router";
+import { Component, ViewChildren, QueryList } from "@angular/core";
+import { Platform, IonRouterOutlet, AlertController } from "@ionic/angular";
+import { Plugins, Capacitor } from "@capacitor/core";
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from "./auth/auth.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  selector: "app-root",
+  templateUrl: "app.component.html",
+  styleUrls: ["app.component.scss"]
 })
 export class AppComponent {
   public appPages = [
     {
-      title: 'الرئيسية',
-      url: '',
-      icon: 'home'
+      title: "الرئيسية",
+      url: "",
+      icon: "home"
     },
     {
-      title: 'الإعجابات',
-      url: '/likes',
-      icon: 'heart-empty'
+      title: "الإعجابات",
+      url: "/likes",
+      icon: "heart-empty"
     },
     {
-      title: 'الرسائل',
-      url: '/messages',
-      icon: 'mail'
+      title: "الرسائل",
+      url: "/messages",
+      icon: "mail"
     },
     {
-      title: 'بحث',
-      url: '/members/search',
-      icon: 'search'
-    }/* ,
-    {
-      title: 'تسجيل خروج',
-      url: '/auth/logout',
-      icon: 'exit'
-    } */
+      title: "بحث",
+      url: "/members/search",
+      icon: "search"
+    }
   ];
+  @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
   constructor(
     private platform: Platform,
-    /* private splashScreen: SplashScreen,
-    private statusBar: StatusBar, */
-    public authService:AuthService
+    public authService: AuthService,
+    private alertController: AlertController,
+    private router: Router,
+    private location:Location
   ) {
     this.initializeApp();
+    this.backButtonEvent();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      /* this.statusBar.styleDefault();
-      this.splashScreen.hide(); */
-      if (Capacitor.isPluginAvailable('SplashScreen')) {
+      if (Capacitor.isPluginAvailable("SplashScreen")) {
         Plugins.SplashScreen.hide();
       }
     });
   }
 
-  onLogout(){
-this.authService.logout();
+  backButtonEvent() {
+    document.addEventListener("backbutton", () => {
+      this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
+        if (this.router.url == '/' || this.router.url =='' || this.router.url == 'members' || this.router.url =='/members') {
+          this.presentAlertConfirm();          
+        } else {
+          await this.location.back();
+          //outlet.pop();
+        }
+      });
+    });
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      //header: 'Confirm!',
+      message: "هل تريد الخروج من التطبيق؟",
+      buttons: [
+        {
+          text: "خروج",
+          handler: () => {
+            navigator["app"].exitApp();
+          }
+        },
+        {
+          text: "إلغاء",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: blah => {}
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

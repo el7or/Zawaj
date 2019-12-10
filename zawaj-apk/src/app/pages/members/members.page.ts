@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from "@angular/core";
 import {
   LoadingController,
@@ -27,7 +28,8 @@ export class MembersPage {
   constructor(
     private userService: UserService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router:Router
   ) {}
 
   ionViewWillEnter() {
@@ -64,11 +66,11 @@ export class MembersPage {
 
   onLike(itemSlide: IonItemSliding) {
     itemSlide.close();
-    console.log("like");
+    this.router.navigateByUrl('likes');
   }
 
   onMail(itemSlide: IonItemSliding) {
     itemSlide.close();
-    console.log("mail");
+    this.router.navigateByUrl('messages');
   }
 }
