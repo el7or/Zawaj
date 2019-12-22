@@ -43,7 +43,7 @@ export class MemberEditPage implements OnDestroy {
       .create({ keyboardClose: true, message: "جاري جلب البيانات ..." })
       .then(loadingEl => {
         loadingEl.present();
-        this.route.paramMap.subscribe(paramMap => {
+        this.subs = this.route.paramMap.subscribe(paramMap => {
           if (!paramMap.has("memberId")) {
             this.router.navigate(["/"]);
             this.isLoading = false;
@@ -54,7 +54,6 @@ export class MemberEditPage implements OnDestroy {
             this.subs = this.userService.getUserById(memberId).subscribe(
               member => {
                 this.userDetails = member;
-                console.log(member);
                 this.isLoading = false;
                 loadingEl.dismiss();
               },
@@ -128,7 +127,7 @@ export class MemberEditPage implements OnDestroy {
 
   onSetMainPhoto(photo: PhotoDetails) {
     this.isLoading = true;
-    this.photoService.setMainPhoto(photo.id).subscribe(
+    this.subs = this.photoService.setMainPhoto(photo.id).subscribe(
       () => {
         let currentMain = this.userDetails.photos.filter(
           p => p.isMain === true
@@ -167,7 +166,7 @@ export class MemberEditPage implements OnDestroy {
             cssClass: "danger",
             handler: () => {
               this.isLoading = true;
-              this.photoService.deletePhoto(id).subscribe(
+              this.subs =  this.photoService.deletePhoto(id).subscribe(
                 () => {
                   this.userDetails.photos.splice(
                     this.userDetails.photos.findIndex(p => p.id === id),
@@ -200,6 +199,44 @@ export class MemberEditPage implements OnDestroy {
       .then(alertEl => {
         alertEl.present();
       });
+  }
+
+  onImagePicked(imageData: string | File) {
+    /* let imageFile;
+    if (typeof imageData === 'string') {
+      try {
+        imageFile = this.base64toBlob(
+          imageData.replace('data:image/jpeg;base64,', ''),
+          'image/jpeg'
+        );
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    } else {
+      imageFile = imageData;
+    } */
+    //this.form.patchValue({ image: imageFile });
+  }
+   base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    const sliceSize = 1024;
+    const byteCharacters = window.atob(base64Data);
+    const bytesLength = byteCharacters.length;
+    const slicesCount = Math.ceil(bytesLength / sliceSize);
+    const byteArrays = new Array(slicesCount);
+  
+    for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+      const begin = sliceIndex * sliceSize;
+      const end = Math.min(begin + sliceSize, bytesLength);
+  
+      const bytes = new Array(end - begin);
+      for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+        bytes[i] = byteCharacters[offset].charCodeAt(0);
+      }
+      byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, { type: contentType });
   }
 
   ngOnDestroy() {

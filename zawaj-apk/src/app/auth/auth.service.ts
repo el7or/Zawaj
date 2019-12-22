@@ -16,9 +16,9 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   private _isAuthenticated: boolean = false;
   private _currentUserId: string;
-  /* currentUserName:string;
-  currentUserPhoto:string;
-  currentUserNickName:string; */
+  private _currentUserNickName:string;
+  private _currentUserPhoto:string;
+  private _currentUserName:string;
 
   redirectUrl: string;
 
@@ -40,23 +40,40 @@ export class AuthService {
       return "";
     }
   }
+  public get currentUserName(): string {
+    try {
+      const userName = localStorage.getItem("sub");
+      this._currentUserName = userName
+      return this._currentUserName;
+    } catch {
+      return "";
+    }
+  }
+  public get currentUserNickName(): string {
+    try {
+      const userNickName = localStorage.getItem("userNickName");
+      this._currentUserNickName = userNickName
+      return this._currentUserNickName;
+    } catch {
+      return "";
+    }
+  }
+  public get currentUserPhoto(): string {
+    try {
+      const userPhoto = localStorage.getItem("userPhoto");
+      this._currentUserPhoto = userPhoto
+      return this._currentUserPhoto;
+    } catch {
+      return "";
+    }
+  }
 
   constructor(private router: Router, private http: HttpClient) {}
 
   login(user: UserLogin) {
     return this.http.post(this.baseUrl + "login/", user).pipe(
       map((res: any) => {
-        if (res) {
-          this._isAuthenticated = true;
-          localStorage.setItem("token", res.token);
-          let decodedToken = this.jwtHelper.decodeToken(res.token);
-          localStorage.setItem("jti", decodedToken.jti);
-          /* this.currentUserName=decodedToken.sub;
-          this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
-          this.currentUserNickName = res.userNickName;
-          localStorage.setItem('userPhoto',this.currentUserPhoto);
-          localStorage.setItem('userNickName',this.currentUserNickName); */
-        }
+        this.loadUserData(res)
       })
     );
   }
@@ -64,20 +81,21 @@ export class AuthService {
   register(user: UserRegister) {
     return this.http.post(this.baseUrl + "register/", user).pipe(
       map((res: any) => {
-        if (res) {
-          this._isAuthenticated = true;
-          localStorage.setItem("token", res.token);
-          let decodedToken = this.jwtHelper.decodeToken(res.token);
-          localStorage.setItem("jti", decodedToken.jti);
-          /* this.currentUserName=decodedToken.sub;
-          this.currentUserPhoto = res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL;
-          this.currentUserNickName = res.userNickName;
-          localStorage.setItem('userPhoto',this.currentUserPhoto);
-          localStorage.setItem('userNickName',this.currentUserNickName);
-          localStorage.setItem("isFirstLogin","firstLogin") */
-        }
+        this.loadUserData(res)
       })
     );
+  }
+
+  loadUserData(res:any){
+    if (res) {
+      this._isAuthenticated = true;
+      localStorage.setItem("token", res.token);
+      let decodedToken = this.jwtHelper.decodeToken(res.token);
+      localStorage.setItem("jti", decodedToken.jti);
+      localStorage.setItem("sub", decodedToken.sub);
+      localStorage.setItem('userNickName',res.userNickName);
+      localStorage.setItem('userPhoto',res.userPhotoURL==null? (res.userGender=='رجل'? 'assets/images/avatar.png':'assets/images/avatar-female.png'):res.userPhotoURL);
+    }
   }
 
   logout() {

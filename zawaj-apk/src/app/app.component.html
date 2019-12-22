@@ -3,8 +3,19 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-menu-button slot="start"></ion-menu-button>
-          <ion-title>القائمة</ion-title>
+          <!-- <ion-menu-button slot="start"></ion-menu-button>
+          <ion-title>القائمة</ion-title> -->
+          <ion-menu-toggle>
+          <ion-item lines="none" [routerDirection]="'root'" [routerLink]="['/members/edit/',authService.currentUserId]">
+            <ion-avatar slot="start">
+              <ion-img [src]="authService.currentUserPhoto"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h1>{{authService.currentUserNickName}}</h1>
+              <h3><ion-icon name="arrow-dropdown"></ion-icon>{{authService.currentUserName}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
         </ion-toolbar>
       </ion-header>
       <ion-content>
@@ -15,13 +26,7 @@
               <ion-label>
                 {{p.title}}
               </ion-label>
-            </ion-item>
-            <ion-item [routerDirection]="'root'" [routerLink]="['/members/edit/',authService.currentUserId]">
-              <ion-icon slot="start" name="person"></ion-icon>
-              <ion-label>
-                الملف الشخصي
-              </ion-label>
-            </ion-item>
+            </ion-item>            
             <ion-item button (click)="onLogout()">
               <ion-icon slot="start" name="exit"></ion-icon>
               <ion-label>

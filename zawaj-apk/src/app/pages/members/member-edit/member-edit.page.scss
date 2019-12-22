@@ -1,27 +1,27 @@
 .image-container {
-    height: 25vh;
-    width: auto;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid white;
+  height: 25vh;
+  width: auto;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid white;
 }
 
-.btns-images{
-    display: flex;
+.btns-images {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-ion-button{
-    font-family: "JF-Flat";
-    font-weight: bolder;
+ion-button {
+  font-family: "JF-Flat";
+  font-weight: bolder;
 }
 
-ion-spinner{
-    height: 5rem;
-    width: 5rem;
+ion-spinner {
+  height: 5rem;
+  width: 5rem;
 }
 
-.alertDanger{
-    color: red !important;
+.alertDanger {
+  color: red !important;
 }

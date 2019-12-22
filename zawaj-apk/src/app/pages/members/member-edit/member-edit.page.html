@@ -95,12 +95,8 @@
             </div>
           </ion-col>
           <ion-col size="12">
-          <ion-card>
-              <ion-card-content>
-            <h1>إضافة صور جديدة:</h1>
-            <h2 style="color: red; height: 50%; display: flex;justify-content: center; align-items: center;">قيد التطوير ...</h2>
-          </ion-card-content>
-          </ion-card>
+                  <!-- [showPreview]="form.get('image').value" -->    
+            <app-image-picker (imagePick)="onImagePicked($event)"></app-image-picker>
         </ion-col>
         </ion-row>
       </ion-grid>
