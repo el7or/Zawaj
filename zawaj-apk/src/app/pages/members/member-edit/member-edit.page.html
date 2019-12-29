@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>الملف الشخصي</ion-title>
-    <ion-buttons slot="primary">
+    <ion-buttons slot="primary" *ngIf="tabValue=='basic'">
       <ion-button (click)="editForm.ngSubmit.emit()" [disabled]="!editForm?.valid || !editForm?.dirty">
         <ion-icon name="checkmark" slot="icon-only"></ion-icon>
       </ion-button>
@@ -95,8 +95,7 @@
             </div>
           </ion-col>
           <ion-col size="12">
-                  <!-- [showPreview]="form.get('image').value" -->    
-            <app-image-picker (imagePick)="onImagePicked($event)"></app-image-picker>
+            <app-image-picker [photos]="userDetails.photos"></app-image-picker>
         </ion-col>
         </ion-row>
       </ion-grid>

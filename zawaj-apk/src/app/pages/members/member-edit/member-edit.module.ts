@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { MemberEditPageRoutingModule } from './member-edit-routing.module';
 import { MemberEditPage } from './member-edit.page';
 import { SharedModule } from '../../../shared/shared.module';
+import { ImagePickerComponent } from './image-picker/image-picker.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SharedModule } from '../../../shared/shared.module';
     MemberEditPageRoutingModule,
     SharedModule
   ],
-  declarations: [MemberEditPage]
+  declarations: [MemberEditPage,ImagePickerComponent]
 })
 export class MemberEditPageModule {}

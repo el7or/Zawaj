@@ -17,4 +17,11 @@ export class PhotoService {
   deletePhoto(id:number){
     return this.http.delete(this.baseUrl + id);
   }
+
+  addPhoto(id:string,photoFile:File){
+    let formData: FormData = new FormData();
+    formData.append('url', '');
+    formData.append('file', photoFile);
+    return this.http.post(this.baseUrl + id,formData);
+  }
 }

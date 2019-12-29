@@ -67,6 +67,14 @@ export class AuthService {
       return "";
     }
   }
+  public set currentUserPhoto(photoUrl:string){
+    try {
+      localStorage.setItem("userPhoto",photoUrl);
+      this._currentUserPhoto = photoUrl
+    } catch {
+      return;
+    }
+  }
 
   constructor(private router: Router, private http: HttpClient) {}
 
