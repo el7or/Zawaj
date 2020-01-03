@@ -83,7 +83,7 @@
         </div>
         <ion-row *ngIf="!isLoading">
           <ion-col size="6" *ngFor="let photo of userDetails.photos" class="ion-no-padding">
-              <div class="image-container" [style.background-image]="'url('+photo.url+')'"></div>
+              <div class="image-container" [style.background-image]="'url('+photo.url.replace('http://','https://')+')'"></div>
             <div class="btns-images">
               <ion-button color="medium" *ngIf="photo.isMain" disabled>الأساسية</ion-button>
               <ion-button color="success" *ngIf="!photo.isMain" (click)="onSetMainPhoto(photo)">

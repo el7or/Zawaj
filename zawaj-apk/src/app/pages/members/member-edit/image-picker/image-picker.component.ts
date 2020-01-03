@@ -6,8 +6,6 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  Output,
-  EventEmitter,
   Input
 } from "@angular/core";
 import { Platform, ToastController } from "@ionic/angular";
@@ -17,7 +15,6 @@ import {
   CameraResultType,
   Plugins
 } from "@capacitor/core";
-const { Camera } = Plugins;
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || "";
@@ -132,6 +129,7 @@ export class ImagePickerComponent implements OnInit {
       .addPhoto(this.authService.currentUserId, imageFile)
       .subscribe(
         (response: Photo) => {
+          response.url = response.url.replace('http://','https://');
           this.photos.push(response);
           this.isLoading = false;
           this.toastCtrl
