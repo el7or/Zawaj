@@ -13,8 +13,11 @@
       <ion-icon name="arrow-dropdown"></ion-icon>
     </ion-fab-button>
     <ion-fab-list>
-      <ion-fab-button color="danger">
+      <ion-fab-button *ngIf="!userDetails.isLiking" color="danger" (click)="onLike(userDetails.id)">        
         <ion-icon name="heart"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="userDetails.isLiking" color="danger" (click)="onDisLike(userDetails.id)">
+        <ion-icon name="heart-dislike"></ion-icon>
       </ion-fab-button>
       <ion-fab-button color="primary">
         <ion-icon name="mail"></ion-icon>
