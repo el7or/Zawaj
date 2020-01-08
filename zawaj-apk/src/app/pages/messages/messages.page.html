@@ -1,12 +1,35 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>الرسائل</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1 style="color: red; height: 50%; display: flex;justify-content: center; align-items: center;">قيد التطوير ...</h1>
+  <!-- <nb-card>
+    <nb-list>
+      <nb-list-item *ngFor="let user of users" 
+      [ngClass]="{'selectedUser': userChatId==user.id, 'unreadUser':user.unread > 0 }"
+      (click)="openChat(user);">
+        <nb-user [name]="user.name" [title]="user.title | timeAgo" [picture]="user.picture"
+        [badgeText]="user.unread" badgeStatus="danger">
+        </nb-user>
+      </nb-list-item>
+    </nb-list>
+  </nb-card> -->
+
+  <ion-list *ngFor="let user of users" class="ion-no-padding">
+    <ion-item lines="full" (click)="onOpenChat(user)">
+      <ion-avatar slot="start">
+        <ion-img [src]="user.picture || 'assets/images/avatar.png'"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <h1>{{user.name}}</h1>
+        <h3>{{user.title | timeAgo}}</h3>
+      </ion-label>
+      <ion-badge *ngIf="user.unread > 0" color="danger" slot="end">{{user.unread}}</ion-badge>
+    </ion-item>
+  </ion-list>
 </ion-content>

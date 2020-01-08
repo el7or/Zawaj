@@ -64,7 +64,7 @@ export class MessagesService {
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/chatHub", {
+      .withUrl("https://zawag.azurewebsites.net/chatHub", {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets
       })

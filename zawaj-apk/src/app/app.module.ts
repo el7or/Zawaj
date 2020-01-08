@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptorProvidor } from './shared/interceptors/token-interceptor';
 import { ErrorInterceptorProvidor } from './shared/interceptors/error-interceptor';
+import { NbThemeModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,8 @@ import { ErrorInterceptorProvidor } from './shared/interceptors/error-intercepto
     BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NbThemeModule.forRoot(),
   ],
   providers: [TokenInterceptorProvidor,
     StatusBar,
