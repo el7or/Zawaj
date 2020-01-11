@@ -3,3 +3,8 @@ ion-header ion-title{
     font-size: x-large;
     font-weight: bolder;
 }
+
+ion-title ion-label{
+    position: relative;
+    bottom: 0.5rem;
+}

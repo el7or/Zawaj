@@ -1,41 +1,41 @@
-<ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" *ngIf="authService.isAuthenticated">
-      <ion-header>
-        <ion-toolbar>
-          <ion-menu-toggle>
-          <ion-item lines="none" [routerDirection]="'root'" [routerLink]="['/members/edit/',authService.currentUserId]">
-            <ion-avatar slot="start">
-              <ion-img [src]="authService.currentUserPhoto"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h1>{{authService.currentUserNickName}}</h1>
-              <h3><ion-icon name="arrow-dropdown"></ion-icon>{{authService.currentUserName}}</h3>
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item *ngFor="let p of appPages" [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-              <ion-badge *ngIf="p.url=='/messages'" color="danger" slot="end">8</ion-badge>
-            </ion-item>            
-            <ion-item button (click)="onLogout()">
-              <ion-icon slot="start" name="exit"></ion-icon>
-              <ion-label>
-                تسجيل الخروج
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
-</ion-app>
+    <ion-app>
+      <ion-split-pane contentId="main-content">
+        <ion-menu contentId="main-content" type="overlay" *ngIf="authService.isAuthenticated">
+          <ion-header>
+            <ion-toolbar>
+              <ion-menu-toggle>
+              <ion-item lines="none" [routerDirection]="'root'" [routerLink]="['/members/edit/',authService.currentUserId]">
+                <ion-avatar slot="start">
+                  <ion-img [src]="authService.currentUserPhoto"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h1>{{authService.currentUserNickName}}</h1>
+                  <h3><ion-icon name="arrow-dropdown"></ion-icon>{{authService.currentUserName}}</h3>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-list>
+              <ion-menu-toggle auto-hide="false">
+                <ion-item *ngFor="let p of appPages" [routerDirection]="'root'" [routerLink]="[p.url]">
+                  <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                  <ion-label>
+                    {{p.title}}
+                  </ion-label>
+                  <ion-badge *ngIf="p.url=='/messages'" color="danger" slot="end">8</ion-badge>
+                </ion-item>            
+                <ion-item button (click)="onLogout()">
+                  <ion-icon slot="start" name="exit"></ion-icon>
+                  <ion-label>
+                    تسجيل الخروج
+                  </ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+          </ion-content>
+        </ion-menu>
+        <ion-router-outlet id="main-content"></ion-router-outlet>
+      </ion-split-pane>
+    </ion-app>

@@ -1,3 +1,4 @@
+import { NbThemeService } from '@nebular/theme';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -13,7 +14,7 @@ export class ChatPage {
   messages: any[];
   isLoading = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,private themeService:NbThemeService) {}
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
@@ -21,7 +22,6 @@ export class ChatPage {
    });
   }
 
-  sendMessage(event: any){
-
+  sendMessage(event: any){    
   }
 }
