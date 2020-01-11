@@ -1,9 +1,14 @@
-import { ChatCount } from './pages/messages/messages.model';
-import { MessagesService } from './pages/messages/messages.service';
-import { Location } from '@angular/common';
+import { ChatCount } from "./pages/messages/messages.model";
+import { MessagesService } from "./pages/messages/messages.service";
+import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { Component, ViewChildren, QueryList } from "@angular/core";
-import { Platform, IonRouterOutlet, AlertController, Events } from "@ionic/angular";
+import {
+  Platform,
+  IonRouterOutlet,
+  AlertController,
+  Events
+} from "@ionic/angular";
 import { Plugins, Capacitor } from "@capacitor/core";
 
 import { AuthService } from "./auth/auth.service";
@@ -42,15 +47,18 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     public authService: AuthService,
-    private chatService:MessagesService,
+    private chatService: MessagesService,
     private alertController: AlertController,
     private router: Router,
-    private location:Location,
+    private location: Location,
     public events: Events
   ) {
     this.initializeApp();
     this.backButtonEvent();
-    this.events.subscribe('user:messages', (msgs) => { this.newMessages = msgs; });
+    this.events.subscribe("user:messages", msgs => {
+      console.log(msgs);
+      this.newMessages = msgs;
+    });
   }
 
   initializeApp() {
@@ -59,26 +67,31 @@ export class AppComponent {
         Plugins.SplashScreen.hide();
       }
     });
-    this.chatService.unReadCount.subscribe((countData:ChatCount) => {
+    this.chatService.unReadCount.subscribe((countData: ChatCount) => {
       if (countData.id == this.authService.currentUserId) {
-        this.newMessages = countData.count
+        this.newMessages = countData.count;
       }
     });
-    if (this.authService.isAuthenticated) {    
+    if (this.authService.isAuthenticated) {
       this.chatService.getUnreadCount().subscribe(
         (res: number) => {
           this.newMessages = res;
         },
         err => console.error(err)
       );
-      }
+    }
   }
 
   backButtonEvent() {
     document.addEventListener("backbutton", () => {
       this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
-        if (this.router.url == '/' || this.router.url =='' || this.router.url == 'members' || this.router.url =='/members') {
-          this.presentAlertConfirm();          
+        if (
+          this.router.url == "/" ||
+          this.router.url == "" ||
+          this.router.url == "members" ||
+          this.router.url == "/members"
+        ) {
+          this.presentAlertConfirm();
         } else {
           await this.location.back();
           //outlet.pop();

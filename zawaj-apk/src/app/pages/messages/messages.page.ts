@@ -1,52 +1,61 @@
+import { LoadingController } from '@ionic/angular';
 import { ChatUser } from './messages.model';
 import { AlertController } from '@ionic/angular';
 import { MessagesService } from "./messages.service";
-import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Router, NavigationExtras } from "@angular/router";
+import { Component } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-const { LocalNotifications } = Plugins;
 
 @Component({
   selector: "app-messages",
   templateUrl: "./messages.page.html",
   styleUrls: ["./messages.page.scss"]
 })
-export class MessagesPage implements OnInit {
+export class MessagesPage {
   users: ChatUser[];
   constructor(
     private router: Router,
     private chatService: MessagesService,
+    private loadingCtrl:LoadingController,
     private alertCtrl:AlertController
   ) {
-    LocalNotifications.addListener("localNotificationActionPerformed", () => {
+    /* Plugins.LocalNotifications.addListener("localNotificationActionPerformed", () => {
       console.log("notification Performed");
       this.router.navigateByUrl("/likes");
     });
-    LocalNotifications.addListener("localNotificationReceived", () => {
+    Plugins.LocalNotifications.addListener("localNotificationReceived", () => {
       console.log("notification Received");
-    });
+    }); */
   }
 
-  ngOnInit() {
-    this.chatService.getChatUsers().subscribe(
-      res => {
-        this.users = res;
-      },
-      error => {
-        console.error(error);
-        this.alertCtrl
-          .create({
-            header: "حدث خطأ ما !",
-            message:
-              '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
-            cssClass: "danger",
-            buttons: ["حسنا"]
-          })
-          .then(alertEl => alertEl.present());
-      }
-    );
+  ionViewWillEnter() {
+    this.loadingCtrl
+    .create({ keyboardClose: true, message: "جاري التحميل ..." })
+    .then(loadingEl => {
+      this.chatService.getChatUsers().subscribe(
+        res => {
+          this.users = res;
+          this.loadingCtrl.dismiss();
+        },
+        error => {
+          console.error(error);
+          this.alertCtrl
+            .create({
+              header: "حدث خطأ ما !",
+              message:
+                '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+              cssClass: "danger",
+              buttons: ["حسنا"]
+            })
+            .then(alertEl => alertEl.present());
+            this.loadingCtrl.dismiss();
+        }
+      );
+      loadingEl.present();});
 
-    /* LocalNotifications.schedule({
+    
+
+      /* Plugins.LocalNotifications.schedule({
       notifications: [
         {
           title: "لديك رسالة جديدة من أحد الأعضاء!",
