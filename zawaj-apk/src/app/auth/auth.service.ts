@@ -126,11 +126,12 @@ export class AuthService {
 
   logout() {    
     this._isAuthenticated = false;
-    localStorage.removeItem("token");
+    localStorage.clear();
+    /* localStorage.removeItem("token");
     localStorage.removeItem("jti");
     localStorage.removeItem("sub");
     localStorage.removeItem("userNickName");
-    localStorage.removeItem("userPhoto");
+    localStorage.removeItem("userPhoto"); */
     this.router.navigateByUrl("/auth");
   }
 }

@@ -1,7 +1,9 @@
+import { ChatCount } from './pages/messages/messages.model';
+import { MessagesService } from './pages/messages/messages.service';
 import { Location } from '@angular/common';
 import { Router } from "@angular/router";
 import { Component, ViewChildren, QueryList } from "@angular/core";
-import { Platform, IonRouterOutlet, AlertController } from "@ionic/angular";
+import { Platform, IonRouterOutlet, AlertController, Events } from "@ionic/angular";
 import { Plugins, Capacitor } from "@capacitor/core";
 
 import { AuthService } from "./auth/auth.service";
@@ -35,16 +37,20 @@ export class AppComponent {
     }
   ];
   @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+  newMessages: number;
 
   constructor(
     private platform: Platform,
     public authService: AuthService,
+    private chatService:MessagesService,
     private alertController: AlertController,
     private router: Router,
-    private location:Location
+    private location:Location,
+    public events: Events
   ) {
     this.initializeApp();
     this.backButtonEvent();
+    this.events.subscribe('user:messages', (msgs) => { this.newMessages = msgs; });
   }
 
   initializeApp() {
@@ -53,6 +59,19 @@ export class AppComponent {
         Plugins.SplashScreen.hide();
       }
     });
+    this.chatService.unReadCount.subscribe((countData:ChatCount) => {
+      if (countData.id == this.authService.currentUserId) {
+        this.newMessages = countData.count
+      }
+    });
+    if (this.authService.isAuthenticated) {    
+      this.chatService.getUnreadCount().subscribe(
+        (res: number) => {
+          this.newMessages = res;
+        },
+        err => console.error(err)
+      );
+      }
   }
 
   backButtonEvent() {

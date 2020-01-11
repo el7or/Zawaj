@@ -46,7 +46,7 @@ export class MessagesPage implements OnInit {
       }
     );
 
-    LocalNotifications.schedule({
+    /* LocalNotifications.schedule({
       notifications: [
         {
           title: "لديك رسالة جديدة من أحد الأعضاء!",
@@ -61,7 +61,7 @@ export class MessagesPage implements OnInit {
           //icon: 'ic_notifications'
         }
       ]
-    });
+    }); */
   }
 
   onOpenChat(user:ChatUser){

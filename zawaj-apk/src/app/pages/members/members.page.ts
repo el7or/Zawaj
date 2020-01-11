@@ -1,10 +1,12 @@
+import { MessagesService } from './../messages/messages.service';
 import { Router } from "@angular/router";
 import { Component } from "@angular/core";
 import {
   LoadingController,
   IonItemSliding,
   AlertController,
-  ToastController
+  ToastController,
+  Events
 } from "@ionic/angular";
 import { Subscription } from "rxjs";
 
@@ -13,6 +15,7 @@ import { AuthService } from "./../../auth/auth.service";
 import { UserService } from "./user.service";
 import { UserList, Pagination } from "./members.model";
 import { LikeUser } from "../likes/likes.model";
+import { ChatCount } from '../messages/messages.model';
 
 @Component({
   selector: "app-members",
@@ -37,7 +40,9 @@ export class MembersPage {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private router: Router
+    private router: Router,
+    private chatService:MessagesService,
+    public events:Events
   ) {}
 
   ionViewWillEnter() {
@@ -68,6 +73,19 @@ export class MembersPage {
             }
           );
       });
+      this.chatService.unReadCount.subscribe((countData:ChatCount) => {
+        if (countData.id == this.authService.currentUserId) {
+          this.events.publish('user:messages', countData.count);
+        }
+      });
+      if (this.authService.isAuthenticated) {    
+        this.chatService.getUnreadCount().subscribe(
+          (res: number) => {
+            this.events.publish('user:messages', res);
+          },
+          err => console.error(err)
+        );
+        }
   }
   ionViewDidLeave() {
     this.subs.unsubscribe();

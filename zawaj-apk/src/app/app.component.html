@@ -24,7 +24,7 @@
                   <ion-label>
                     {{p.title}}
                   </ion-label>
-                  <ion-badge *ngIf="p.url=='/messages'" color="danger" slot="end">8</ion-badge>
+                  <ion-badge *ngIf="p.url=='/messages'" color="danger" slot="end">{{newMessages==0?'':newMessages |localNumber}}</ion-badge>
                 </ion-item>            
                 <ion-item button (click)="onLogout()">
                   <ion-icon slot="start" name="exit"></ion-icon>

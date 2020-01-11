@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { NbChatModule, NbLayoutModule, NbThemeModule, NbLayoutDirection } from '@nebular/theme';
+import { NbChatModule, NbLayoutModule, NbThemeModule, NbLayoutDirection, NbSpinnerModule } from '@nebular/theme';
 
 import { ChatPageRoutingModule } from './chat-routing.module';
 import { ChatPage } from './chat.page';
@@ -17,7 +17,8 @@ import { ChatPage } from './chat.page';
     NbThemeModule.forRoot({ name: ''},null,null,NbLayoutDirection.RTL),
     NbEvaIconsModule,
     NbChatModule,
-    NbLayoutModule
+    NbLayoutModule,
+    NbSpinnerModule
   ],
   declarations: [ChatPage]
 })
