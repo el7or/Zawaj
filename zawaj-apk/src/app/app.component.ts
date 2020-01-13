@@ -1,4 +1,5 @@
-import { ChatCount } from "./pages/messages/messages.model";
+import { UserService } from "./pages/members/user.service";
+import { ChatCount, ChatAdd } from "./pages/messages/messages.model";
 import { MessagesService } from "./pages/messages/messages.service";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
@@ -12,6 +13,7 @@ import {
 import { Plugins, Capacitor } from "@capacitor/core";
 
 import { AuthService } from "./auth/auth.service";
+import { UserDetails } from "./pages/members/member-details/member-details.model";
 
 @Component({
   selector: "app-root",
@@ -48,6 +50,7 @@ export class AppComponent {
     private platform: Platform,
     public authService: AuthService,
     private chatService: MessagesService,
+    private userService: UserService,
     private alertController: AlertController,
     private router: Router,
     private location: Location,
@@ -58,6 +61,7 @@ export class AppComponent {
     this.events.subscribe("user:messages", msgs => {
       this.newMessages = msgs;
     });
+    this.manageLocalNotifications();
   }
 
   initializeApp() {
@@ -119,6 +123,59 @@ export class AppComponent {
       ]
     });
     await alert.present();
+  }
+
+  manageLocalNotifications() {
+    this.chatService.messageReceived.subscribe(
+      (message: ChatAdd) => {
+        let user: UserDetails;
+        this.userService.getUserById(message.senderId).subscribe(res => {
+          user = res;
+          if (
+            message.receiverId == this.authService.currentUserId &&
+            message.senderId == user.id
+          ) {
+            Plugins.LocalNotifications.schedule({
+              notifications: [
+                {
+                  title: "رسالة جديدة من " + user.nickName + ":",
+                  body: message.content,
+                  id: 1,
+                  schedule: { at: new Date(Date.now() + 1000 * 1) },
+                  sound: "beep.aiff",
+                  attachments: null,
+                  actionTypeId: "",
+                  extra: null,
+                  smallIcon: "ic_notifications"
+                  //icon: 'ic_notifications'
+                }
+              ]
+            });
+          }
+        });
+      },
+      error => {
+        console.error(error);
+        this.alertController
+          .create({
+            header: "حدث خطأ ما !",
+            message:
+              '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+            cssClass: "danger",
+            buttons: ["حسنا"]
+          })
+          .then(alertEl => alertEl.present());
+      }
+    );
+    Plugins.LocalNotifications.addListener(
+      "localNotificationActionPerformed",
+      () => {
+        this.router.navigateByUrl("/messages");
+      }
+    );
+    /* Plugins.LocalNotifications.addListener("localNotificationReceived", () => {
+      console.log("notification Received");
+    }); */
   }
 
   onLogout() {

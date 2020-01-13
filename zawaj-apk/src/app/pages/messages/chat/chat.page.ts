@@ -1,9 +1,8 @@
-import { AlertController } from '@ionic/angular';
-import { AuthService } from './../../../auth/auth.service';
-import { MessagesService } from './../messages.service';
-import { NbThemeService } from "@nebular/theme";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { AlertController } from "@ionic/angular";
+import { AuthService } from "./../../../auth/auth.service";
+import { MessagesService } from "./../messages.service";
+import { Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 import { ChatUser, ChatAdd } from "./../messages.model";
 
@@ -14,14 +13,14 @@ import { ChatUser, ChatAdd } from "./../messages.model";
 })
 export class ChatPage {
   user: ChatUser;
-  messages: any[]=[];
+  messages: any[] = [];
   isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
-    private chatService:MessagesService,
-    private authService:AuthService,
-    private alertCtrl:AlertController
+    private chatService: MessagesService,
+    private authService: AuthService,
+    private alertCtrl: AlertController
   ) {
     this.chatService.messageReceived.subscribe((message: ChatAdd) => {
       if (
@@ -38,6 +37,17 @@ export class ChatPage {
           }
         });
       }
+    },error =>{
+      console.error(error);
+          this.alertCtrl
+            .create({
+              header: "حدث خطأ ما !",
+              message:
+                '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+              cssClass: "danger",
+              buttons: ["حسنا"]
+            })
+            .then(alertEl => alertEl.present());
     });
   }
 
@@ -67,27 +77,28 @@ export class ChatPage {
         },
         error => {
           console.error(error);
-        this.alertCtrl
-          .create({
-            header: "حدث خطأ ما !",
-            message:
-              '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
-            cssClass: "danger",
-            buttons: ["حسنا"]
-          })
-          .then(alertEl => alertEl.present());
+          this.alertCtrl
+            .create({
+              header: "حدث خطأ ما !",
+              message:
+                '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+              cssClass: "danger",
+              buttons: ["حسنا"]
+            })
+            .then(alertEl => alertEl.present());
           this.isLoading = false;
         },
-        () => {this.chatService.updateUnreadCount(this.authService.currentUserId);
-          this.isLoading = false;}
+        () => {
+          this.chatService.updateUnreadCount(this.authService.currentUserId);
+          this.isLoading = false;
+        }
       );
     });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     const noMessageText = document.querySelector("p.no-messages");
-    if (noMessageText != null)
-      noMessageText.innerHTML = "لا توجد رسائل بعد.";
+    if (noMessageText != null) noMessageText.innerHTML = "لا توجد رسائل بعد.";
     const typeMessagePlacholder = <HTMLInputElement>(
       document.querySelector("div.message-row input.with-button")
     );
@@ -118,14 +129,14 @@ export class ChatPage {
         error => {
           console.error(error);
           this.alertCtrl
-          .create({
-            header: "حدث خطأ ما !",
-            message:
-              '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
-            cssClass: "danger",
-            buttons: ["حسنا"]
-          })
-          .then(alertEl => alertEl.present());
+            .create({
+              header: "حدث خطأ ما !",
+              message:
+                '<ion-icon name="warning"></ion-icon> الرجاء التأكد من اتصال الإنترنت وإعادة المحاولة <ion-icon name="warning"></ion-icon>',
+              cssClass: "danger",
+              buttons: ["حسنا"]
+            })
+            .then(alertEl => alertEl.present());
         }
       );
   }
