@@ -56,7 +56,6 @@ export class AppComponent {
     this.initializeApp();
     this.backButtonEvent();
     this.events.subscribe("user:messages", msgs => {
-      console.log(msgs);
       this.newMessages = msgs;
     });
   }

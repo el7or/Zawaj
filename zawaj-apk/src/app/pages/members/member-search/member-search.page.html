@@ -9,7 +9,18 @@
 
 <ion-content>
 <ion-searchbar autocomplete placeholder="أدخل كلمة البحث.." (ionInput)="onTyping($event)"></ion-searchbar>
-<ion-list>
-  <ion-item *ngFor="let item of items">{{ item }}</ion-item>
+<ion-list class="ion-text-center">
+  <ion-chip color="danger" *ngIf="filteredUsers?.length==0" class="ion-padding-bottom">
+    <h3>لا توجد نتائج مطابقة ! </h3>
+  </ion-chip>
+  <ion-item *ngFor="let user of filteredUsers" lines="full" [routerLink]="['/','members',user.id]" detail>
+    <ion-avatar slot="start">
+      <ion-img [src]="user.photoURL || 'assets/images/avatar.png'"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h1>{{user.nickName}}</h1>
+      <!-- <h3>{{user.gender}} - {{user.age}} سنة</h3> -->
+    </ion-label>
+  </ion-item>
 </ion-list>
 </ion-content>

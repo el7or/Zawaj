@@ -124,14 +124,15 @@ export class AuthService {
     }
   }
 
-  logout() {    
+  logout() {
     this._isAuthenticated = false;
     localStorage.clear();
+    location.reload();
+    this.router.navigateByUrl("/auth");
     /* localStorage.removeItem("token");
     localStorage.removeItem("jti");
     localStorage.removeItem("sub");
     localStorage.removeItem("userNickName");
     localStorage.removeItem("userPhoto"); */
-    this.router.navigateByUrl("/auth");
   }
 }
