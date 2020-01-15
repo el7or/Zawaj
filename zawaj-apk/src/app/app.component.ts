@@ -3,14 +3,20 @@ import { ChatCount, ChatAdd } from "./pages/messages/messages.model";
 import { MessagesService } from "./pages/messages/messages.service";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
-import { Component, ViewChildren, QueryList } from "@angular/core";
+import { Component, ViewChildren, QueryList, OnInit } from "@angular/core";
 import {
   Platform,
   IonRouterOutlet,
   AlertController,
   Events
 } from "@ionic/angular";
-import { Plugins, Capacitor } from "@capacitor/core";
+import {
+  Plugins,
+  Capacitor,
+  PushNotification,
+  PushNotificationToken,
+  PushNotificationActionPerformed,
+} from "@capacitor/core";
 
 import { AuthService } from "./auth/auth.service";
 import { UserDetails } from "./pages/members/member-details/member-details.model";
@@ -20,7 +26,7 @@ import { UserDetails } from "./pages/members/member-details/member-details.model
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public appPages = [
     {
       title: "الرئيسية",
@@ -85,45 +91,42 @@ export class AppComponent {
     }
   }
 
-  backButtonEvent() {
-    document.addEventListener("backbutton", () => {
-      this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
-        if (
-          this.router.url == "/" ||
-          this.router.url == "" ||
-          this.router.url == "members" ||
-          this.router.url == "/members"
-        ) {
-          this.presentAlertConfirm();
-        } else {
-          await this.location.back();
-          //outlet.pop();
-        }
-      });
-    });
-  }
+  ngOnInit() {
+    console.log('Initializing HomePage');
 
-  async presentAlertConfirm() {
-    const alert = await this.alertController.create({
-      //header: 'Confirm!',
-      message: "هل تريد الخروج من التطبيق؟",
-      buttons: [
-        {
-          text: "خروج",
-          handler: () => {
-            navigator["app"].exitApp();
-          }
-        },
-        {
-          text: "إلغاء",
-          role: "cancel",
-          cssClass: "secondary",
-          handler: blah => {}
-        }
-      ]
-    });
-    await alert.present();
-  }
+    // Register with Apple / Google to receive push via APNS/FCM
+    Plugins.PushNotifications.register();
+
+    // On success, we should be able to receive notifications
+    Plugins.PushNotifications.addListener('registration', 
+      (token: PushNotificationToken) => {
+        // --> Save this token in database in user table:
+        console.log('Push registration success, token: ' + token.value);
+      }
+    );
+
+    // Some issue with our setup and push will not work
+    Plugins.PushNotifications.addListener('registrationError', 
+      (error: any) => {
+        console.log('Error on registration: ' + JSON.stringify(error));
+      }
+    );
+
+    // Show us the notification payload if the app is open on our device
+    Plugins.PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotification) => {
+        console.log('Push received: ' + JSON.stringify(notification));
+      }
+    );
+
+    // Method called when tapping on a notification
+    Plugins.PushNotifications.addListener('pushNotificationActionPerformed', 
+      (notification: PushNotificationActionPerformed) => {
+        console.log('Push action performed: ' + JSON.stringify(notification));
+        this.router.navigateByUrl("/messages");
+      }
+    );
+}
 
   manageLocalNotifications() {
     this.chatService.messageReceived.subscribe(
@@ -176,6 +179,46 @@ export class AppComponent {
     /* Plugins.LocalNotifications.addListener("localNotificationReceived", () => {
       console.log("notification Received");
     }); */
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      //header: 'Confirm!',
+      message: "هل تريد الخروج من التطبيق؟",
+      buttons: [
+        {
+          text: "خروج",
+          handler: () => {
+            navigator["app"].exitApp();
+          }
+        },
+        {
+          text: "إلغاء",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: blah => {}
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  backButtonEvent() {
+    document.addEventListener("backbutton", () => {
+      this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
+        if (
+          this.router.url == "/" ||
+          this.router.url == "" ||
+          this.router.url == "members" ||
+          this.router.url == "/members"
+        ) {
+          this.presentAlertConfirm();
+        } else {
+          await this.location.back();
+          //outlet.pop();
+        }
+      });
+    });
   }
 
   onLogout() {

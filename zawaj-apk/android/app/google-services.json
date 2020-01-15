@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1086846194329",
+    "firebase_url": "https://zawaj-47fab.firebaseio.com",
+    "project_id": "zawaj-47fab",
+    "storage_bucket": "zawaj-47fab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086846194329:android:5e2fbc839f74dc87335e08",
+        "android_client_info": {
+          "package_name": "com.el7or.zawaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086846194329-q3rfkfcgo9ajb0duhngcitvojmp53odq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeJDKOMzzvhvku1m_sPIXT3uBMarNHx5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086846194329-q3rfkfcgo9ajb0duhngcitvojmp53odq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
