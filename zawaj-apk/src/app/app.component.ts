@@ -26,7 +26,7 @@ import { UserDetails } from "./pages/members/member-details/member-details.model
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public appPages = [
     {
       title: "الرئيسية",
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+/*   ngOnInit() {
     console.log('Initializing HomePage');
 
     // Register with Apple / Google to receive push via APNS/FCM
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
         this.router.navigateByUrl("/messages");
       }
     );
-}
+} */
 
   manageLocalNotifications() {
     this.chatService.messageReceived.subscribe(
